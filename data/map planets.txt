@@ -313,6 +313,20 @@ planet Bailey
 		threshold 1500
 		fleet "Small CCOR" 11
 
+planet Baitoon
+	attributes homeworld
+	landscape land/city26
+	description "This is where the Jibauni started, and presumably where the seat of the normal Jibauni government is. Many Jibauni are moving about in the long, narrow passageways between the landing pads, many of which are old and cracked."
+	spaceport "This is the oldest existing spaceport in Jibauni space, and has many different sizes of hangars and pads to compensate for the large amounts of traffic this planet gets-it is the third tourist destination in all of Jibauni space. All the buildings here are also old, and many of them are small and close together."
+	government Jibauni
+	shipyard "Aboagye Basics"
+	shipyard "Resredi Basics"
+	shipyard "Resredi Advanced"
+	outfitter "Jibauni Advanced"
+	outfitter "Jibauni Basics"
+	"required reputation" 3
+	security 0.8
+
 planet "Bank of Blugtad"
 	attributes arach urban wealthy
 	landscape land/valley14-harro
@@ -1010,6 +1024,14 @@ planet "Devru Kaska"
 	"required reputation" 1
 	bribe 0
 	security 0
+
+planet "Diba Station"
+	attributes diba robot station
+	landscape land/station19
+	description "This seems to be where most Diba ships are produced, and also where the Diba leader lives when he is not in space."
+	"required reputation" 20
+	bribe 1
+	security 0.99
 
 planet "Diligent Hand"
 	attributes factory saryd uninhabited
@@ -2282,6 +2304,15 @@ planet Ingot
 		threshold 1500
 		fleet "Small Militia" 15
 
+planet Inhelk
+	landscape land/desert6
+	description "Inhelk is much safer than the planet it orbits, but with large amounts of work being available and massive factories making use of materials shipped from all over Sheragi space to create all manner of goods, this is one of the Sheragi industrial giants."
+	spaceport "The spaceport borders a massive shipyard producing the equally sized Sheragi ships. Other than stare at the ships get made, there isn't much else to do besides watch the many spacecraft taking off and landing all the time."
+	outfitter "Sheragi Basics"
+	outfitter "Sheragi Advanced"
+	shipyard "Sheragi Basics"
+	shipyard "Sheragi Advanced"
+
 planet "Inmost Blue"
 	attributes farming kimek urban
 	landscape land/water14
@@ -2352,6 +2383,15 @@ planet Jentuthro
 	bribe 0
 	security 0
 
+planet "Jibauni Wormhole"
+	wormhole "Jibauni Wormhole"
+
+wormhole "Jibauni Wormhole"
+	mappable
+	link Jibtrav Huyya
+	link Huyya Jibtrav
+	color 0 0.353 0
+
 planet Jupiter
 	attributes "gas giant" "requires: gaslining" uninhabited
 	landscape land/nasa12
@@ -2374,6 +2414,23 @@ planet Kalbai
 	landscape land/forest4
 	description `For some reason, this apparently fruitful world has been left largely unsettled by the Bunrodea. Kalbai is teeming with life of all kinds, from varieties of plants across the various forests and plains of the planet's surface to the critters of varying sizes that scurry through the underbrush.`
 	description `	There are only minimal signs that anyone has ever set foot on this world; there are a number of ancient ruins scattered across the largest continent. A few appear to have been abandoned and reclaimed by nature, but most look as though they were destroyed, creating strikingly lifeless circles in the landscape around the center of the ruins.`
+
+planet Kanlil
+	attributes station tourism
+	landscape land/station13
+	description "As the station for the popular destination of Lamalmuq, this place is quite busy, also selling things that are illegal on that planet, such as Luxury Goods. In fact this is where the main trading of the system happens-in the place where all the passengers have layovers."
+	spaceport "Quite a few Jibauni are walking around, many with black robes. There also many of the Jibauni who wear the uniforms that here are the mark of being a spaceport employee. There are many ships nearby, and many people unloading and reloading all aspects of them."
+	government Jibauni
+	shipyard "Aboagye Basics"
+	shipyard "Resredi Basics"
+	outfitter "Jibauni Advanced"
+	outfitter "Jibauni Basics"
+	"required reputation" 5
+	security 0.8
+	tribute 1500
+		threshold 8104
+		fleet "Jibauni Pilgrim Transport" 2
+		fleet "Large Jibauni Military" 3
 
 planet "Karek Fornati"
 	attributes efret korath
@@ -2502,6 +2559,32 @@ planet "Laki Nemparu"
 	description `This is an old factory world, so shrouded in smog that only tiny glimpses of the land are visible from above. Deep under the oceans of Laki Nemparu are oil reservoirs so vast that centuries of industry have not yet drained them dry. All but the hardiest of the native vegetation and wildlife is now long extinct from lack of direct sunlight or from pollution and chemical exposure.`
 	spaceport `All the Korath you encounter in the spaceport are wearing ventilator masks, and if you were staying here for longer you would probably do the same. The air leaves a metallic taste in your mouth, and your eyes feel dry and sting when the wind hits them. On the outskirts of the city, factory smokestacks are belching more pollution into the air; the Korath have either given up on preserving this planet, or simply have too great a need for the goods manufactured here to be willing to shut the factories down.`
 	outfitter "Korath Basics"
+
+planet Lamalmuq
+	attributes pilgrims tourism
+	landscape land/farm3
+	description "This planet seems to have some sort of religious significance to the Jbauni. There are many of them here, wearing simple black robes and walking in twos and threes. There also seem to be many religious buildings and none of the pubs and bars expected on a normal planet. No screens or personal tablets are evident, but billboards are posted all over the place advertising something impossible to read."
+	spaceport "The spaceport here has many ships landing and taking off. But there are not many cargo handling facilities, and only a few ships look as if they were built for carrying cargo, while the number of passenger transports is great. Many Jibauni are in the bustle of security and luggage scanning that is common to most Jibauni worlds. There is only one city; all the rest of the planet seems untouched by the Jibauni."
+	government Jibauni
+	outfitter Lamalmuq
+	"required reputation" 10
+	security 1
+	tribute 10
+		threshold 3
+		fleet "Large Jibauni Military" 15
+
+planet Laqualk
+	attributes government military "requires: Jibauni"
+	landscape land/nasa29
+	description "This is the Jibauni seat of government. There are projectors and unknown electronic technology in an order that looks randomly strewn about, but this electronic equipment is really the high-tech apparatus that makes this planet look like the gas giant it isn't. There is one store, and no trading buildings or job buildings. The single job board is in the store in a conspicuous position."
+	spaceport "There are only a few buildings here, only the amount required to house the government representatives as well as fueling, repairing, and cleaning the few ships that are authorized to land as well as the knowledge. There are almost no spaceport workers, and only a few landing pads, which, however, are in the best of condition."
+	government Jibauni
+	"required reputation" 30
+	security 1
+	tribute 5600
+		threshold 3100
+		fleet "Large Jibauni Military" 6
+		fleet "Small Jibauni Military" 20
 
 planet "Lenz's Loop"
 	attributes "gas giant" "requires: gaslining" uninhabited
@@ -3991,6 +4074,16 @@ planet Shangri-La
 		threshold 4000
 		fleet "Large Syndicate" 7
 
+planet Shenal
+	attributes sheragi
+	landscape land/forest3
+	description "On Shenal, cities sprawl across the globe, ever increasing to accomodate for the growing Sheragi population. This planet is the most densely populated in the entirety of Alrodel, even more so than the capital system."
+	description "This also is where the main Sheragi government buildings and homes are."
+	spaceport "The spaceport here is fairly standard for the Sheragi, with large hexagonal landing pads and transports hurrying about, ferrying people to and fro between the spaceport and surrounding city."
+	outfitter "Sheragi Basics"
+	outfitter "Sheragi Advanced"
+	shipyard "Sheragi Basics"
+
 planet "Shifting Sand"
 	attributes saryd
 	landscape land/dune6-harro
@@ -4273,6 +4366,10 @@ planet "Station Cian"
 	"required reputation" 15
 	security 0.5
 
+planet "Station of Power"
+	landscape land/sheragistation
+	description "This station is uninhabited, but there is an eerie feeling about it, as if there was a reason it was abandoned. But it seems to be in fully functional condition and only needs a few hard workers to put it right and make it livable."
+
 planet Steamwater
 	attributes "gas giant" "requires: gaslining" uninhabited
 	landscape land/clouds_05
@@ -4371,6 +4468,18 @@ planet Swiftsong
 	spaceport `The spaceport promenade runs around the interior of the station and is divided into the usual two levels, but has four additional ring levels rising up from the promenade into each of the station's main branches. Almost any business or service you could want can be found here - except for an outfitter or shipyard. Apparently there is simply no room, as the docking bay must take up nearly all the station's exterior space to accommodate its massive volume of daily traffic.`
 	bribe 0.1
 	security 0.5
+
+planet Taltahard
+	attributes moon
+	landscape land/mining1
+	description "This small moon is much like many other moons, except for one thing-it has very good iron ore. This moon also has large reserves of deuterium, used to make hyperspace fuel. The one problem is there are few to no areas suitable for faming, and so food comes at a premium here."
+	spaceport "There are few places in Jibauni space you have seen that have so many Nathars and Nathases around, and there are few passenger transports evident. Many large landing pads dot the site, and the main amenity is the fuel-which happens to be self-serve."
+	government Jibauni
+	outfitter "Jibauni Basics"
+	tribute 2000
+		threshold 6000
+		fleet "Large Jibauni Military"
+		fleet "Small Jibauni Military" 2
 
 planet Taylor
 	landscape land/moon0
