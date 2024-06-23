@@ -3001,7 +3001,7 @@ planet Minmanmun
 	description ""
 	description "This planet is also a mining planet, so the rock has great scars in it at places and there are many machines to do the digging, scattered around parked and looking very untidy."
 	spaceport "When coming down for landing, most of what can be seen is rock, though ships above the city see nothing but planets and trees, due to the haphazard nature of the Rebels that terraformed this planet. Hovber, once down the street are wide and cool, with luxurious buildings and shady pathways."
-	government "Rebel Jibauni"
+	government "Jibauni (Rebel)"
 
 planet Mirrorlake
 	attributes hai "hai tourism" moon
@@ -3071,7 +3071,7 @@ planet Muntisir
 	landscape land/ocean2
 	description "This is where the Rebel Jibauni movement started, and where most of the Rebel population live. Many of them work in this city, where you lands, but there are cities far and wide across the planet, though most of those cites look to be quite small, smaller then this one which is none too large itself. There are also many oceans on this planet."
 	spaceport "The facilities of all kinds here are quite large, this planet having one of the best of the Jibauni spaceports. Rumor has it that there are secret passageways all over underneath the spaceport, and that in fact the whole spaceport is a cover for something far bigger that the Rebel Jibauni are building."
-	government "Rebel Jibauni"
+	government "Jibauni (Rebel)"
 	shipyard "Jibauni Advanced"
 	shipyard "Jibauni Basics"
 	outfitter "Jibauni Advanced"
@@ -4301,7 +4301,7 @@ planet Sinsansun
 	landscape land/farm2
 	description "This is where a good portion of the food for the Rebel Jibauni comes from, as it is the second largest planet in Jibauni space devoted exclusively to farming and agriculture. But the animals here do not like light, and so there are artificial shades over a good portion of the planet, though the top of them has been very cleverly painted so as to look like the surface of the planet underneath."
 	spaceport "Many animals and barrels, baskets, and buckets of food are here at the market, and the price of Food here is astoundingly low. Clothing is also very cheap and plentiful here. But noticing that the traders for Luxury Goods and Heavy metals are few and far between is easy, and they do not seem to be getting very much business."
-	government "Rebel Jibauni"
+	government "Jibauni (Rebel)"
 	shipyard "Jibauni Basics"
 	outfitter "Jibauni Advanced"
 	outfitter "Jibauni Basics"
