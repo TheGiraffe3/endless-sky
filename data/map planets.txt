@@ -159,13 +159,22 @@ planet Amazon
 		threshold 3500
 		fleet "Small Syndicate" 10
 
+planet Andeslid
+	attributes sheragi
+	landscape land/lava8
+	description "The volcanic activity of Andeslid creates an abundance of raw metal deposits close to the surface, and a booming mining industry has grown here. All across the planet incredibly hazardous mines are hard at work fueling the intense material need of the Sheragi."
+	spaceport "The spaceport here is the only safe thing on the whole planet, strong enough to hold up against the intense strain of the freighters coming and going. It is also mostly heatproof, allowing for lava to erupt freely all around without causing problems."
+	government "Sheragi (Jibauni)"
+	"required reputation" 1
+
 planet Andwerfen
-	attributes capital "rebel jibauni" "seat of government"
+	attributes capital jibauni "rebel jibauni" "seat of government"
 	landscape land/rocks1
 	description "The place where the Rebels have their government is evident, because there are many fortified buildings and bunkers in readiness to shoot any invaders, and the many planetary defenses are very powerful."
 	spaceport "Little is here except for the many armed patrols the Rebel Jibauni keep patrolling the neighborhoods, looking for disrupters of the peace. The Jibauni around you all look frightened, and the number here that must wish to get back to normal Jibauni space must be large."
 
 planet Andwesher
+	attributes "rebel sheragi" sheragi
 	landscape land/water5
 	description "This is a quiet planet, with not much around. It is also mostly water, with only a bit of land on it."
 	spaceport "The few ships here are all Hammers, freighters with not much to recommend them. Some of those could fit your ship whole, and you are thankful that they are not too angry with you."
@@ -326,7 +335,7 @@ planet Bailey
 		fleet "Small CCOR" 11
 
 planet Baitoon
-	attributes homeworld
+	attributes homeworld jibauni
 	landscape land/city26
 	description "This is where the Jibauni started, and presumably where the seat of the normal Jibauni government is. Many Jibauni are moving about in the long, narrow passageways between the landing pads, many of which are old and cracked."
 	spaceport "This is the oldest existing spaceport in Jibauni space, and has many different sizes of hangars and pads to compensate for the large amounts of traffic this planet gets-it is the third tourist destination in all of Jibauni space. All the buildings here are also old, and many of them are small and close together."
@@ -379,6 +388,7 @@ planet "Big Sky"
 		fleet "Small Militia" 50
 
 planet Bilinson
+	attributes "rebel sheragi" sheragi
 	landscape land/badlands4
 	description "The life of a Pirate is hard, but the inhabitents of Bilinson have managed to eke out a living. In fact, they are doing quite well, having access to most Sheragi technology and ships."
 	spaceport "The main facilities here are devoted to production. While the ships made here are few, outfits are in abundance and are not few."
@@ -2167,6 +2177,7 @@ planet Hestia
 		fleet "Large Republic" 18
 
 planet Hinserdan
+	attributes sheragi
 	landscape land/sky1
 	description "Almost completely uninhabited, this planet is hardly useful at all."
 	port "Spaceport"
@@ -2339,6 +2350,7 @@ planet Ingot
 		fleet "Small Militia" 15
 
 planet Inhelk
+	attributes sheragi
 	landscape land/desert6
 	description "Inhelk is much safer than the planet it orbits, but with large amounts of work being available and massive factories making use of materials shipped from all over Sheragi space to create all manner of goods, this is one of the Sheragi industrial giants."
 	spaceport "The spaceport borders a massive shipyard producing the equally sized Sheragi ships. Other than stare at the ships get made, there isn't much else to do besides watch the many spacecraft taking off and landing all the time."
@@ -2346,6 +2358,16 @@ planet Inhelk
 	outfitter "Sheragi Advanced"
 	shipyard "Sheragi Basics"
 	shipyard "Sheragi Advanced"
+
+planet Inkon
+	attributes sheragi
+	landscape land/space2
+	description "This station at the very edge of Sheragi space was created in a desperate bid to expand upon the limited amount of habitable space located in Alrodel. Many of the residents of Inkon are elderly Sheragi who choose to live here at the very edge of their space, where they are guaranteed safety from both pirates and perhaps-treacherous allies."
+	spaceport "The spaceport of Inkon is relatively small for the Sheragi, as the station rarely has to accommodate the large capital ships the Sheragi favor. Instead, it commonly receives transports and freighters."
+	government "Sheragi (Jibauni)"
+	outfitter "Sheragi Basics"
+	outfitter "Sheragi Advanced"
+	"required reputation" 1
 
 planet "Inmost Blue"
 	attributes farming kimek urban
@@ -2444,6 +2466,7 @@ planet Kaeyin
 		description `	Tiny, four-legged robots walk on the walls of every room, cleaning them in a matter of seconds. You can see more on the road below, and you presume they are everywhere in this city; this makes it impossible to estimate how long the planet has been abandoned, since everything here is perfect and clean.`
 
 planet Kahbani
+	attributes jibauni
 	landscape land/farm1
 	description "This is the farming world that feeds Jibauni space. No other planet produces as much food as this one, and the crops that grow well here just so happen to be the ones that are best for Jibauni growth. Thus, the Jibauni are very careful not to let Rebel agents land on this planet, because if someone working for that wrong team gets in, it could be disastrous."
 	spaceport "There is not much here in the way of servicing passengers. A few immigrants are scattered about to get checked through, but most of the facilities of this spaceport are for cargo. The area outside the spaceport is immense, and filled with plant colors of all kinds."
@@ -2461,7 +2484,7 @@ planet Kalbai
 	description `	There are only minimal signs that anyone has ever set foot on this world; there are a number of ancient ruins scattered across the largest continent. A few appear to have been abandoned and reclaimed by nature, but most look as though they were destroyed, creating strikingly lifeless circles in the landscape around the center of the ruins.`
 
 planet Kanlil
-	attributes station tourism
+	attributes jibauni station tourism
 	landscape land/station13
 	description "As the station for the popular destination of Lamalmuq, this place is quite busy, also selling things that are illegal on that planet, such as Luxury Goods. In fact this is where the main trading of the system happens-in the place where all the passengers have layovers."
 	spaceport "Quite a few Jibauni are walking around, many with black robes. There also many of the Jibauni who wear the uniforms that here are the mark of being a spaceport employee. There are many ships nearby, and many people unloading and reloading all aspects of them."
@@ -2606,7 +2629,7 @@ planet "Laki Nemparu"
 	outfitter "Korath Basics"
 
 planet Lamalmuq
-	attributes pilgrims tourism
+	attributes jibauni pilgrims tourism
 	landscape land/farm3
 	description "This planet seems to have some sort of religious significance to the Jbauni. There are many of them here, wearing simple black robes and walking in twos and threes. There also seem to be many religious buildings and none of the pubs and bars expected on a normal planet. No screens or personal tablets are evident, but billboards are posted all over the place advertising something impossible to read."
 	spaceport "The spaceport here has many ships landing and taking off. But there are not many cargo handling facilities, and only a few ships look as if they were built for carrying cargo, while the number of passenger transports is great. Many Jibauni are in the bustle of security and luggage scanning that is common to most Jibauni worlds. There is only one city; all the rest of the planet seems untouched by the Jibauni."
@@ -2619,7 +2642,7 @@ planet Lamalmuq
 		fleet "Large Jibauni Military" 15
 
 planet Landalmon
-	attributes moon uninhabited
+	attributes jibauni moon uninhabited
 	landscape land/dune1
 	description "This moon does not seem to be very important to the Jibauni. There appears to have been hardly any work on developing it, and the few buildings that remain are just small blobs of plastic."
 	description "It is mostly filled with giant dunes of sand and rock."
@@ -2631,7 +2654,7 @@ planet Landalmon
 		fleet "Small Jibauni Military" 1
 
 planet Laqualk
-	attributes government military "requires: Jibauni"
+	attributes government jibauni military "requires: Jibauni"
 	landscape land/nasa29
 	description "This is the Jibauni seat of government. There are projectors and unknown electronic technology in an order that looks randomly strewn about, but this electronic equipment is really the high-tech apparatus that makes this planet look like the gas giant it isn't. There is one store, and no trading buildings or job buildings. The single job board is in the store in a conspicuous position."
 	spaceport "There are only a few buildings here, only the amount required to house the government representatives as well as fueling, repairing, and cleaning the few ships that are authorized to land as well as the knowledge. There are almost no spaceport workers, and only a few landing pads, which, however, are in the best of condition."
@@ -2644,6 +2667,7 @@ planet Laqualk
 		fleet "Small Jibauni Military" 20
 
 planet Leasher
+	attributes sheragi
 	landscape land/fields13
 	description "Leasher is one of the flattest worlds you've ever seen, great plains spread into the distance seemingly forever. The fertile soil here means that this planet is the primary supplier of agricultural goods in Sheragi space."
 	spaceport "The small amount of things to do here all have to do with the immense trading this planet is involved in. Few buildings dot the site, but many sheepfolds are scattered everywhere. There are also many weird silos and grain bins."
@@ -2701,6 +2725,7 @@ planet Limejog
 	security 0
 
 planet Linkson
+	attributes sheragi
 	landscape land/forest4
 	description "Linkson is full of towering mountain ranges, divided by sprawling green valleys, many converted into farmland."
 	description "In addition, there are rumors of infiltrating Sheragi Pirates, and Jibauni outposts built to stop Sheragi trade."
@@ -2995,7 +3020,7 @@ planet Millrace
 		fleet "Large Syndicate" 8
 
 planet Minmanmun
-	attributes mining rebel terraformed
+	attributes jibauni mining "rebel jibauni" terraformed
 	landscape land/desert
 	description "This is the first planet the Rebel Jibauni have terraformed. Unfortunately, they seem to have only cared about external looks, because even a little outside the city, the true landscape takes over and rock strikes in."
 	description ""
@@ -3067,7 +3092,7 @@ planet "Muninn Station"
 		fleet "Small Deep Security" 25
 
 planet Muntisir
-	attributes rebel
+	attributes jibauni "rebel jibauni"
 	landscape land/ocean2
 	description "This is where the Rebel Jibauni movement started, and where most of the Rebel population live. Many of them work in this city, where you lands, but there are cities far and wide across the planet, though most of those cites look to be quite small, smaller then this one which is none too large itself. There are also many oceans on this planet."
 	spaceport "The facilities of all kinds here are quite large, this planet having one of the best of the Jibauni spaceports. Rumor has it that there are secret passageways all over underneath the spaceport, and that in fact the whole spaceport is a cover for something far bigger that the Rebel Jibauni are building."
@@ -3864,6 +3889,7 @@ planet "Ring of Wisdom"
 	security 0.8
 
 planet Rinson
+	attributes "rebel sheragi" sheragi
 	landscape land/asteroid0
 	attributes "requires: shpi"
 	description "This base seems to be the main capital of all of the Pirate doings. Vast areas are dedicated to living areas, and even more to the advanced disguises this place must be famed for."
@@ -4297,7 +4323,7 @@ planet Silver
 		fleet "Small Republic" 25
 
 planet Sinsansun
-	attributes farming
+	attributes farming jibauni "rebel jibauni"
 	landscape land/farm2
 	description "This is where a good portion of the food for the Rebel Jibauni comes from, as it is the second largest planet in Jibauni space devoted exclusively to farming and agriculture. But the animals here do not like light, and so there are artificial shades over a good portion of the planet, though the top of them has been very cleverly painted so as to look like the surface of the planet underneath."
 	spaceport "Many animals and barrels, baskets, and buckets of food are here at the market, and the price of Food here is astoundingly low. Clothing is also very cheap and plentiful here. But noticing that the traders for Luxury Goods and Heavy metals are few and far between is easy, and they do not seem to be getting very much business."
@@ -4492,6 +4518,7 @@ planet "Station Cian"
 	security 0.5
 
 planet "Station of Power"
+	attributes jibauni "old sheragi"
 	landscape land/sheragistation
 	description "This station is uninhabited, but there is an eerie feeling about it, as if there was a reason it was abandoned. But it seems to be in fully functional condition and only needs a few hard workers to put it right and make it livable."
 
@@ -4595,7 +4622,7 @@ planet Swiftsong
 	security 0.5
 
 planet Taltahard
-	attributes moon
+	attributes jibauni moon
 	landscape land/mining1
 	description "This small moon is much like many other moons, except for one thing-it has very good iron ore. This moon also has large reserves of deuterium, used to make hyperspace fuel. The one problem is there are few to no areas suitable for faming, and so food comes at a premium here."
 	spaceport "There are few places in Jibauni space you have seen that have so many Nathars and Nathases around, and there are few passenger transports evident. Many large landing pads dot the site, and the main amenity is the fuel-which happens to be self-serve."
@@ -5283,6 +5310,7 @@ planet Xerolophos
 	security 0
 
 planet Xicalins
+	attributes sheragi
 	landscape land/canyon14
 	description "Xicalins is one huge testing area, with the majority of all research and development in Sheragi space carried out right here. The marks of this extensive technology can be seen all over the planet, and as you come in low you see a mountain range that has had its top taken clean off, leaving you only to wonder what kind of weapon could have done such a thing."
 	spaceport "The spaceport is located just outside of a university, students and scientists alike streaming in and out of its entry. There are also weapons bins scattered in many places, and a large collection of some type of documents."
@@ -5341,6 +5369,7 @@ planet Zenith
 		fleet "Small Northern Pirates" 13
 
 planet Zigzogzinzo
+	attributes sheragi
 	landscape land/valley9
 	description "Zigzogzinzo is the primary economic centre of Sheragi space, all trading and business runs through the cloud cities here, in one way or another. The vast wealth that flows through this planet has led to it being the home of many of the wealthiest citizens. Rumour has it that near the top of the economic food chain of rich business owners is a Jibauni."
 	spaceport "Due to the sheer amount of money on Zigzogzinzo, the floating spaceport is so fancy that you feel slightly bad for scuffing your shoes along the gleaming white floor. They also seem to have made the spaceport with a set of viewing windows for the landscape."
@@ -5352,6 +5381,7 @@ planet Zigzogzinzo
 	"required reputation" 1
 
 planet Zintolin
+	attributes "rebel sheragi" sheragi
 	landscape land/haze1
 	description "This is the Pirate Capital, a huge planet with mountains and forests in all places. None of the Sheragi here have any resemblance to being trustful of your nature."
 	spaceport "As the Pirate Capital, there are numerous large ships here with all manners of outfits and captains. Unfortunately, none of them like you, and doing business is rather difficult."
