@@ -4701,8 +4701,6 @@ planet "Var' Kar'i'i"
 		news
 		description `Apparently, just as humans use horses to carry loads and draw carts of produce, the Wanderers use a large breed of lizard, nearly three meters tall and walking on their hind legs. The lizards are meat-eaters: next to the watering troughs are cages full of large rodents, which the Wanderers occasionally feed to their beasts.`
 		description `	Many different forms of produce are for sale here in open-air markets, including dozens of different nuts and berries. Aside from the rodents to feed to the lizards, and a few species of fish, the Wanderers do not seem to raise animals for food.`
-	shipyard "Wanderer Basics"
-	outfitter "Wanderer Basics"
 	"required reputation" 5
 	bribe 0
 	tribute 1700
@@ -4717,8 +4715,6 @@ planet "Var' Kayi"
 		news
 		description `This spaceport is as busy and chaotic as any major human trade hub, with the added complication that many of the Wanderers are flying from building to building instead of walking. Most of the buildings have balconies on every level, allowing visitors to enter from the air as well as from the streets.`
 		description `	The starship landing pads are well outside the city, and ships land and take off along very tightly controlled vectors, probably to avoid midair collisions between the ships and the Wanderers who are flying on their own wings.`
-	shipyard "Wanderer Advanced"
-	outfitter "Wanderer Advanced"
 	"required reputation" 5
 	bribe 0
 	tribute 4500
@@ -4746,8 +4742,6 @@ planet "Vara K'chrai"
 	port Spaceport
 		news
 		description `The streets in the Wanderer capital city seem to be mostly reserved for cargo vehicles; the Wanderers themselves fly from one building to another instead, and the skyscrapers have balconies dozens of stories above the ground where visitors can land or take off. The air traffic seems utterly chaotic, but somehow they avoid colliding with each other in midair, and certain columns of airspace have been reserved for ships taking off and landing so that flying Wanderers will not get caught in the backwash from the ship engines.`
-	shipyard "Wanderer Advanced"
-	outfitter "Wanderer Advanced"
 	bribe 0
 	tribute 8000
 		threshold 14000
@@ -4773,7 +4767,6 @@ planet "Vara Ke'stai"
 	port Spaceport
 		news
 		description `The spaceport is in a forest village near the planet's north pole. The landing pads are massive stone monoliths laid on the ground in a nearby clearing. But aside from a few large warehouses at ground level, the village itself is entirely made of tree-houses. A few mechanical lifts have been built into the sides of the trees to carry cargo up to the forest canopy where the Wanderers live, but the Wanderers themselves seem content to fly between the houses rather than using the lifts.`
-	outfitter "Wanderer Basics"
 	"required reputation" 5
 	bribe 0
 	tribute 650
