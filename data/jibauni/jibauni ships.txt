@@ -12,8 +12,8 @@
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
 ship "Larajal"
-	sprite "ship/finch"
-	thumbnail "thumbnail/finch"
+	sprite "ship/larajal"
+	thumbnail "thumbnail/larajal"
 	attributes
 		category "Fighter"
 		"cost" 850000
@@ -29,9 +29,6 @@ ship "Larajal"
 		"outfit space" 90
 		"weapon capacity" 12
 		"engine capacity" 30
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" .5
 		"fuel protection" .05
 		licenses
@@ -81,9 +78,6 @@ ship "Muraw"
 		"outfit space" 65
 		"weapon capacity" 12
 		"engine capacity" 15
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" .5
 		"fuel protection" .05
 		licenses
@@ -131,9 +125,6 @@ ship "Latbaliday"
 		"outfit space" 50
 		"weapon capacity" 26
 		"engine capacity" 15
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" .5
 		"fuel protection" .05
 		licenses
@@ -159,10 +150,7 @@ ship "Latbaliday"
 	explode "medium explosion" 50
 	"final explode" "final explosion tiny"
 	description "Made to hammer away at enemies without a distraction, the Latbaliday has high shields and hull, but only minimum potential as a weapon bearer."
-	description "    Fighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay."
-
-
-ship "Daybal"
+	description "    Fighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay."ship "Daybal"
 	sprite "ship/boxwing"
 	thumbnail "thumbnail/boxwing"
 	attributes
@@ -222,9 +210,6 @@ ship "Duntay"
 		"outfit space" 45
 		"weapon capacity" 10
 		"engine capacity" 15
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"thrust" 1.5
 		"turn" 6
 		"turning energy" 1
@@ -274,9 +259,6 @@ ship "Saghir"
 		"outfit space" 141
 		"weapon capacity" 20
 		"engine capacity" 30
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 1
 		"fuel protection" .4
 		licenses
@@ -329,9 +311,6 @@ ship "Furus"
 		"outfit space" 195
 		"weapon capacity" 26
 		"engine capacity" 70
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 1
 		"fuel protection" .15
 		licenses
@@ -388,9 +367,6 @@ ship "Minaldmasmin"
 		"outfit scan power" 25
 		"tactical scan power" 35
 		"cargo scan power" 10
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 2
 		"fuel protection" .2
 		licenses
@@ -448,9 +424,6 @@ ship "Qudaw"
 		"outfit space" 145
 		"weapon capacity" 75
 		"engine capacity" 30
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 2
 		"fuel protection" 5
 		licenses
@@ -494,9 +467,6 @@ ship "Nakil"
 		"outfit space" 200
 		"weapon capacity" 30
 		"engine capacity" 70
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 4
 		"fuel protection" .7
 		licenses
@@ -554,9 +524,6 @@ ship "Quyan"
 		"outfit space" 180
 		"weapon capacity" 10
 		"engine capacity" 70
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 2
 		"fuel protection" .65
 		licenses
@@ -606,9 +573,6 @@ ship "Yiyharsi"
 		"engine capacity" 30
 		"slowing resistance" 1
 		"slowing resistance fuel" -1
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 4
 		"fuel protection" 1
 		licenses
@@ -664,9 +628,6 @@ ship "Nathas"
 		"outfit space" 215
 		"weapon capacity" 22
 		"engine capacity" 70
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 4
 		"fuel protection" .6
 		licenses
@@ -721,13 +682,6 @@ ship "Nathaq"
 		"outfit space" 295
 		"weapon capacity" 50
 		"engine capacity" 85
-#		"hull repair rate" .5
-#		"hull energy" 2
-#		"shield generation" 2
-#		"shield energy" 8
-#		"reverse thruster slot" 1
-#		"steering slot" 4
-#		"thruster slot" 1
 		"jibauni generator" 4
 		"fuel protection" .7
 		licenses
@@ -785,13 +739,8 @@ ship "Nathar"
 		"outfit space" 450
 		"weapon capacity" 135
 		"engine capacity" 70
-#		"hull repair rate" 5
-#		"hull energy" 20
 		"shield generation" 10
 		"shield energy" 40
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" 4
 		"fuel protection" .8
 		licenses
@@ -855,13 +804,6 @@ ship "Safinat"
 		"outfit space" 910
 		"weapon capacity" 300
 		"engine capacity" 170
-#		"hull repair rate" 0.1
-#		"hull energy" .5
-#		"shield generation" 1
-#		"shield energy" 5
-#		"reverse thruster slot" 3
-#		"steering slot" 3
-#		"thruster slot" 3
 		"jibauni generator" 12
 		"fuel protection" .65
 		licenses
@@ -933,9 +875,6 @@ ship "Osra"
 		"outfit space" 40
 		"weapon capacity" 0
 		"engine capacity" 30
-#		"reverse thruster slot" 1
-#		"steering slot" 1
-#		"thruster slot" 1
 		"jibauni generator" .5
 		"fuel protection" .05
 		licenses
