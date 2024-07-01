@@ -108,8 +108,8 @@ ship "Muraw"
 	description "    Fighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay."
 	
 ship "Latbaliday"
-	sprite "ship/dagger"
-	thumbnail "thumbnail/dagger"
+	sprite "ship/latbaliday"
+	thumbnail "thumbnail/latbaliday"
 	attributes
 		category "Fighter"
 		"cost" 675000
