@@ -473,20 +473,6 @@ effect "fusion afterburner effect"
 	sound "atomic medium"
 	"lifetime" 1
 
-outfit "Sheragi Hyperdrive"
-	category "Systems"
-	cost 100000
-	thumbnail "outfit/sheragi hyperdrive"
-	"mass" 20
-	"outfit space" -20
-	"scram drive" .2
-	"jump fuel" 100
-	"hyperdrive" 1
-	"afterburner attachment" -1
-	licenses
-		Sheragi
-	description "The Sheragi Hyperdrive was developed to be used in conjunction with the Fusion Afterburner, allowing it to function similiar to a Scram Drive but without the increased fuel cost."
-
 outfit "Fusion Power Converter"
 	category "Systems"
 	cost 150000

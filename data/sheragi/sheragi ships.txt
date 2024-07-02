@@ -472,6 +472,8 @@ ship "Gold Shield" "Gold Shield (Missile)"
 		"Electronic Warfare System" 2
 		"Sheragi Solar Intake" 2
 
+		"Hyperdrive"
+
 
 ship "Bronze Edge"
 	sprite "ship/bronzeedge"
@@ -511,7 +513,7 @@ ship "Bronze Edge"
 		
 		"Large Fission Drive"
 		"Fusion Afterburner"
-		"Sheragi Hyperdrive"
+		"Hyperdrive"
 	gun 0 -77 "Particle Waveform Cannon"
 	gun 45 -11 "Heavy Ion Cyclotron"
 	gun -45 -11 "Heavy Ion Cyclotron"
@@ -560,7 +562,7 @@ ship "Bronze Edge" "Bronze Edge (Missile)"
 		
 		"Large Fission Drive"
 		"Fusion Afterburner"
-		"Sheragi Hyperdrive"
+		"Hyperdrive"
 
 
 ship "Ruby Hammer"
