@@ -4281,8 +4281,6 @@ system Almach
 system Almanhaq
 	pos -1390 535
 	government "Jibauni (Rebel)"
-	#arrival 1020
-	#departure 6000
 	habitable 14525.237
 	belt 1131 2
 	belt 1856 2
@@ -16528,8 +16526,6 @@ system Hadar
 system Hajay
 	pos -1534 435
 	government Jibauni
-	#arrival 1500
-	#departure 6000
 	habitable 7900
 	belt 1826 7
 	haze _menu/haze-green
@@ -16784,8 +16780,6 @@ system Hanal
 system Haqal
 	pos -1325 512
 	government "Jibauni (Rebel)"
-	#arrival 50
-	#departure 2001
 	habitable 7000
 	belt 1430 9
 	haze _menu/haze-green
@@ -17519,8 +17513,6 @@ system Holeb
 system Holo
 	pos -1362 576
 	government "Jibauni (Rebel)"
-	#arrival 30
-	#departure 1004
 	habitable 10
 	belt 1747 5
 	haze _menu/haze-green
@@ -17801,8 +17793,6 @@ system Huud
 system Huyya
 	pos -1439 470
 	government Jibauni
-	#arrival 10
-	#departure 300
 	habitable 2160
 	belt 1500
 	belt 750
@@ -17830,6 +17820,7 @@ system Huyya
 	trade Plastic 299
 	fleet "Small Jibauni Military" 530
 	fleet "Large Jibauni Military" 940
+	fleet "Jibauni Fighter Patrol" 2000
 	fleet "Jibauni Leaders" 3880
 	fleet "Large Rebel Jibauni Military" 5920
 	hazard "Jibauni Disabled Remover" 1
@@ -17860,7 +17851,6 @@ system Huyya
 	object Baitoon
 		sprite planet/oberon
 		distance 3332
-		#hazard "Jibauni Gravity" 1
 		period 1655.353
 
 system Iigen
@@ -19401,6 +19391,7 @@ system Jibtrav
 	minables copper 6 3.144
 	minables tungsten 18 2.629
 	fleet "Small Southern Pirates" 800
+	fleet "Jibauni Fighter Patrol" 30000
 	hazard "Jibauni Disabled Remover" 100
 	object
 		sprite star/f0
@@ -19929,8 +19920,6 @@ system Kaliptari
 system Kanalsa
 	pos -1469 433
 	government Jibauni
-	#arrival 50
-	#departure 4500
 	habitable 17025
 	belt 1675 8
 	haze _menu/haze-green
@@ -19990,7 +19979,6 @@ system Kanalsa
 		sprite planet/nebula1
 		distance 3407.739
 		period 175
-		#hazard "Jibauni Gravity" 1
 		object
 			sprite planet/dust4
 			distance 301.985
@@ -20261,8 +20249,6 @@ system Kasikfar
 system Kateaza
 	pos -1398 496
 	government Uninhabited
-	#arrival 1100
-	#departure 7800
 	habitable 22749.505
 	belt 1831 3
 	belt 2226 7
@@ -29056,8 +29042,6 @@ system Queri
 system Rabalin
 	pos -1534 500
 	government Jibauni
-	#arrival 1200
-	#departure 2200
 	habitable 22300.002
 	belt 1015
 	belt 2261 9
@@ -30174,8 +30158,6 @@ system Rutilicus
 system Sabibal
 	pos -1469 503
 	government Jibauni
-	#arrival 500
-	#departure 500
 	habitable 1434.617
 	belt 1926 9
 	belt 2389 7
@@ -32731,7 +32713,6 @@ system "Sol Diba"
 	hidden
 	pos -1457 643
 	government Diba
-	#arrival 0
 	habitable 1310
 	haze _menu/haze-green
 	trade Clothing 376
@@ -36843,8 +36824,6 @@ system Yerser
 system Yinkin
 	pos -1295 562.667
 	government "Jibauni (Rebel)"
-	#arrival 5001
-	#departure 60
 	habitable 5600
 	belt 1216
 	haze _menu/haze-green

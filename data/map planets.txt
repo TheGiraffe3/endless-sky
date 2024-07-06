@@ -4232,7 +4232,7 @@ planet Shenal
 	outfitter "Sheragi Advanced"
 	shipyard "Sheragi Basics"
 
-#planet Shenal # not sure why there are two
+# planet Shenal # not sure why there are two
 #	landscape land/sky11
 #	description `This planet is home to millions of Sheragi, many of which live here because Shenal is the headquarters of the Sheragi military. The world is perfectly positioned to prevent any unwanted ships from entering Alrodel.`
 #	spaceport `The spaceport here is one of the largest you've ever seen, seemingly built to hold the massive capital ships of the Sheragi military.`
