@@ -830,7 +830,7 @@ government "Indigenous Lifeform (Astral)"
 color "governments: Jibauni" 0 0.353 0
 
 government Jibauni
-	color "governments: Jibauni" 0 0.353 0
+	color "governments: Jibauni"
 	swizzle 20
 	"player reputation" 10
 	"crew attack" 3
@@ -854,7 +854,7 @@ government Jibauni
 	"hostile disabled hail" "hostile disabled jibauni military"
 
 government "Jibauni (Civilian)"
-	color "governments: Jibauni" 0 0.353 0
+	color "governments: Jibauni"
 	swizzle 20
 	"display name" "Jibauni Civilian"
 	"player reputation" 10
@@ -913,7 +913,7 @@ government "Jibauni (Rebel)"
 	"hostile disabled hail" "hostile disabled jibauni military"
 
 government "Jibauni (Ruler)"
-	color "governments: Jibauni" 0 0.353 0
+	color "governments: Jibauni"
 	swizzle 19
 	"display name" "Jibauni Leader"
 	"player reputation" 0
