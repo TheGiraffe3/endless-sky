@@ -466,6 +466,19 @@ mission "Wanderers: Outfit License Patch"
 
 
 
+# Compatibility patch for pilots that did the above missions before 0.10.9.
+mission "Wanderer Technology Patch"
+	landing
+	invisible
+	to offer
+		has "Wanderers Conversation: offered"
+		not "event: wanderer facilities available"
+	on offer
+		event "wanderer facilities available" 0
+		fail
+
+
+
 mission "Tell Wanderers about the Pug"
 	landing
 	source "Vara K'chrai"
