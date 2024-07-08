@@ -99,11 +99,6 @@ fleet "Large Jibauni Military"
 		Larajal 2
 		Yiyharsi
 		Furus
-	variant 10000000
-#		Nathar
-#		Muraw 2
-#		Yiyharsi 4
-		"Qudaw (Leaker)"
 	variant 10
 		Yiyharsi
 		Nakil

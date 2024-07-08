@@ -61,7 +61,7 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 					goto notseen
 				`	"Of course. The person who pilots it is an Alpha. Should I tell you what the story behind them is?"`
 					to display
-						has "remembrance day: declined"
+						has "event: liberation of Poisonwood"
 					goto alphas
 			label knownalphas
 			`	"Great. But, let me ask you one question. Did you meet them on friendly terms? Or did you try to destroy their ships?"`
@@ -122,7 +122,7 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 				die
 			label friendlyalpha
 			action
-				set "reputation: Jibauni" -1000
+				"reputation: Jibauni" = -1000
 			`	"Really? In that case, we must ask you to leave our planet immediately and never come back. Goodbye, and don't let us see your face ever again!"`
 				flee
 	on complete
