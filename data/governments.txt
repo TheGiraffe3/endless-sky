@@ -871,10 +871,10 @@ government "Jibauni (Civilian)"
 		capture 5
 		destroy 10
 	"bribe" 0.02
-	"friendly hail" "friendly Jibauni (Civilian)"
-	"friendly disabled hail" "friendly disabled Jibauni (Civilian)"
+	"friendly hail" "friendly jibauni civilian"
+	"friendly disabled hail" "friendly disabled jibauni civilian"
 	"hostile hail" "hostile jibauni"
-	"hostile disabled hail" "hostile disabled jibauni"
+	"hostile disabled hail" "hostile disabled jibauni civilian"
 
 government "Jibauni (Fueler)" # not currently used
 	color 0.196 0.392 0.118
@@ -927,10 +927,10 @@ government "Jibauni (Ruler)"
 	"penalty for"
 		assist 0
 	"bribe" 0.05 # for daring to attack them
-	"friendly hail" "friendly Jibauni (Civilian)"
-	"friendly disabled hail" "friendly disabled Jibauni (Civilian)"
+	"friendly hail" "friendly jibauni civilian"
+	"friendly disabled hail" "friendly disabled jibauni civilian"
 	"hostile hail" "hostile jibauni"
-	"hostile disabled hail" "hostile disabled jibauni"
+	"hostile disabled hail" "hostile disabled jibauni civilian"
 
 government "Ka'het"
 	swizzle 0
