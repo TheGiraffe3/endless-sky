@@ -17819,7 +17819,6 @@ system Huyya
 	trade Plastic 299
 	fleet "Small Jibauni Military" 530
 	fleet "Large Jibauni Military" 940
-	fleet "Jibauni Fighter Patrol" 2000
 	fleet "Jibauni Leaders" 3880
 	fleet "Large Rebel Jibauni Military" 5920
 	hazard "Jibauni Slowing" 200
@@ -19389,7 +19388,7 @@ system Jibtrav
 	minables copper 6 3.144
 	minables tungsten 18 2.629
 	fleet "Small Southern Pirates" 800
-	fleet "Jibauni Fighter Patrol" 30000
+	fleet "Large Jibauni Military" 500000
 	object
 		sprite star/f0
 		distance 84.576

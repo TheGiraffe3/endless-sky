@@ -20,7 +20,7 @@ mission "Jibauni Pilgrims [0]"
 	cargo "pilgrimage supplies" 10 30
 	passengers 2 20
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	destination
 		government "Jibauni"
 		attributes religious
@@ -45,7 +45,7 @@ mission "Jibauni Kasim Cargo (pre-war)"
 	repeat
 	cargo "Aboagye Shipyards Parts" 1 30
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	destination
 		government "Jibauni"
 		not planet Baitoon
@@ -66,7 +66,7 @@ mission "Jibauni Kasim Cargo (post-war)"
 	repeat
 	cargo "Aboagye Shipyards Parts" 1 30
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	destination
 		government "Jibauni"
 		not planet Baitoon
@@ -87,7 +87,7 @@ mission "Jibauni Res-redi Cargo (pre-war)"
 	repeat
 	cargo "Res-redi Shipyards Parts" 1 30
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	destination
 		system Huyya
 		system Hajay
@@ -107,7 +107,7 @@ mission "Jibauni Res-redi Cargo (post-war)"
 	repeat
 	cargo "Res-redi Shipyards Parts" 1 30
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	destination
 		system Huyya
 		system Hajay
@@ -133,8 +133,9 @@ mission "Jibauni Rebel Bounty Small"
 	to offer
 		random < 30
 		"combat rating" > 100
+		not "event: jibauni rebel jibauni peace"
 	npc kill
-		governmentJibauni (Rebel)
+		government "Jibauni (Rebel)"
 		personality
 			confusion 10
 			heroic
@@ -171,9 +172,10 @@ mission "Jibauni Rebel Bounty Large"
 	to offer
 		random < 30
 		"combat rating" > 200
+		not "event: jibauni rebel jibauni peace"
 	deadline 10
 	npc kill
-		governmentJibauni (Rebel)
+		government "Jibauni (Rebel)"
 		personality
 			confusion 10
 			heroic
@@ -222,7 +224,7 @@ mission "Jibauni Passengers [0]"
 	repeat
 	passengers 2 15
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 60
 	destination
@@ -238,7 +240,7 @@ mission "Jibauni Passengers [1]"
 	repeat
 	passengers 2 15
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 60
 	destination
@@ -254,12 +256,12 @@ mission "Jibauni Passengers [2]"
 	repeat
 	passengers 20 120
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 45
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		payment 2000
@@ -273,12 +275,12 @@ mission "Jibauni Rush Delivery [0]"
 	cargo random 2 10
 	deadline
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 45
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		payment 100
@@ -292,12 +294,12 @@ mission "Jibauni Rush Delivery [1]"
 	cargo random 5 40
 	deadline
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 45
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		dialog "The cargo is unloaded from your ship and carted away."
@@ -310,12 +312,12 @@ mission "Jibauni Rush Delivery [2]"
 	cargo random 5 40
 	deadline
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 45
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		dialog "The cargo is unloaded from your ship and carted away."
@@ -328,12 +330,12 @@ mission "Jibauni Bulk Delivery [0]"
 	cargo random 30 100
 	deadline
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 80
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		payment 1000
@@ -347,12 +349,12 @@ mission "Jibauni Bulk Delivery [1]"
 	cargo random 30 100
 	deadline
 	source
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	to offer
 		random < 80
 	destination
 		distance 1 4
-		government "Jibauni"Jibauni (Rebel)
+		government "Jibauni" "Jibauni (Rebel)"
 	on complete
 		payment
 		payment 3000
