@@ -19398,7 +19398,7 @@ system Jibtrav
 	minables copper 6 3.144
 	minables tungsten 18 2.629
 	fleet "Small Southern Pirates" 800
-	fleet "Large Jibauni Military" 500000
+	fleet "Large Jibauni Military" 50000
 	object
 		sprite star/f0
 		distance 84.576
