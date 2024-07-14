@@ -25,7 +25,7 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 					goto lastisknown
 				`	"Hi, weirdo. What's up?"`
 					goto rude
-				`	(Shoot the alien with your sidearm)`
+				`	(Shoot the alien with your sidearm.)`
 					goto deathshot
 			label lastisknown
 			`	"Yes. We know about you, <first>, Captain of the <ship>. How have you come here, for we did not detect any purple sparks?"`
@@ -143,11 +143,11 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 			`	"They are, as the name might suggest, Jibauni who have split away from the real government. They are not very polite, and you definitely do not want to be on their side."`
 			choice
 				`	"That's what you think. Well, I'm joining the Rebels, whatever you may say."`
-						goto joinedrebels
+					goto joinedrebels
 				`	"Okay. I'll take you."`
-						accept
+					accept
 				`	"No, I won't take you. Sorry."`
-						decline
+					decline
 			label joinedrebels
 			action
 				"reputation: Jibauni" = -10
