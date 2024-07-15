@@ -2694,6 +2694,21 @@ mission "Wanderers Rek 2"
 
 
 
+# Compatibility patch for pilots that did the above missions before 0.10.9.
+mission "Wanderer Facilities Patch (during-unfettered-2)"
+	landing
+	invisible
+	to offer
+		has "Wanderers Conversation: offered"
+		has "event: wanderers: more systems lost"
+		not "event: wanderers: all facilities available"
+		not "event: wanderers: unfettered invasion starts: facilities available"
+	on offer
+		event "wanderers: more systems lost: facilities available" 0
+		fail
+
+
+
 mission "Wanderers Rek 3"
 	landing
 	name "Visit Sko'karak"
