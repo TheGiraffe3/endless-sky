@@ -467,14 +467,15 @@ mission "Wanderers: Outfit License Patch"
 
 
 # Compatibility patch for pilots that did the above missions before 0.10.9.
-mission "Wanderer Facilities Patch"
+mission "Wanderer Facilities Patch (pre-unfettered)"
 	landing
 	invisible
 	to offer
 		has "Wanderers Conversation: offered"
-		not "event: wanderer facilities available"
+		not "event: unfettered invasion starts"
+		not "event: wanderers: all facilities available"
 	on offer
-		event "wanderer facilities available" 0
+		event "wanderers: all facilities available" 0
 		fail
 
 
@@ -1593,7 +1594,6 @@ mission "Wanderers: Unfettered Invasion Patch"
 		fail
 
 
-
 mission "Wanderers Invaded 0"
 	landing
 	name "Unfettered Invasion"
@@ -1609,6 +1609,20 @@ mission "Wanderers Invaded 0"
 		conversation
 			`The Wanderers on <origin> are in a panic. Apparently the Unfettered have finally succeeded in capturing one of the Wanderer planets, and are now amassing a war fleet there. You should probably check with Iktat Rek and see if he needs your help to drive the Unfettered back.`
 				accept
+
+
+
+# Compatibility patch for pilots that did the above missions before 0.10.9.
+mission "Wanderer Facilities Patch (during-unfettered 1)"
+	landing
+	invisible
+	to offer
+		has "Wanderers Conversation: offered"
+		has "event: unfettered invasion starts"
+		not "event: wanderers: all facilities available"
+	on offer
+		event "wanderers: unfettered invasion starts: facilities available" 0
+		fail
 
 
 
