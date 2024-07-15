@@ -467,7 +467,7 @@ mission "Wanderers: Outfit License Patch"
 
 
 # Compatibility patch for pilots that did the above missions before 0.10.9.
-mission "Wanderer Technology Patch"
+mission "Wanderer Facilities Patch"
 	landing
 	invisible
 	to offer
