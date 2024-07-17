@@ -159,4 +159,8 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 	on complete
 		payment 15000
 		conversation
-			`	"Thank you for bringing me here so promptly," says Kanlanmo. "It was very kind of you. I may have more work for you in a while, so keep checking the spaceport in our space."`
+			`	"Thank you for bringing me here so promptly," says Kanlanmo. "It was very kind of you. I may have more work for you in a while, so keep checking the spaceport in our space. In addition, here is a translator device so that you can talk to the populace."`
+			choice
+				`	"Thank you."`
+				`	"Any time."`
+			`	"Well, see you later, <first>!" Kanlanmo walks away and leaves you to do whatever you want."`
