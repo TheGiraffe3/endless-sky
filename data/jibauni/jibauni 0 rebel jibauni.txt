@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-mission "Kanlanmo 0" # first contact, only thing I have in right now here
+mission "Jibauni: Kanlanmo 0" # first contact, only thing I have in right now here
 	name "Take Kanlanmo to <planet>"
 	description "Kanlanmo, who is a Jibauni in the shape of a Tyrannosaurus rex, has asked to go to <planet> on your ship. He will explain once you get there."
 	landing
@@ -108,7 +108,7 @@ mission "Kanlanmo 0" # first contact, only thing I have in right now here
 				`	"Not yet, I have something I need to do first. But I'll be back shortly!"`
 					decline
 			label rude
-			`	The alien announces, though to what you cannot see, "The stranger has been ignominiously impolite." It turns to you. "What do you say, "weirdo"? Will you apologize? Or not, and see what happens?"`
+			`	The alien announces, though to what you cannot see, "The stranger has been ignominiously impolite." It turns to you. "What do you say, 'weirdo'? Will you apologize? Or not, and see what happens?"`
 			choice
 				`	"I apologize, and did not mean to insult you."`
 					goto rudeentry
