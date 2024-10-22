@@ -49,6 +49,45 @@ ship "Earth Shaper"
 
 
 
+ship "Hailstone"
+	sprite "ship/hailstone"
+	thumbnail "thumbnail/hailstone"
+	attributes
+		category "Fighter"
+		licenses
+			"Wanderer Military"
+		"cost" 990000
+		"hull" 4500
+		"shields" 6000
+		"mass" 85
+		"drag" .85
+		"heat dissipation" .75
+		"outfit space" 0
+		"weapon capacity" 0
+		"engine capacity" 0
+		weapon
+			"blast radius" 45
+			"shield damage" 450
+			"hull damage" 225
+			"hit force" 550
+	outfits
+		"Sunbeam" 2
+
+		"Small Biochemical Cell" 3
+
+		"Type 1 Radiant Thruster"
+		"Type 1 Radiant Steering"
+
+	engine 12.5 35.5
+	engine -12.5 35.5
+	gun 14 -4.5
+	gun -14 -4.5
+	explode "tiny explosion" 10
+	explode "small explosion" 40
+	description "As yet to be written."
+
+
+
 ship "Flycatcher"
 	sprite "ship/flycatcher"
 	thumbnail "thumbnail/flycatcher"
