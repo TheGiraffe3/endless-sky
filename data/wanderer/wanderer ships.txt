@@ -62,9 +62,9 @@ ship "Hailstone"
 		"mass" 85
 		"drag" .85
 		"heat dissipation" .75
-		"outfit space" 0
-		"weapon capacity" 0
-		"engine capacity" 0
+		"outfit space" 106
+		"weapon capacity" 34
+		"engine capacity" 27
 		weapon
 			"blast radius" 45
 			"shield damage" 450
@@ -84,7 +84,7 @@ ship "Hailstone"
 	gun -14 -4.5
 	explode "tiny explosion" 10
 	explode "small explosion" 40
-	description "As yet to be written."
+	description "The Hailstone is the first in a new experimental sequence of Wanderer ships. This time, they are testing fighters, and building the Squall to carry them."
 
 
 
