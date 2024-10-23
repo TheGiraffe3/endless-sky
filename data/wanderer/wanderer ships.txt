@@ -315,7 +315,7 @@ ship "Squall"
 		"heat dissipation" 0.31
 		"fuel capacity" 700
 		"cargo space" 57
-		"outfit space" 664
+		"outfit space" 640
 		"weapon capacity" 236
 		"engine capacity" 156
 		weapon
@@ -325,13 +325,14 @@ ship "Squall"
 			"hit force" 4500
 	outfits
 		"Thunderhead Launcher" 2
-		"Dual Sunbeam Turret"
+		"Sunbeam Turret"
 		"Moonbeam Turret"
 		"Wanderer Anti-Missile" 2
 
-		"White Sun Reactor" 2
+		"Blue Sun Reactor"
+		"Large Biochemical Cell"
 		"Dark Storm Shielding"
-		"Wanderer Ramscoop" 2
+		"Wanderer Ramscoop"
 
 		"Type 4 Radiant Thruster"
 		"Type 4 Radiant Steering"
@@ -341,7 +342,7 @@ ship "Squall"
 	engine -38.5 133.5
 	gun 21.5 -105.5 "Thunderhead Launcher"
 	gun -21.5 -105.5 "Thunderhead Launcher"
-	turret 0 -68 "Dual Sunbeam Turret"
+	turret 0 -68 "Sunbeam Turret"
 	turret -20.5 30 "Wanderer Anti-Missile"
 	turret 20.5 30 "Wanderer Anti-Missile"
 	turret 0 86.5 "Moonbeam Turret"
