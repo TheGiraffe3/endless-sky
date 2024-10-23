@@ -57,34 +57,35 @@ ship "Hailstone"
 		licenses
 			"Wanderer Military"
 		"cost" 990000
-		"hull" 4500
-		"shields" 6000
-		"mass" 85
+		"hull" 1200
+		"shields" 3400
+		"mass" 95
 		"drag" .85
 		"heat dissipation" .75
-		"outfit space" 106
-		"weapon capacity" 34
-		"engine capacity" 27
+		"outfit space" 65
+		"weapon capacity" 27
+		"engine capacity" 12
+		"thrust" 10
+		"thrusting energy" 0.47
+		"turn" 262
+		"turning energy" .36
 		weapon
-			"blast radius" 45
-			"shield damage" 450
-			"hull damage" 225
-			"hit force" 550
+			"blast radius" 23
+			"shield damage" 230
+			"hull damage" 115
+			"hit force" 345
 	outfits
-		"Sunbeam" 2
+		"Thunderhead Missile Launcher"
 
-		"Small Biochemical Cell" 3
-
-		"Type 1 Radiant Thruster"
-		"Type 1 Radiant Steering"
+		"Small Biochemical Cell" 2
 
 	engine 12.5 35.5
 	engine -12.5 35.5
-	gun 14 -4.5
+	gun 14 -4.5 "Thunderhead Missile Launcher"
 	gun -14 -4.5
 	explode "tiny explosion" 10
 	explode "small explosion" 40
-	description "The Hailstone is the first in a new experimental sequence of Wanderer ships. This time, they are testing fighters, and building the Squall to carry them."
+	description "The Hailstone is the first in a new experimental sequence of Wanderer ships with engines built right into the hull. The engines are less efficient, but have the advantage of taking up less space. Unfortunately, this contraint causes the fighter to only have room for one weapon at a time."
 
 
 
