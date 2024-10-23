@@ -59,33 +59,32 @@ ship "Hailstone"
 		"cost" 990000
 		"hull" 1200
 		"shields" 3400
-		"mass" 95
-		"drag" .85
+		"mass" 120
+		"drag" .87
 		"heat dissipation" .75
-		"outfit space" 65
-		"weapon capacity" 27
-		"engine capacity" 12
-		"thrust" 10
-		"thrusting energy" 0.47
-		"turn" 262
-		"turning energy" .36
+		"outfit space" 113
+		"weapon capacity" 38
+		"engine capacity" 24
 		weapon
 			"blast radius" 23
 			"shield damage" 230
 			"hull damage" 115
 			"hit force" 345
 	outfits
-		"Thunderhead Launcher"
+		"Moonbeam" 2
 
 		"Small Biochemical Cell" 2
+		"Bright Cloud Shielding"
+
+		"Type 1 Radiant Thruster"
+		"Type 1 Radiant Steering"
 
 	engine 12.5 35.5
 	engine -12.5 35.5
-	gun 14 -4.5 "Thunderhead Launcher"
-	gun -14 -4.5
+	gun 14 -4.5 "Moonbeam"
+	gun -14 -4.5 "Moonbeam"
 	explode "tiny explosion" 10
 	explode "small explosion" 40
-	description "The Hailstone is the first in a new experimental sequence of Wanderer ships with engines built right into the hull. The engines are less efficient, but have the advantage of taking up less space. Unfortunately, this contraint causes the fighter to only have room for one weapon at a time."
 
 
 
@@ -352,7 +351,6 @@ ship "Squall"
 	explode "medium explosion" 70
 	explode "large explosion" 20
 	"final explode" "final explosion medium" 1
-	description "The Squall is derived from the Tempest, and is the first carrier the Wanderers have ever produced. With fewer bays than the Solifuge, the Squall has a greater focus on weapons then its Unfettered cousin."
 
 
 
