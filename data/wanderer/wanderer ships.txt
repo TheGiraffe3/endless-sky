@@ -49,6 +49,46 @@ ship "Earth Shaper"
 
 
 
+ship "Hailstone"
+	sprite "ship/hailstone"
+	thumbnail "thumbnail/hailstone"
+	attributes
+		category "Fighter"
+		licenses
+			"Wanderer Military"
+		"cost" 990000
+		"hull" 1200
+		"shields" 3400
+		"mass" 95
+		"drag" .85
+		"heat dissipation" .75
+		"outfit space" 65
+		"weapon capacity" 27
+		"engine capacity" 12
+		"thrust" 10
+		"thrusting energy" 0.47
+		"turn" 262
+		"turning energy" .36
+		weapon
+			"blast radius" 23
+			"shield damage" 230
+			"hull damage" 115
+			"hit force" 345
+	outfits
+		"Thunderhead Missile Launcher"
+
+		"Small Biochemical Cell" 2
+
+	engine 12.5 35.5
+	engine -12.5 35.5
+	gun 14 -4.5 "Thunderhead Missile Launcher"
+	gun -14 -4.5
+	explode "tiny explosion" 10
+	explode "small explosion" 40
+	description "The Hailstone is the first in a new experimental sequence of Wanderer ships with engines built right into the hull. The engines are less efficient, but have the advantage of taking up less space. Unfortunately, this contraint causes the fighter to only have room for one weapon at a time."
+
+
+
 ship "Flycatcher"
 	sprite "ship/flycatcher"
 	thumbnail "thumbnail/flycatcher"
@@ -256,6 +296,63 @@ ship "Strong Wind"
 	explode "large explosion" 20
 	"final explode" "final explosion medium"
 	description "The Strong Wind was originally designed for science and exploration, but recently the Wanderers have modified the design to allow it to be used as a warship."
+
+
+
+ship "Squall"
+	sprite "ship/squall"
+	thumbnail "thumbnail/squall"
+	attributes
+		category "Medium Warship"
+		licenses
+			"Wanderer Military"
+		"cost" 22300000
+		"shields" 27000
+		"hull" 20000
+		"required crew" 39
+		"bunks" 55
+		"mass" 1050
+		"drag" 10.3
+		"heat dissipation" 0.31
+		"fuel capacity" 700
+		"cargo space" 57
+		"outfit space" 720
+		"weapon capacity" 263
+		"engine capacity" 125
+		weapon
+			"blast radius" 300
+			"shield damage" 3000
+			"hull damage" 1500
+			"hit force" 4500
+	outfits
+		"Thunderhead Missile Launcher" 2
+		"Dual Sunbeam Turret"
+		"Moonbeam Turret"
+		"Wanderer Anti-Missile" 2
+
+		"White Sun Reactor" 2
+		"Dark Storm Shielding"
+		"Wanderer Ramscoop" 2
+
+		"Type 4 Radiant Thruster"
+		"Type 4 Radiant Steering"
+		"Hyperdrive"
+
+	engine 38.5 133.5
+	engine -38.5 133.5
+	gun 21.5 -105.5 "Thunderhead Missile Launcher"
+	gun -21.5 -105.5 "Thunderhead Missile Launcher"
+	turret 0 -68 "Dual Sunbeam Turret"
+	turret -20.5 30 "Wanderer Anti-Missile"
+	turret 20.5 30 "Wanderer Anti-Missile"
+	turret 0 86.5 "Moonbeam Turret"
+	bay Fighter 37.5 -4.5
+	bay Fighter -37.5 -4.5
+	explode "small explosion" 70
+	explode "medium explosion" 70
+	explode "large explosion" 20
+	"final explode" "final explosion medium" 1
+	description "The Squall is derived from the Tempest, and is the first carrier the Wanderers have ever produced. With fewer bays than the Solifuge, the Squall has a greater focus on weapons then its Unfettered cousin."
 
 
 
