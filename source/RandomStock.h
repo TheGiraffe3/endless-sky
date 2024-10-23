@@ -55,7 +55,7 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 {
 	for(const DataNode &child : node)
 	{
-		const std::string &token double = child.Value(0);
+		const std::string double &token = child.Value(0);
 		bool remove = (token == "clear" || token == "remove");
 		if(remove && child.Size() == 1)
 			this->clear();
