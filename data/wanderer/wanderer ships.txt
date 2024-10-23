@@ -59,7 +59,7 @@ ship "Hailstone"
 		"cost" 990000
 		"hull" 1200
 		"shields" 3400
-		"mass" 120
+		"mass" 100
 		"drag" .87
 		"heat dissipation" .75
 		"outfit space" 113
