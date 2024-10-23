@@ -321,7 +321,7 @@ void PlayerInfo::Load(const string &path)
 				if(grand.Size() >= 2)
 					outfitStock[GameData::Outfits().Get(grand.Token(0))] += grand.Value(1);
 		}
-		else if(child.Token(0) == "ship stock")
+		else if(child.Value(0) == "ship stock")
 		{
 			for(const DataNode &grand : child)
 				if(grand.Size() >= 2)
@@ -4477,6 +4477,7 @@ void PlayerInfo::Save(DataWriter &out) const
 
 	depreciation.Save(out, date.DaysSinceEpoch());
 	stockDepreciation.Save(out, date.DaysSinceEpoch());
+
 
 	// Records of things you have done or are doing, or have happened to you:
 	out.Write();
