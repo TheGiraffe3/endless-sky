@@ -75,13 +75,13 @@ ship "Hailstone"
 			"hull damage" 115
 			"hit force" 345
 	outfits
-		"Thunderhead Missile Launcher"
+		"Thunderhead Launcher"
 
 		"Small Biochemical Cell" 2
 
 	engine 12.5 35.5
 	engine -12.5 35.5
-	gun 14 -4.5 "Thunderhead Missile Launcher"
+	gun 14 -4.5 "Thunderhead Launcher"
 	gun -14 -4.5
 	explode "tiny explosion" 10
 	explode "small explosion" 40
@@ -316,16 +316,16 @@ ship "Squall"
 		"heat dissipation" 0.31
 		"fuel capacity" 700
 		"cargo space" 57
-		"outfit space" 720
-		"weapon capacity" 263
-		"engine capacity" 125
+		"outfit space" 664
+		"weapon capacity" 224
+		"engine capacity" 124
 		weapon
 			"blast radius" 300
 			"shield damage" 3000
 			"hull damage" 1500
 			"hit force" 4500
 	outfits
-		"Thunderhead Missile Launcher" 2
+		"Thunderhead Launcher" 2
 		"Dual Sunbeam Turret"
 		"Moonbeam Turret"
 		"Wanderer Anti-Missile" 2
@@ -340,8 +340,8 @@ ship "Squall"
 
 	engine 38.5 133.5
 	engine -38.5 133.5
-	gun 21.5 -105.5 "Thunderhead Missile Launcher"
-	gun -21.5 -105.5 "Thunderhead Missile Launcher"
+	gun 21.5 -105.5 "Thunderhead Launcher"
+	gun -21.5 -105.5 "Thunderhead Launcher"
 	turret 0 -68 "Dual Sunbeam Turret"
 	turret -20.5 30 "Wanderer Anti-Missile"
 	turret 20.5 30 "Wanderer Anti-Missile"
