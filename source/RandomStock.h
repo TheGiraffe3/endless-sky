@@ -72,11 +72,11 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 			{
 				const std::string &grandValue = grand.Value(0);
 				if(grandValue == "probability")
-					rs.probability = std::stoi(grand.Value(1));
+					rs.probability = string(grand.Value(1));
 				if(grandValue == "quantity")
-					rs.quantity = std::stoi(grand.Value(1));
+					rs.quantity = string(grand.Value(1));
 				if(grandValue == "depreciation")
-					rs.depreciation = std::stoi(grand.Value(1));
+					rs.depreciation = string(grand.Value(1));
 				if(grandValue == "discount")
 					rs.depreciation = Depreciation::AgeForDepreciation(1 - stoi(grand.Value(1)) / 100.0);
 			}
