@@ -306,8 +306,8 @@ ship "Squall"
 		licenses
 			"Wanderer Military"
 		"cost" 22300000
-		"shields" 27000
-		"hull" 20000
+		"shields" 40200
+		"hull" 25100
 		"required crew" 39
 		"bunks" 55
 		"mass" 1050
@@ -316,8 +316,8 @@ ship "Squall"
 		"fuel capacity" 700
 		"cargo space" 57
 		"outfit space" 664
-		"weapon capacity" 224
-		"engine capacity" 124
+		"weapon capacity" 236
+		"engine capacity" 156
 		weapon
 			"blast radius" 300
 			"shield damage" 3000
@@ -347,6 +347,12 @@ ship "Squall"
 	turret 0 86.5 "Moonbeam Turret"
 	bay Fighter 37.5 -4.5
 	bay Fighter -37.5 -4.5
+	bay Fighter 37.5 -4.5
+	bay Fighter -37.5 -4.5
+	bay Drone 37.5 -4.5
+	bay Drone -37.5 -4.5
+	bay Drone 37.5 -4.5
+	bay Drone -37.5 -4.5
 	explode "small explosion" 70
 	explode "medium explosion" 70
 	explode "large explosion" 20
