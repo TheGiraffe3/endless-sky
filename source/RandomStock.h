@@ -78,7 +78,7 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 				if(grandToken == "depreciation")
 					rs.depreciation = this->string(grand.Value(1));
 				if(grandToken == "discount")
-					rs.depreciation = Depreciation::AgeForDepreciation(1 - stoi(grand.Value(1)) / 100.0);
+					rs.depreciation = Depreciation::AgeForDepreciation(1 - std::stoi(grand.Value(1)) / 100.0);
 			}
 
 			this->push_back(rs);
