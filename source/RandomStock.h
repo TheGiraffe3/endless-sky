@@ -61,12 +61,12 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 			this->clear();
 		else if(remove && child.Size() >= 2)
 		{
-			const auto it = items.Get(child.Value(1));
+			const auto it = items.Get(child.Token(1));
 			this->remove_if([&it](RandomStockItem<Item> o){ return o.item == it; });
 		}
 		else
 		{
-			RandomStockItem<Item> rs = { items.Get(child.Value(token == "add" ? 1 : 0)) };
+			RandomStockItem<Item> rs = { items.Get(child.Token(token == "add" ? 1 : 0)) };
 
 			for(const DataNode &grand : child)
 			{
