@@ -72,7 +72,7 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 			{
 				const std::string &grandToken = grand.Token(0);
 				if(grandToken == "probability")
-					rs.probability = this->string(grand.Value(1));
+					rs.probability = this->double(grand.Value(1));
 				if(grandToken == "quantity")
 					rs.quantity = this->string(grand.Value(1));
 				if(grandToken == "depreciation")
