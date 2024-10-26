@@ -4062,11 +4062,6 @@ void PlayerInfo::CreateRandomStock()
 			}
 }
 
-				for(unsigned int i = 0; i < stockItem.quantity; i++)
-					stockDepreciation.Buy(*stockItem.item, day - stockItem.depreciation, nullptr, false);
-			}
-}
-
 
 
 void PlayerInfo::SortAvailable()
