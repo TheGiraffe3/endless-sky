@@ -4437,13 +4437,13 @@ void PlayerInfo::Save(DataWriter &out) const
 		out.EndChild();
 	}
 
-	if(!outfitStock.empty())
+	if(!stock.empty())
 	{
-		out.Write("outfit stock");
+		out.Write("stock");
 		out.BeginChild();
 		{
 			using StockElement = pair<const Outfit *const, int>;
-			WriteSorted(outfitStock,
+			WriteSorted(stock,
 				[](const StockElement *lhs, const StockElement *rhs)
 					{ return lhs->first->TrueName() < rhs->first->TrueName(); },
 				[&out](const StockElement &it)
@@ -4455,13 +4455,13 @@ void PlayerInfo::Save(DataWriter &out) const
 		out.EndChild();
 	}
 
-	if(!shipStock.empty())
+	if(!stock.empty())
 	{
-		out.Write("ship stock");
+		out.Write("stock");
 		out.BeginChild();
 		{
 			using StockElement = pair<const Ship *const, int>;
-			WriteSorted(shipStock,
+			WriteSorted(stock,
 				[](const StockElement *lhs, const StockElement *rhs)
 					{ return lhs->first->VariantName() < rhs->first->VariantName(); },
 				[&out](const StockElement &it)
