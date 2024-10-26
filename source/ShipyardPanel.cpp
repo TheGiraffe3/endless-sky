@@ -103,11 +103,11 @@ void ShipyardPanel::DrawItem(const string &name, const Point &point)
 	DrawShip(*ship, point, ship == selectedShip);
 
 	// Don't show the "in stock" amount if the shipyard has an unlimited stock of this ship.
-	if(!shipyard.Has(ship) && player.ShipStock(ship) > 0)
+	if(!shipyard.Has(ship) && player.Stock(ship) > 0)
 	{
 		const Font &font = FontSet::Get(14);
 		const Color &bright = *GameData::Colors().Get("bright");
-		string message = "in stock: " + to_string(player.ShipStock(ship));
+		string message = "in stock: " + to_string(player.Stock(ship));
 		Point pos = point + Point(
 			SHIP_SIZE / 2 - 20 - font.Width(message),
 			SHIP_SIZE / 2 - 24);
