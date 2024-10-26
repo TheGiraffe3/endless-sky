@@ -4046,7 +4046,7 @@ void PlayerInfo::CreateRandomStock()
 		for(const auto &stockItem : *rStock)
 			if(Random::Int(100) < stockItem.probability)
 			{
-				outfitStock[stockItem.item] += stockItem.quantity;
+				stock[stockItem.item] += stockItem.quantity;
 				for(unsigned int i = 0; i < stockItem.quantity; i++)
 					stockDepreciation.Buy(stockItem.item, day - stockItem.depreciation, nullptr);
 			}
