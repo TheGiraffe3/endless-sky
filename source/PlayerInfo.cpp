@@ -319,13 +319,13 @@ void PlayerInfo::Load(const string &path)
 		{
 			for(const DataNode &grand : child)
 				if(grand.Size() >= 2)
-					outfitStock[GameData::Outfits().Get(grand.Token(0))] += grand.Value(1);
+					stock[GameData::Outfits().Get(grand.Token(0))] += grand.Value(1);
 		}
 		else if(child.Token(0) == "ship stock")
 		{
 			for(const DataNode &grand : child)
 				if(grand.Size() >= 2)
-					shipStock[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
+					stock[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
 		}
 		else if(child.Token(0) == "fleet depreciation")
 			depreciation.Load(child);
