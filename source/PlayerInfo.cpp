@@ -4457,7 +4457,7 @@ void PlayerInfo::Save(DataWriter &out) const
 
 	if(!stock.empty())
 	{
-		out.Write("stock");
+		out.Write("ship stock");
 		out.BeginChild();
 		{
 			using StockElement = pair<const Ship *const, int>;
