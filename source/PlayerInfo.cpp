@@ -1203,7 +1203,7 @@ void PlayerInfo::BuyShip(const Ship *model, const string &name)
 
 		depreciation.Buy(*model, day, &stockDepreciation);
 		for(const auto &it : model->Outfits())
-			outfitStock[it.first] -= it.second;
+			stock[it.first] -= it.second;
 
 		if(ships.back()->HasBays())
 			displayCarrierHelp = true;
@@ -1258,7 +1258,7 @@ void PlayerInfo::SellShip(const Ship *selected, bool storeOutfits)
 			else
 			{
 				for(const auto &it : selected->Outfits())
-					outfitStock[it.first] += it.second;
+					stock[it.first] += it.second;
 			}
 
 			accounts.AddCredits(cost);
@@ -1292,7 +1292,7 @@ void PlayerInfo::TakeShip(const Ship *shipToTake, const Ship *model, bool takeOu
 						if(outfit != model->Outfits().end())
 							amountToTake = max(it.second, outfit->second);
 					}
-					outfitStock[it.first] += it.second - amountToTake;
+					stock[it.first] += it.second - amountToTake;
 				}
 			ForgetGiftedShip(*it->get(), false);
 			ships.erase(it);
@@ -2892,31 +2892,31 @@ set<Ship *> PlayerInfo::GetGroup(int group)
 
 // Keep track of any outfits that you have sold since landing. These will be
 // available to buy back until you take off.
-const map<const Outfit *, int> &PlayerInfo::GetOutfitStock() const
+const map<const Outfit *, int> &PlayerInfo::GetStock() const
 {
-	return outfitStock;
+	return stock;
 }
 
 
 
-int PlayerInfo::OutfitStock(const Outfit *outfit) const
+int PlayerInfo::Stock(const Outfit *outfit) const
 {
-	auto it = outfitStock.find(outfit);
-	return (it == outfitStock.end() ? 0 : it->second);
+	auto it = stock.find(outfit);
+	return (it == stock.end() ? 0 : it->second);
 }
 
 
 
 // Transfer outfits from the player to the planet or vice versa.
-void PlayerInfo::AddOutfitStock(const Outfit *outfit, int count)
+void PlayerInfo::AddStock(const Outfit *outfit, int count)
 {
 	// If you sell an individual outfit that is not sold here and that you
 	// acquired by buying a ship here, have it appear as "in stock" in case you
 	// change your mind about selling it. (On the other hand, if you sell an
 	// entire ship right after buying it, its outfits will not be "in stock.")
-	if(count > 0 && outfitStock[outfit] < 0)
-		outfitStock[outfit] = 0;
-	outfitStock[outfit] += count;
+	if(count > 0 && stock[outfit] < 0)
+		stock[outfit] = 0;
+	stock[outfit] += count;
 
 	int day = date.DaysSinceEpoch();
 	if(count > 0)
@@ -2951,24 +2951,24 @@ const Depreciation &PlayerInfo::StockDepreciation() const
 
 
 
-const map<const Ship *, int> &PlayerInfo::GetShipStock() const
+const map<const Ship *, int> &PlayerInfo::GetStock() const
 {
-	return shipStock;
+	return stock;
 }
 
 
 
-int PlayerInfo::ShipStock(const Ship *ship) const
+int PlayerInfo::Stock(const Ship *ship) const
 {
-	auto it = shipStock.find(ship);
-	return (it == shipStock.end() ? 0 : it->second);
+	auto it = stock.find(ship);
+	return (it == stock.end() ? 0 : it->second);
 }
 
 
 
-void PlayerInfo::RemoveShipStock(const Ship *ship)
+void PlayerInfo::RemoveStock(const Ship *ship)
 {
-	shipStock[ship] = max(shipStock[ship] - 1, 0);
+	stock[ship] = max(stock[ship] - 1, 0);
 }
 
 
@@ -4043,20 +4043,11 @@ void PlayerInfo::CreateMissions()
 void PlayerInfo::CreateRandomStock()
 {
 	int day = GetDate().DaysSinceEpoch();
-	for(const auto &rStock : planet->OutfitRandomStock())
+	for(const auto &rStock : planet->RandomStock())
 		for(const auto &stockItem : *rStock)
 			if(Random::Int(100) < stockItem.probability)
 			{
-				outfitStock[stockItem.item] += stockItem.quantity;
-				for(unsigned int i = 0; i < stockItem.quantity; i++)
-					stockDepreciation.Buy(stockItem.item, day - stockItem.depreciation, nullptr);
-			}
-
-	for(const auto &rStock : planet->ShipRandomStock())
-		for(const auto &stockItem : *rStock)
-			if(Random::Int(100) < stockItem.probability)
-			{
-				shipStock[stockItem.item] += stockItem.quantity;
+				stock[stockItem.item] += stockItem.quantity;
 				for(unsigned int i = 0; i < stockItem.quantity; i++)
 					stockDepreciation.Buy(*stockItem.item, day - stockItem.depreciation, nullptr, false);
 			}
