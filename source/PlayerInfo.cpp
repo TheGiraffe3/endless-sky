@@ -1674,8 +1674,7 @@ bool PlayerInfo::TakeOff(UI *ui, const bool distributeCargo)
 	availableJobs.clear();
 	availableMissions.clear();
 	doneMissions.clear();
-	outfitStock.clear();
-	shipStock.clear();
+	stock.clear();
 
 	// Special persons who appeared last time you left the planet, can appear again.
 	GameData::ResetPersons();
