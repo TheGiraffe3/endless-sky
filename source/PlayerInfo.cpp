@@ -4047,7 +4047,21 @@ void PlayerInfo::CreateRandomStock()
 		for(const auto &stockItem : *rStock)
 			if(Random::Int(100) < stockItem.probability)
 			{
-				stock[stockItem.item] += stockItem.quantity;
+				outfitStock[stockItem.item] += stockItem.quantity;
+				for(unsigned int i = 0; i < stockItem.quantity; i++)
+					stockDepreciation.Buy(stockItem.item, day - stockItem.depreciation, nullptr);
+			}
+
+	for(const auto &rStock : planet->ShipRandomStock())
+		for(const auto &stockItem : *rStock)
+			if(Random::Int(100) < stockItem.probability)
+			{
+				shipStock[stockItem.item] += stockItem.quantity;
+				for(unsigned int i = 0; i < stockItem.quantity; i++)
+					stockDepreciation.Buy(*stockItem.item, day - stockItem.depreciation, nullptr, false);
+			}
+}
+
 				for(unsigned int i = 0; i < stockItem.quantity; i++)
 					stockDepreciation.Buy(*stockItem.item, day - stockItem.depreciation, nullptr, false);
 			}
