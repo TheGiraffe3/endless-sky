@@ -88,7 +88,7 @@ int ShipyardPanel::TileSize() const
 bool ShipyardPanel::HasItem(const string &name) const
 {
 	const Ship *ship = GameData::Ships().Get(name);
-	return shipyard.Has(ship) || player.ShipStock(ship) > 0;
+	return shipyard.Has(ship) || player.Stock(ship) > 0;
 }
 
 
