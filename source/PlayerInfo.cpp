@@ -1292,7 +1292,7 @@ void PlayerInfo::TakeShip(const Ship *shipToTake, const Ship *model, bool takeOu
 						if(outfit != model->Outfits().end())
 							amountToTake = max(it.second, outfit->second);
 					}
-					stock[it.first] += it.second - amountToTake;
+					Stock[it.first] += it.second - amountToTake;
 				}
 			ForgetGiftedShip(*it->get(), false);
 			ships.erase(it);
