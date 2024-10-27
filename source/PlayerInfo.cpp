@@ -1258,7 +1258,7 @@ void PlayerInfo::SellShip(const Ship *selected, bool storeOutfits)
 			else
 			{
 				for(const auto &it : selected->Outfits())
-					stock[it.first] += it.second;
+					Stock[it.first] += it.second;
 			}
 
 			accounts.AddCredits(cost);
