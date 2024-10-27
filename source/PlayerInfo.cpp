@@ -1203,7 +1203,7 @@ void PlayerInfo::BuyShip(const Ship *model, const string &name)
 
 		depreciation.Buy(*model, day, &stockDepreciation);
 		for(const auto &it : model->Outfits())
-			stock[it.first] -= it.second;
+			Stock[it.first] -= it.second;
 
 		if(ships.back()->HasBays())
 			displayCarrierHelp = true;
