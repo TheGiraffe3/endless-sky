@@ -322,9 +322,9 @@ public:
 	const Depreciation &StockDepreciation() const;
 
 	// Any ships that are in stock due to random stocking.
-	//const std::map<const Ship *, int> &GetStock() const;
-	//int Stock(const Ship *ship) const;
-	//void RemoveStock(const Ship *ship);
+	// const std::map<const Ship *, int> &GetStock() const;
+	// int Stock(const Ship *ship) const;
+	// void RemoveStock(const Ship *ship);
 
 	// Keep track of what materials you have mined in each system.
 	void Harvest(const Outfit *type);
