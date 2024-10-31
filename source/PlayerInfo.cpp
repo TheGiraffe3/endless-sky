@@ -1203,7 +1203,7 @@ void PlayerInfo::BuyShip(const Ship *model, const string &name)
 
 		depreciation.Buy(*model, day, &stockDepreciation);
 		for(const auto &it : model->Outfits())
-			stock[it.first] -= it.second;
+			Stock[it.first] -= it.second;
 
 		if(ships.back()->HasBays())
 			displayCarrierHelp = true;
@@ -1258,7 +1258,7 @@ void PlayerInfo::SellShip(const Ship *selected, bool storeOutfits)
 			else
 			{
 				for(const auto &it : selected->Outfits())
-					stock[it.first] += it.second;
+					Stock[it.first] += it.second;
 			}
 
 			accounts.AddCredits(cost);
@@ -1292,7 +1292,7 @@ void PlayerInfo::TakeShip(const Ship *shipToTake, const Ship *model, bool takeOu
 						if(outfit != model->Outfits().end())
 							amountToTake = max(it.second, outfit->second);
 					}
-					stock[it.first] += it.second - amountToTake;
+					Stock[it.first] += it.second - amountToTake;
 				}
 			ForgetGiftedShip(*it->get(), false);
 			ships.erase(it);
@@ -1674,7 +1674,7 @@ bool PlayerInfo::TakeOff(UI *ui, const bool distributeCargo)
 	availableJobs.clear();
 	availableMissions.clear();
 	doneMissions.clear();
-	stock.clear();
+	Stock.clear();
 	depreciatedShipSales.clear();
 
 	// Special persons who appeared last time you left the planet, can appear again.
@@ -2907,14 +2907,14 @@ set<Ship *> PlayerInfo::GetGroup(int group)
 // available to buy back until you take off.
 const map<const Outfit *, int> &PlayerInfo::GetStock() const
 {
-	return stock;
+	return Stock;
 }
 
 
 
 int PlayerInfo::Stock(const Outfit *outfit) const
 {
-	auto it = stock.find(outfit);
+	auto it = Stock.find(outfit);
 	return (it == stock.end() ? 0 : it->second);
 }
 
@@ -2927,7 +2927,7 @@ void PlayerInfo::AddStock(const Outfit *outfit, int count)
 	// acquired by buying a ship here, have it appear as "in stock" in case you
 	// change your mind about selling it. (On the other hand, if you sell an
 	// entire ship right after buying it, its outfits will not be "in stock.")
-	if(count > 0 && stock[outfit] < 0)
+	if(count > 0 && Stock[outfit] < 0)
 		stock[outfit] = 0;
 	stock[outfit] += count;
 
