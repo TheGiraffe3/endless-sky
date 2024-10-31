@@ -325,7 +325,7 @@ void PlayerInfo::Load(const string &path)
 		{
 			for(const DataNode &grand : child)
 				if(grand.Size() >= 2)
-					depreciatedShipSales[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
+					DepreciatedShipSales[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
 		}
 		else if(child.Token(0) == "fleet depreciation")
 			depreciation.Load(child);
