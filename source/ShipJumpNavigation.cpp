@@ -136,7 +136,7 @@ pair<JumpType, double> ShipJumpNavigation::GetCheapestJumpType(const System *fro
 {
 	if(!from || !to)
 		return make_pair(JumpType::NONE, 0.);
-	bool linked = from->Links().count(to);
+	bool linked = from->Links().contains(to);
 	double hyperFuelNeeded = HyperdriveFuel();
 	// If these two systems are linked, or if the system we're jumping from has its own jump range,
 	// then use the cheapest jump drive available, which is mapped to a distance of 0.
@@ -160,17 +160,14 @@ bool ShipJumpNavigation::CanJump(const System *from, const System *to) const
 	if(!from || !to)
 		return false;
 
-	if(from->Links().count(to) && (hasHyperdrive || hasJumpDrive))
+	if(from->Links().contains(to) && (hasHyperdrive || hasJumpDrive))
 		return true;
 
 	if(!hasJumpDrive)
 		return false;
 
 	const double distanceSquared = from->Position().DistanceSquared(to->Position());
-	if(from->JumpRange() && from->JumpRange() * from->JumpRange() < distanceSquared)
-		return false;
-
-	const double maxRange = jumpDriveCosts.rbegin()->first;
+	double maxRange = from->JumpRange() ? from->JumpRange() : jumpDriveCosts.rbegin()->first;
 	return maxRange * maxRange >= distanceSquared;
 }
 

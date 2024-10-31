@@ -32,8 +32,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Point.h"
 #include "Screen.h"
 #include "Ship.h"
-#include "Sprite.h"
-#include "SpriteSet.h"
+#include "image/Sprite.h"
+#include "image/SpriteSet.h"
 #include "SpriteShader.h"
 #include "text/truncate.hpp"
 #include "UI.h"
@@ -69,7 +69,7 @@ namespace {
 		for(auto &&it : ship.Outfits())
 		{
 			const Outfit *outfit = it.first;
-			if(outfit->Ammo() && !outfit->IsWeapon() && !armed.count(outfit))
+			if(outfit->Ammo() && !outfit->IsWeapon() && !armed.contains(outfit))
 				toRefill.emplace(outfit->Ammo());
 		}
 		return toRefill;
@@ -196,10 +196,9 @@ void OutfitterPanel::DrawItem(const string &name, const Point &point)
 			font.Draw(label, labelPos, bright);
 		}
 	}
-	// Don't show the "in stock" amount if the outfit has an unlimited stock or
-	// if it is not something that you can buy.
+	// Don't show the "in stock" amount if the outfit has an unlimited stock.
 	int stock = 0;
-	if(!outfitter.Has(outfit) && outfit->Get("installable") >= 0.)
+	if(!outfitter.Has(outfit))
 		stock = max(0, player.Stock(outfit));
 	int cargo = player.Cargo().Get(outfit);
 	int storage = player.Storage().Get(outfit);
@@ -255,7 +254,7 @@ double OutfitterPanel::DrawDetails(const Point &center)
 
 	if(selectedOutfit)
 	{
-		outfitInfo.Update(*selectedOutfit, player, CanSell(), collapsed.count(DESCRIPTION));
+		outfitInfo.Update(*selectedOutfit, player, CanSell(), collapsed.contains(DESCRIPTION));
 		selectedItem = selectedOutfit->DisplayName();
 
 		const Sprite *thumbnail = selectedOutfit->Thumbnail();
@@ -276,8 +275,7 @@ double OutfitterPanel::DrawDetails(const Point &center)
 
 		if(hasDescription)
 		{
-			// Maintenance note: This can be replaced with collapsed.contains() in C++20
-			if(!collapsed.count(DESCRIPTION))
+			if(!collapsed.contains(DESCRIPTION))
 			{
 				descriptionOffset = outfitInfo.DescriptionHeight();
 				outfitInfo.DrawDescription(startPoint);
