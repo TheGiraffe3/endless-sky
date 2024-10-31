@@ -325,7 +325,7 @@ void PlayerInfo::Load(const string &path)
 		{
 			for(const DataNode &grand : child)
 				if(grand.Size() >= 2)
-					Stock[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
+					depreciatedShipSales[GameData::Ships().Get(grand.Token(0))] += grand.Value(1);
 		}
 		else if(child.Token(0) == "fleet depreciation")
 			depreciation.Load(child);
@@ -1203,7 +1203,7 @@ void PlayerInfo::BuyShip(const Ship *model, const string &name)
 
 		depreciation.Buy(*model, day, &stockDepreciation);
 		for(const auto &it : model->Outfits())
-			Stock[it.first] -= it.second;
+			stock[it.first] -= it.second;
 
 		if(ships.back()->HasBays())
 			displayCarrierHelp = true;
@@ -1258,7 +1258,7 @@ void PlayerInfo::SellShip(const Ship *selected, bool storeOutfits)
 			else
 			{
 				for(const auto &it : selected->Outfits())
-					Stock[it.first] += it.second;
+					stock[it.first] += it.second;
 			}
 
 			accounts.AddCredits(cost);
@@ -1292,7 +1292,7 @@ void PlayerInfo::TakeShip(const Ship *shipToTake, const Ship *model, bool takeOu
 						if(outfit != model->Outfits().end())
 							amountToTake = max(it.second, outfit->second);
 					}
-					Stock[it.first] += it.second - amountToTake;
+					stock[it.first] += it.second - amountToTake;
 				}
 			ForgetGiftedShip(*it->get(), false);
 			ships.erase(it);
@@ -1675,6 +1675,7 @@ bool PlayerInfo::TakeOff(UI *ui, const bool distributeCargo)
 	availableMissions.clear();
 	doneMissions.clear();
 	stock.clear();
+	depreciatedShipSales.clear();
 
 	// Special persons who appeared last time you left the planet, can appear again.
 	GameData::ResetPersons();
@@ -2963,24 +2964,24 @@ const Depreciation &PlayerInfo::StockDepreciation() const
 
 
 
-const map<const Ship *, int> &PlayerInfo::GetStock() const
+const map<const Ship *, int> &PlayerInfo::GetDepreciatedShipSales() const
 {
-	return stock;
+	return depreciatedShipSales;
 }
 
 
 
-int PlayerInfo::Stock(const Ship *ship) const
+int PlayerInfo::DepreciatedShipSales(const Ship *ship) const
 {
-	auto it = stock.find(ship);
-	return (it == stock.end() ? 0 : it->second);
+	auto it = depreciatedShipSales.find(ship);
+	return (it == depreciatedShipSales.end() ? 0 : it->second);
 }
 
 
 
-void PlayerInfo::RemoveStock(const Ship *ship)
+void PlayerInfo::RemoveDepreciatedShipSales(const Ship *ship)
 {
-	stock[ship] = max(stock[ship] - 1, 0);
+	depreciatedShipSales[ship] = max(depreciatedShipSales[ship] - 1, 0);
 }
 
 
@@ -4068,7 +4069,7 @@ void PlayerInfo::CreateRandomStock()
 		for(const auto &stockItem : *rStock)
 			if(Random::Int(100) < stockItem.probability)
 			{
-				stock[stockItem.item] += stockItem.quantity;
+				depreciatedShipSales[stockItem.item] += stockItem.quantity;
 				for(unsigned int i = 0; i < stockItem.quantity; i++)
 					stockDepreciation.Buy(*stockItem.item, day - stockItem.depreciation, nullptr, false);
 			}
@@ -4468,13 +4469,13 @@ void PlayerInfo::Save(DataWriter &out) const
 		out.EndChild();
 	}
 
-	if(!stock.empty())
+	if(!depreciatedShipSales.empty())
 	{
 		out.Write("ship stock");
 		out.BeginChild();
 		{
 			using StockElement = pair<const Ship *const, int>;
-			WriteSorted(stock,
+			WriteSorted(depreciatedShipSales,
 				[](const StockElement *lhs, const StockElement *rhs)
 					{ return lhs->first->VariantName() < rhs->first->VariantName(); },
 				[&out](const StockElement &it)
