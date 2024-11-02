@@ -1,5 +1,5 @@
 /* CustomSale.cpp
-Copyright (c) 2021 by Hurleveur
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -56,9 +56,9 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			amount += size > 2 ? line.Value(2) : 1.;
 		else
 			amount = size > 1 ? line.Value(1) : 1.;
-		// All values are converted into pourcentages if that is not how they are given (which would be indicated by %)
+		// All values are converted into percentages if that is not how they are given (which would be indicated by %)
 		// This means that the offset is handled as relative to the modified price instead of the default one.
-		// Outfitter changes always are pourcentages.
+		// Outfitter changes always are perrcentages.
 		if((mode != "outfitters"
 				&& (size == (2 + isAdd)
 				|| (size > 2 && line.Token(2 + isAdd) != "%"))))
@@ -160,7 +160,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			conditions.Load(child);
 		}
 		// CustomSales are separated between outfits and outfitters in the data files.
-		// mode could apply to other things like shipyards and ships, later on.
+		// This mode could apply to other things like shipyards and ships, later on.
 		else if(mode == "outfits")
 		{
 			if(!add)
@@ -279,7 +279,7 @@ bool CustomSale::Add(const CustomSale &other, const Planet &planet, const Condit
 		else if(ours->second < it.second)
 			ours->second = it.second;
 	}
-	// For offsets, add them to each others.
+	// For offsets, add them to each other.
 	for(const auto &it : other.relativeOffsets)
 	{
 		auto ours = relativeOffsets.find(it.first);
