@@ -1,5 +1,5 @@
 /* CustomSale.h
-Copyright (c) 2024 by Hurleveur and Loymdayddaud
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -122,13 +122,6 @@ private:
 
 	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Outfit *, double *>> toConvert;
-
-
-private:
-	std::string name;
-	LocationFilter locationFilter;
-	ConditionSet conditions;
-	const Planet *location = nullptr;
 
 	std::map<const Sale<Ship> *, double> relativePrices;
 	std::map<const Sale<Ship> *, double> relativeOffsets;
