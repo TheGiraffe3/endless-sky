@@ -346,8 +346,7 @@ ShopPanel::BuyResult OutfitterPanel::CanBuy(bool onlyOwned) const
 	bool isInCargo = player.Cargo().Get(selectedOutfit);
 	bool isInStorage = player.Storage().Get(selectedOutfit);
 	bool isSold = CustomSaleManager::CanBuy(*selectedOutfit);
-	bool isInStore = (outfitter.Has(selectedOutfit) && isSold) ||
-		player.Stock(selectedOutfit) > 0;
+	bool isInStore = (outfitter.Has(selectedOutfit) && isSold) || player.Stock(selectedOutfit) > 0;
 	if(isInStorage && (onlyOwned || isInStore || playerShip))
 	{
 		// In storage, the outfit is certainly available to get,
@@ -573,8 +572,7 @@ void OutfitterPanel::Buy(bool onlyOwned)
 			else
 			{
 				// Check if the outfit is for sale or in stock so that we can actually buy it.
-				if((!outfitter.Has(selectedOutfit) && player.Stock(selectedOutfit) <= 0)
-						|| !CustomSaleManager::CanBuy(*selectedOutfit))
+				if((!outfitter.Has(selectedOutfit) && player.Stock(selectedOutfit) <= 0) || !CustomSaleManager::CanBuy(*selectedOutfit))
 					continue;
 				player.Cargo().Add(selectedOutfit);
 				int64_t price = player.StockDepreciation().Value(selectedOutfit, day);
