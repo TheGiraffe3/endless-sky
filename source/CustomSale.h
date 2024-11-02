@@ -77,7 +77,6 @@ public:
 
 	bool Has(const Ship &item) const;
 
-	bool IsEmpty();
 
 
 private:
@@ -109,13 +108,10 @@ private:
 	std::map<const Sale<Ship> *, double> relativeOffsets;
 
 	std::map<const Ship *, double> relativeShipPrices;
-	std::map<const Ship *, double> relativShipOffsets;
+	std::map<const Ship *, double> relativeShipOffsets;
 
 	// All outfits this customSale has, kept in cache.
 	Sale<Ship> seen;
-	bool cacheValid = false;
-
-	SellType sellType = SellType::DEFAULT;
 
 	// When loading we cannot be sure all ships are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Ship *, double *>> toConvert;
