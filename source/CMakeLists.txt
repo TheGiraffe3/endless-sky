@@ -68,7 +68,7 @@ target_sources(EndlessSkyLib PRIVATE
 	ConversationPanel.h
 	CoreStartData.cpp
 	CoreStartData.h
-	CustomSale.cpp
+	CcustomSale.cpp
 	CustomSale.h
 	CustomSaleManager.cpp
 	CustomSaleManager.h
