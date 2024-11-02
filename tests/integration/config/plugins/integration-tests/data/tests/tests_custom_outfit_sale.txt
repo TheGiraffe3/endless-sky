@@ -85,7 +85,7 @@ test-data "Custom Sale Price"
 				offset
 					"Pulse Cannon" 1 %
 
-			# We need to add an outfitter for the outfitter panel to be available
+			# We need to add an outfitter for the outfitter panel to be available.
 			planet Mars
 				add outfitter "Nuke"
 
@@ -97,11 +97,11 @@ test "CustomSale Price Sell Outfit With Custom Price and relative offset"
 		# Create/inject the savegame and load it.
 		inject "Custom Sale Price"
 		call "Load First Savegame"
-		#  Value and offset should cumulate on top of each other, meaning the final price is 500 * 2
+		# Value and offset should cumulate on top of each other, meaning the final price is 500 * 2
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 1000
@@ -194,9 +194,9 @@ test "CustomSale Price Outfitter Double Relative Price"
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
-		# the price of the pulse cannon is 130 000 by default, and it got doubled.
+		# The price of the Pulse Cannon is 130,000 by default, and it got doubled.
 		assert
 			"credits" == 260000
 
@@ -311,7 +311,7 @@ test "CustomSale Import Can Buy Back"
 		call "FailBuy first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 1000000
@@ -391,7 +391,7 @@ test-data "Custom Sale Hidden"
 					"Pulse Cannon" 1000
 					"Energy Blaster" 5000
 
-			# dont add the right outfitter on purpose meaning these outfits will not be buyable
+			# Don't add the right outfitter on purpose meaning these outfits will not be buyable.
 			planet Mars
 				add outfitter "Nuke"
 
@@ -403,12 +403,12 @@ test "CustomSale Hidden Behavior"
 	# Create/inject the savegame and load it.
 		inject "Custom Sale Hidden"
 		call "Load First Savegame"
-		# Normally, the energy blaster is shown first, but here we should not see it since we do not have one.
-		# However, we have a pulse cannon, meaning it is that one that will be shown, and sold.
+		# Normally, the Energy Blaster is shown first, but here we should not see it since we do not have one.
+		# However, we have a Pulse Cannon, meaning it is that one that will be shown, and sold.
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 1000
@@ -520,7 +520,7 @@ test "CustomSale Conditions Not Always On"
 		call "FailBuy first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 1
@@ -608,7 +608,7 @@ test-data "Custom Sale Price Priorities 0"
 				add outfitter "%TEST%: PULSE CANNON"
 
 
-# NOTE: If one wants the two to combine with each others, they would use offsets, not plain prices!
+# NOTE: If one wants the two to combine with each other, they would use offsets, not plain prices!
 test "CustomSale Priorities Outfit over Outfitter"
 	status "active"
 	description "Test trying to buy the first outfit, when there is a conflict between outfit and outfitter prices."
@@ -620,7 +620,7 @@ test "CustomSale Priorities Outfit over Outfitter"
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 1000
@@ -723,9 +723,9 @@ test "CustomSale Priorities Import over Visible"
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
-		# the price of the pulse cannon is 130 000 by default
+		# The price of the Pulse Cannon is 130,000 by default.
 		assert
 			"credits" == 1000000 + 130000
 
@@ -822,7 +822,7 @@ test "CustomSale Priorities Highest Price"
 		call "Sell first outfit"
 		call "Depart"
 		# We can only check the conditions after departing, since the conditions are not updated directly after loading or selling.
-		apply
+		action
 			"test: credits" = "credits"
 		assert
 			"credits" == 2000
