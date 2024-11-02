@@ -71,7 +71,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			toConvert.push_back(make_pair(ship, &amount));
 	};
 
-	for(const DataNode &child : node)
+//	for(const DataNode &child : node)
 	{
 		bool remove = child.Token(0) == "remove";
 		bool add = child.Token(0) == "add";
@@ -118,7 +118,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 				if(child.Size() >= 3)
 				{
 					const Ship *ship = ships.Get(child.Token(2));
-					relativShipPrices.erase(ship);
+					relativeShipPrices.erase(ship);
 					relativeShipOffsets.erase(ship);
 				}
 				else
