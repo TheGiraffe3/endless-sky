@@ -1,5 +1,5 @@
 /* CustomSaleManager.cpp
-Copyright (c) 2023 by Hurleveur
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -31,7 +31,7 @@ map<CustomSale::SellType, CustomSale> CustomSaleManager::customSales = {};
 
 void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
 {
-	Clear();
+	clear();
 	if(!planet)
 		return;
 	for(const auto &sale : GameData::CustomSales())
@@ -42,7 +42,7 @@ void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &con
 
 void CustomSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
 {
-	Clear();
+	clear();
 	if(!system)
 		return;
 	for(const StellarObject &object : system->Objects())
