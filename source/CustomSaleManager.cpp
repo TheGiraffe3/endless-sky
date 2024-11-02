@@ -31,7 +31,7 @@ map<CustomSale::SellType, CustomSale> CustomSaleManager::customSales = {};
 
 void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
 {
-	clear();
+	Clear();
 	if(!planet)
 		return;
 	for(const auto &sale : GameData::CustomSales())
