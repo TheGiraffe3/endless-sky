@@ -1,5 +1,5 @@
 /* CustomSaleManager.h
-Copyright (c) 2023 by Hurleveur
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -13,8 +13,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef CUSTOM_SALE_MANAGER_H_
-#define CUSTOM_SALE_MANAGER_H_
+#pragma once
 
 #include "CustomSale.h"
 
@@ -48,6 +47,3 @@ public:
 private:
 	static std::map<CustomSale::SellType, CustomSale> customSales;
 };
-
-#endif
-
