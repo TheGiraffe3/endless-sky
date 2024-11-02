@@ -704,39 +704,39 @@ test "Sell first outfit"
 	status partial
 	description "Test procedure that handles selling of the first outfit in the list."
 	sequence
-		# Goto outfitter
+		# Go to the outfitter.
 		input
 			key "o"
-		# Select the first item
+		# Select the first item.
 		input
 			key "Down"
-		# Sell the first item
+		# Sell the first item.
 		input
 			key "s"
 		# Go back to the planet menu.
 		input
-			key "l"
+			key "d"
 
 
 test "FailBuy first outfit"
 	status partial
 	description "Try to buy the first outfit and handle the case where it fails with an error dialog."
 	sequence
-		# Goto outfitter
+		# Go to the outfitter.
 		input
 			key "o"
-		# Select the first item
+		# Select the first item.
 		input
 			key "Down"
-		# Buy the first item
+		# Buy the first item.
 		input
 			key "b"
-		# Skip the error Message, if any
+		# Skip the error message, if any.
 		input
 			key "return"
 		# Go back to the planet menu.
 		input
-			key "l"
+			key "d"
 
 
 test "Land"
@@ -784,4 +784,3 @@ test "Skip Spaceport Mission"
 			key "Return"
 		input
 			key "Return"
-
