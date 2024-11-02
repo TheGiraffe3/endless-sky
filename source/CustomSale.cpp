@@ -1,5 +1,5 @@
 /* CustomSale.cpp
-Copyright (c) 2024 by Hurleveur
+Copyright (c) 2024 by Hurleveur and Loymdayddaud
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -42,27 +42,33 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 {
 	const Set<Sale<Outfit>> &items = GameData::Outfitters();
 	const Set<Outfit> &outfits = GameData::Outfits();
+	const Set<Sale<Ship>> &items = GameData::Shipyards();
+	const Set<Ship> &ships = GameData::Ships();
 
 	bool isAdd = false;
 	const Outfit *outfit = nullptr;
-	// Outfitters or outfits mode.
+	const Ship *ship = nullptr;
 	const string mode = node.Token(1);
 	name = node.Token(2);
 	auto parseValueOrOffset = [&isAdd, &outfit, &mode, this](double &amount, const DataNode &line)
 	{
 		int size = line.Size();
-		// Default is 1, because outfits can be added only to have a custom sellType.
+		// Default is 1, because items can be added only to have a custom sellType.
 		if(isAdd)
 			amount += size > 2 ? line.Value(2) : 1.;
 		else
 			amount = size > 1 ? line.Value(1) : 1.;
 		// All values are converted into percentages if that is not how they are given (which would be indicated by %)
 		// This means that the offset is handled as relative to the modified price instead of the default one.
-		// Outfitter changes always are perrcentages.
-		if((mode != "outfitters"
+		if((mode = "outfitters"
 				&& (size == (2 + isAdd)
 				|| (size > 2 && line.Token(2 + isAdd) != "%"))))
 			toConvert.push_back(make_pair(outfit, &amount));
+	};
+		if((mode = "shipyards"
+				&& (size == (2 + isAdd)
+				|| (size > 2 && line.Token(2 + isAdd) != "%"))))
+			toConvert.push_back(make_pair(ship, &amount));
 	};
 
 	for(const DataNode &child : node)
@@ -106,14 +112,29 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 					relativeOutfitPrices.clear();
 				}
 			}
-			else if(key == "outfitter" && mode == "outfitters")
+			if(key == "ship" && mode == "ships")
 			{
-				// If an outfitter is specified remove only that one. Otherwise clear all of them.
+				// If a ship is specified remove only that one. Otherwise clear all of them.
 				if(child.Size() >= 3)
 				{
-					const Sale<Outfit> *outfitter = items.Get(child.Token(2));
-					relativePrices.erase(outfitter);
-					relativeOffsets.erase(outfitter);
+					const Ship *ship = ships.Get(child.Token(2));
+					relativShipPrices.erase(ship);
+					relativeShipOffsets.erase(ship);
+				}
+				else
+				{
+					relativeShipOffsets.clear();
+					relativeShipPrices.clear();
+				}
+			}
+			else if(key == "shipyard" && mode == "shipyards")
+			{
+				// If a shipyard is specified remove only that one. Otherwise clear all of them.
+				if(child.Size() >= 3)
+				{
+					const Sale<Ship> *shipyard = items.Get(child.Token(2));
+					relativePrices.erase(shipyard);
+					relativeOffsets.erase(shipyard);
 				}
 				else
 				{
@@ -159,8 +180,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 				conditions = ConditionSet{};
 			conditions.Load(child);
 		}
-		// CustomSales are separated between outfits and outfitters in the data files.
-		// This mode could apply to other things like shipyards and ships, later on.
+		// CustomSales are separated between outfits, outfitters, ships, and shipyards in the data files.
 		else if(mode == "outfits")
 		{
 			if(!add)
@@ -181,6 +201,30 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 						parseValueOrOffset(relativeOutfitPrices[outfit], grandChild);
 					else if(isOffset)
 						parseValueOrOffset(relativeOutfitOffsets[outfit], grandChild);
+				}
+			else
+				child.PrintTrace("Skipping unrecognized attribute:");
+		}
+		else if(mode == "ships")
+		{
+			if(!add)
+			{
+				if(isValue)
+					relativeShipPrices.clear();
+				else if(isOffset)
+					relativShipOffsets.clear();
+			}
+
+			if(isValue || isOffset)
+				for(const DataNode &grandChild : child)
+				{
+					isAdd = (grandChild.Token(0) == "add");
+					ship = ships.Get(grandChild.Token(isAdd));
+
+					if(isValue)
+						parseValueOrOffset(relativeShipPrices[ship], grandChild);
+					else if(isOffset)
+						parseValueOrOffset(relativeShipOffsets[ship], grandChild);
 				}
 			else
 				child.PrintTrace("Skipping unrecognized attribute:");
@@ -209,6 +253,30 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			else
 				child.PrintTrace("Skipping unrecognized attribute:");
 		}
+		else if(mode == "shipyards")
+		{
+			if(!add)
+			{
+				if(isValue)
+					relativePrices.clear();
+				else if(isOffset)
+					relativeOffsets.clear();
+			}
+
+			if(isValue || isOffset)
+				for(const DataNode &grandChild : child)
+				{
+					isAdd = (grandChild.Token(0) == "add");
+					const Sale<Ship> *shipyard = items.Get(grandChild.Token(isAdd));
+
+					if(isValue)
+						parseValueOrOffset(relativePrices[shipyard], grandChild);
+					else if(isOffset)
+						parseValueOrOffset(relativeOffsets[shipyard], grandChild);
+				}
+			else
+				child.PrintTrace("Skipping unrecognized attribute:");
+		}
 		else
 			child.PrintTrace("Skipping unrecognized attribute:");
 	}
@@ -230,6 +298,8 @@ void CustomSale::FinishLoading()
 				" has no base price and thus cannot have its price modified by pricing.");
 			relativeOutfitPrices.erase(it.first);
 			relativeOutfitOffsets.erase(it.first);
+			relativeShipPrices.erase(it.first);
+			relativeShipOffsets.erase(it.first);
 		}
 	toConvert.clear();
 
@@ -240,6 +310,13 @@ void CustomSale::FinishLoading()
 	for(const auto &it : relativeOutfitOffsets)
 		if(!it.first->IsDefined())
 			undefinedOutfits.emplace_back("\"" + it.first->TrueName() + "\"");
+	vector<string> undefinedShips;
+	for(const auto &it : relativeShipPrices)
+		if(!it.first->IsDefined())
+			undefinedShips.emplace_back("\"" + it.first->TrueName() + "\"");
+	for(const auto &it : relativeShipOffsets)
+		if(!it.first->IsDefined())
+			undefinedShips.emplace_back("\"" + it.first->TrueName() + "\"");
 
 	if(!undefinedOutfits.empty())
 	{
@@ -248,6 +325,16 @@ void CustomSale::FinishLoading()
 		string PREFIX = plural ? "\n\tUndefined outfit " : " undefined outfit ";
 		for(auto &&outfit : undefinedOutfits)
 			message += PREFIX + outfit;
+
+		Logger::LogError(message);
+	}
+	if(!undefinedShips.empty())
+	{
+		bool plural = undefinedShips.size() > 1;
+		string message = "pricing \"" + name + "\":";
+		string PREFIX = plural ? "\n\tUndefined ship " : " undefined ship ";
+		for(auto &&ship : undefinedShips)
+			message += PREFIX + ship;
 
 		Logger::LogError(message);
 	}
@@ -288,7 +375,7 @@ bool CustomSale::Add(const CustomSale &other, const Planet &planet, const Condit
 		else
 			ours->second += it.second;
 	}
-	// Same thing for outfitters.
+	// Same thing for outfitters and shipyards.
 	for(const auto &it : other.relativeOutfitPrices)
 	{
 		auto ours = relativeOutfitPrices.find(it.first);
@@ -302,6 +389,23 @@ bool CustomSale::Add(const CustomSale &other, const Planet &planet, const Condit
 		auto ours = relativeOutfitOffsets.find(it.first);
 		if(ours == relativeOutfitOffsets.end())
 			relativeOutfitOffsets.emplace(it.first, it.second);
+		else
+			ours->second += it.second;
+	}
+
+	for(const auto &it : other.relativeShipPrices)
+	{
+		auto ours = relativeShipPrices.find(it.first);
+		if(ours == relativeShipPrices.end())
+			relativeShipPrices.emplace(it.first, it.second);
+		else if(ours->second < it.second)
+			ours->second = it.second;
+	}
+	for(const auto &it : other.relativeShipOffsets)
+	{
+		auto ours = relativeShipOffsets.find(it.first);
+		if(ours == relativeShipOffsets.end())
+			relativeShipOffsets.emplace(it.first, it.second);
 		else
 			ours->second += it.second;
 	}
@@ -345,6 +449,40 @@ double CustomSale::GetRelativeCost(const Outfit &item) const
 
 
 
+double CustomSale::GetRelativeCost(const Ship &item) const
+{
+	// Ship prices have priority over shipyard prices, so consider them first,
+	// and only consider the shipyard prices if the ships have no set price.
+	auto baseRelative = relativeShipPrices.find(&item);
+	double baseRelativePrice = (baseRelative != relativeShipPrices.cend() ? baseRelative->second : DEFAULT);
+	if(baseRelativePrice == DEFAULT)
+		for(const auto &it : relativePrices)
+			if(it.first->Has(&item))
+			{
+				baseRelativePrice = it.second;
+				break;
+			}
+	auto baseOffset = relativeShipOffsets.find(&item);
+	double baseOffsetPrice = (baseOffset != relativeShipOffsets.cend() ? baseOffset->second : DEFAULT);
+	for(const auto &it : relativeOffsets)
+		if(it.first->Has(&item))
+		{
+			if(baseOffsetPrice == DEFAULT)
+				baseOffsetPrice = 0.;
+			baseOffsetPrice += it.second;
+		}
+	// Apply the relative offset on top of each others, the result being applied on top of the relative price.
+	// This means that a ship can be affected by an shipyard offset, a custom ship price, and ship prices.
+	if(baseRelativePrice != DEFAULT)
+		return baseRelativePrice + (baseOffsetPrice != DEFAULT ? baseRelativePrice * baseOffsetPrice : 0.);
+	else if(baseOffsetPrice != DEFAULT)
+		return 1. + baseOffsetPrice;
+	else
+		return 1.;
+}
+
+
+
 CustomSale::SellType CustomSale::GetSellType() const
 {
 	return sellType;
@@ -364,6 +502,23 @@ bool CustomSale::Has(const Outfit &item) const
 	if(relativeOutfitPrices.find(&item) != relativeOutfitPrices.end())
 		return true;
 	if(relativeOutfitOffsets.find(&item) != relativeOutfitOffsets.end())
+		return true;
+	for(auto &&sale : relativePrices)
+		if(sale.first->Has(&item))
+			return true;
+	for(auto &&sale : relativeOffsets)
+		if(sale.first->Has(&item))
+			return true;
+	return false;
+}
+
+
+
+bool CustomSale::Has(const Ship &item) const
+{
+	if(relativeShipPrices.find(&item) != relativeShipPrices.end())
+		return true;
+	if(relativeShipOffsets.find(&item) != relativeShipOffsets.end())
 		return true;
 	for(auto &&sale : relativePrices)
 		if(sale.first->Has(&item))
