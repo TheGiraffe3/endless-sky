@@ -1,5 +1,5 @@
 /* CustomSale.h
-Copyright (c) 2024 by Hurleveur
+Copyright (c) 2024 by Hurleveur and Loymdayddaud
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -32,12 +32,12 @@ class Outfit;
 
 
 
-// Class used to stock Outfits and their local changes, being prices and sell types,
-// linked by outfit or by group of outfits (aka outfitters).
+// Class used to stock items and their local changes, being prices and sell types,
+// linked by an item or group of items (aka outfitters or shipyards).
 class CustomSale {
 public:
-	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter,
-	// import means it is shown whilst still not being buyable.
+	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter
+	// or shipyard, import means it is shown whilst still not being buyable.
 	//
 	// The numbers correspond to the priority, import will override the default.
 	enum class SellType {
@@ -72,6 +72,32 @@ public:
 	bool IsEmpty();
 
 
+public:
+	// If the changes are events that means the ships have already been loaded
+	// and we can call FinishLoading() straight away.
+	void Load(const DataNode &node, bool eventChange = false);
+	void FinishLoading();
+
+	// Adds another CustomSale to this one if the conditions allow it.
+	bool Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store);
+
+	// Get the price of the item.
+	// Does not check conditions are met or the location is matched.
+	double GetRelativeCost(const Ship &item) const;
+
+	SellType GetSellType() const;
+
+	// Convert the given sellType into a string.
+	static const std::string &GetShown(SellType sellType);
+
+	bool Has(const Ship &item) const;
+
+	// Check if this planet with the given conditions of the player match the conditions of the CustomSale.
+	bool Matches(const Planet &planet, const ConditionsStore &playerConditions) const;
+
+	bool IsEmpty();
+
+
 private:
 	void Clear();
 
@@ -96,4 +122,26 @@ private:
 
 	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Outfit *, double *>> toConvert;
+
+
+private:
+	std::string name;
+	LocationFilter locationFilter;
+	ConditionSet conditions;
+	const Planet *location = nullptr;
+
+	std::map<const Sale<Ship> *, double> relativePrices;
+	std::map<const Sale<Ship> *, double> relativeOffsets;
+
+	std::map<const Ship *, double> relativeShipPrices;
+	std::map<const Ship *, double> relativShipOffsets;
+
+	// All outfits this customSale has, kept in cache.
+	Sale<Ship> seen;
+	bool cacheValid = false;
+
+	SellType sellType = SellType::DEFAULT;
+
+	// When loading we cannot be sure all ships are loaded, so store those we need to convert into relative values.
+	std::vector<std::pair<const Ship *, double *>> toConvert;
 };
