@@ -13,8 +13,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef CUSTOM_SALE_H_
-#define CUSTOM_SALE_H_
+#pragma once
 
 #include "ConditionSet.h"
 #include "LocationFilter.h"
@@ -98,5 +97,3 @@ private:
 	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Outfit *, double *>> toConvert;
 };
-
-#endif
