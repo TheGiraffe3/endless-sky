@@ -42,7 +42,7 @@ void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &con
 
 void CustomSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
 {
-	clear();
+	Clear();
 	if(!system)
 		return;
 	for(const StellarObject &object : system->Objects())
