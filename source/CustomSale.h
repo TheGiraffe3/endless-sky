@@ -71,29 +71,11 @@ public:
 
 	bool IsEmpty();
 
-
-public:
-	// If the changes are events that means the ships have already been loaded
-	// and we can call FinishLoading() straight away.
-	void Load(const DataNode &node, bool eventChange = false);
-	void FinishLoading();
-
-	// Adds another CustomSale to this one if the conditions allow it.
-	bool Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store);
-
-	// Get the price of the item.
-	// Does not check conditions are met or the location is matched.
+	// Get the price of the ship.
+	// Does not check if conditions are met or the location is matched.
 	double GetRelativeCost(const Ship &item) const;
 
-	SellType GetSellType() const;
-
-	// Convert the given sellType into a string.
-	static const std::string &GetShown(SellType sellType);
-
 	bool Has(const Ship &item) const;
-
-	// Check if this planet with the given conditions of the player match the conditions of the CustomSale.
-	bool Matches(const Planet &planet, const ConditionsStore &playerConditions) const;
 
 	bool IsEmpty();
 
