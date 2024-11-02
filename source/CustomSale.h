@@ -1,5 +1,5 @@
 /* CustomSale.h
-Copyright (c) 2021 by Hurleveur
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -100,4 +100,3 @@ private:
 };
 
 #endif
-
