@@ -1,5 +1,5 @@
 /* CustomSale.cpp
-Copyright (c) 2024 by Hurleveur and Loymdayddaud
+Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -60,7 +60,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			amount = size > 1 ? line.Value(1) : 1.;
 		// All values are converted into percentages if that is not how they are given (which would be indicated by %)
 		// This means that the offset is handled as relative to the modified price instead of the default one.
-		if((mode = "outfitters"
+		if((mode != "outfitters"
 				&& (size == (2 + isAdd)
 				|| (size > 2 && line.Token(2 + isAdd) != "%"))))
 			toConvert.push_back(make_pair(outfit, &amount));
@@ -212,7 +212,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 				if(isValue)
 					relativeShipPrices.clear();
 				else if(isOffset)
-					relativShipOffsets.clear();
+					relativeShipOffsets.clear();
 			}
 
 			if(isValue || isOffset)
