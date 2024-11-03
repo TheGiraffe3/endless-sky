@@ -50,8 +50,8 @@ void CustomOutfitSaleManager::Refresh(const System *system, const ConditionsStor
 		if(object.HasSprite() && object.HasValidPlanet())
 		{
 			const Planet &planet = *object.GetPlanet();
-			for(const auto &sale : GameData::CustomOutfitSales())
-				customOutfitSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+			for(const auto &sale : GameData::CustomOutfitSale())
+				customOutfitSale[sale.second.GetSellType()].Add(sale.second, planet, conditions);
 		}
 }
 
