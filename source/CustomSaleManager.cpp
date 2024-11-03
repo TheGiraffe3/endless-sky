@@ -25,7 +25,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 using namespace std;
 
-map<CustomSale::SellType, CustomSale> CustomSaleManager::customSales = {};
+map<CustomOutfitSale::SellType, CustomOutfitSale> CustomSaleManager::customOutfitSales = {};
+map<CustomShipSale::SellType, CustomShipSale> CustomSaleManager::customShipSales = {};
 
 
 
@@ -34,8 +35,10 @@ void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &con
 	Clear();
 	if(!planet)
 		return;
-	for(const auto &sale : GameData::CustomSales())
-		customSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+	for(const auto &sale : GameData::CustomOutfitSales())
+		customOutfitSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+	for(const auto &sale : GameData::CustomShipSales())
+		customShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
 }
 
 
@@ -49,34 +52,36 @@ void CustomSaleManager::Refresh(const System *system, const ConditionsStore &con
 		if(object.HasSprite() && object.HasValidPlanet())
 		{
 			const Planet &planet = *object.GetPlanet();
-			for(const auto &sale : GameData::CustomSales())
-				customSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+			for(const auto &sale : GameData::CustomOutfitSales())
+				customOutfitSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+			for(const auto &sale : GameData::CustomShipSales())
+				customShipSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
 		}
 }
 
 
 
-bool CustomSaleManager::CanBuy(const Outfit &outfit)
+bool CustomOutfitSaleManager::CanBuy(const Outfit &outfit)
 {
-	const auto &it = customSales.find(CustomSale::SellType::IMPORT);
-	return it == customSales.end() || !it->second.Has(outfit);
+	const auto &it = customOutfitSales.find(CustomOutfitSale::SellType::IMPORT);
+	return it == customOutfitSales.end() || !it->second.Has(outfit);
 }
 
 
 
-int64_t CustomSaleManager::OutfitCost(const Outfit &outfit)
+int64_t CustomOutfitSaleManager::OutfitCost(const Outfit &outfit)
 {
 	return OutfitRelativeCost(outfit) * outfit.Cost();
 }
 
 
 
-double CustomSaleManager::OutfitRelativeCost(const Outfit &outfit)
+double CustomOutfitSaleManager::OutfitRelativeCost(const Outfit &outfit)
 {
-	if(customSales.empty())
+	if(customOutfitSales.empty())
 		return 1.;
 	// Iterate in the opposite order, since any higher customSale has priority.
-	for(auto &&selling = customSales.rbegin(); selling != customSales.rend(); ++selling)
+	for(auto &&selling = customOutfitSales.rbegin(); selling != customOutfitSales.rend(); ++selling)
 		if(selling->second.Has(outfit))
 			return selling->second.GetRelativeCost(outfit);
 	return 1.;
@@ -84,20 +89,20 @@ double CustomSaleManager::OutfitRelativeCost(const Outfit &outfit)
 
 
 
-bool CustomSaleManager::CanBuy(const Ship &ship)
+bool CustomShipSaleManager::CanBuy(const Ship &ship)
 {
-	const auto &it = customSales.find(CustomSale::SellType::IMPORT);
-	return it == customSales.end() || !it->second.Has(ship);
+	const auto &it = customShipSales.find(CustomShipSale::SellType::IMPORT);
+	return it == customShipSales.end() || !it->second.Has(ship);
 }
 
 
 
-double CustomSaleManager::ShipRelativeCost(const Ship &ship)
+double CustomShipSaleManager::ShipRelativeCost(const Ship &ship)
 {
-	if(customSales.empty())
+	if(customShipSales.empty())
 		return 1.;
 	// Iterate in the opposite order, since any higher customSale has priority.
-	for(auto &&selling = customSales.rbegin(); selling != customSales.rend(); ++selling)
+	for(auto &&selling = customShipSales.rbegin(); selling != customShipSales.rend(); ++selling)
 		if(selling->second.Has(ship))
 			return selling->second.GetRelativeCost(ship);
 	return 1.;
@@ -105,7 +110,7 @@ double CustomSaleManager::ShipRelativeCost(const Ship &ship)
 
 
 
-int64_t CustomSaleManager::ShipCost(const Ship &ship)
+int64_t CustomShipSaleManager::ShipCost(const Ship &ship)
 {
 	int64_t localCost = ship.ChassisCost();
 	for(auto &&it : ship.Outfits())
@@ -117,5 +122,6 @@ int64_t CustomSaleManager::ShipCost(const Ship &ship)
 
 void CustomSaleManager::Clear()
 {
-	customSales = {};
+	customOutfitSales = {};
+	customShipSales = {};
 }
