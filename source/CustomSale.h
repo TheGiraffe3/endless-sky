@@ -32,12 +32,12 @@ class Outfit;
 
 
 
-// Class used to stock items and their local changes, being prices and sell types,
-// linked by an item or group of items (aka outfitters or shipyards).
+// Class used to stock Outfits and their local changes, being prices and sell types,
+// linked by outfit or by group of outfits (aka outfitters).
 class CustomSale {
 public:
-	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter
-	// or shipyard, import means it is shown whilst still not being buyable.
+	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter,
+	// import means it is shown whilst still not being buyable.
 	//
 	// The numbers correspond to the priority, import will override the default.
 	enum class SellType {
@@ -71,13 +71,6 @@ public:
 
 	bool IsEmpty();
 
-	// Get the price of the ship.
-	// Does not check if conditions are met or the location is matched.
-	double GetRelativeCost(const Ship &item) const;
-
-	bool Has(const Ship &item) const;
-
-
 
 private:
 	void Clear();
@@ -103,16 +96,4 @@ private:
 
 	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Outfit *, double *>> toConvert;
-
-	std::map<const Sale<Ship> *, double> relativePrices;
-	std::map<const Sale<Ship> *, double> relativeOffsets;
-
-	std::map<const Ship *, double> relativeShipPrices;
-	std::map<const Ship *, double> relativeShipOffsets;
-
-	// All outfits this customSale has, kept in cache.
-	Sale<Ship> seen;
-
-	// When loading we cannot be sure all ships are loaded, so store those we need to convert into relative values.
-	std::vector<std::pair<const Ship *, double *>> toConvert;
 };
