@@ -229,7 +229,6 @@ void CustomShipSale::FinishLoading()
 		}
 	toConvert.clear();
 
-	if(!undefinedShips.empty())
 	{
 		bool plural = undefinedShips.size() > 1;
 		string message = "pricing \"" + name + "\":";
