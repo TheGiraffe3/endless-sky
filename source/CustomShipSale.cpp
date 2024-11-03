@@ -1,5 +1,5 @@
 /* CustomShipSale.cpp
-Copyright (c) 2024 by Hurleveur
+Copyright (c) 2024 by TheGiraffe3
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
 terms of the GNU General Public License as published by the Free Software
@@ -228,16 +228,6 @@ void CustomShipSale::FinishLoading()
 			// Do nothing.
 		}
 	toConvert.clear();
-
-	{
-		bool plural = undefinedShips.size() > 1;
-		string message = "pricing \"" + name + "\":";
-		string PREFIX = plural ? "\n\tUndefined ship " : " undefined ship ";
-		for(auto &&ship : undefinedShips)
-			message += PREFIX + ship;
-
-		Logger::LogError(message);
-	}
 }
 
 
