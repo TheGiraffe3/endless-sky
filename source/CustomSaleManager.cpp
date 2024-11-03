@@ -134,7 +134,7 @@ int64_t CustomShipSaleManager::ShipCost(const Ship &ship)
 {
 	int64_t localCost = ship.ChassisCost();
 	for(auto it : ship.Outfits())
-		const localCost += OutfitCost(*it.first) * it.second;
+		localCost += (OutfitCost(*it.first) * it.second);
 	return localCost;
 }
 
