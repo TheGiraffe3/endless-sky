@@ -15,7 +15,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "CustomSale.h"
+#include "CustomOutfitSale.h"
+#include "CustomShipSale.h"
 
 #include <map>
 
