@@ -13,7 +13,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "CustomSale.h"
+#include "CustomOutfitSale.h"
 
 #include "ConditionsStore.h"
 #include "DataNode.h"
@@ -160,7 +160,6 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			conditions.Load(child);
 		}
 		// CustomSales are separated between outfits and outfitters in the data files.
-		// This mode could apply to other things like shipyards and ships, later on.
 		else if(mode == "outfits")
 		{
 			if(!add)

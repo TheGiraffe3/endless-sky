@@ -84,6 +84,27 @@ double CustomSaleManager::OutfitRelativeCost(const Outfit &outfit)
 
 
 
+bool CustomSaleManager::CanBuy(const Ship &ship)
+{
+	const auto &it = customSales.find(CustomSale::SellType::IMPORT);
+	return it == customSales.end() || !it->second.Has(ship);
+}
+
+
+
+double CustomSaleManager::ShipRelativeCost(const Ship &ship)
+{
+	if(customSales.empty())
+		return 1.;
+	// Iterate in the opposite order, since any higher customSale has priority.
+	for(auto &&selling = customSales.rbegin(); selling != customSales.rend(); ++selling)
+		if(selling->second.Has(ship))
+			return selling->second.GetRelativeCost(ship);
+	return 1.;
+}
+
+
+
 int64_t CustomSaleManager::ShipCost(const Ship &ship)
 {
 	int64_t localCost = ship.ChassisCost();

@@ -33,7 +33,7 @@ class Outfit;
 
 
 // Class used to stock Outfits and their local changes, being prices and sell types,
-// linked by outfit or by group of outfits (aka outfitters).
+// linked by an outfit or group of outfits (aka outfitters).
 class CustomSale {
 public:
 	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter,

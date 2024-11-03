@@ -28,15 +28,15 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 class ConditionsStore;
 class DataNode;
 class Planet;
-class Outfit;
+class Ship;
 
 
 
-// Class used to stock Outfits and their local changes, being prices and sell types,
-// linked by outfit or by group of outfits (aka outfitters).
+// Class used to stock ship and their local changes, being prices and sell types,
+// linked by a ship or group of ships (aka shipyards).
 class CustomSale {
 public:
-	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter,
+	// Sell types: none is meant to be default, meaning the visibility depends on the shipyard,
 	// import means it is shown whilst still not being buyable.
 	//
 	// The numbers correspond to the priority, import will override the default.
@@ -47,7 +47,7 @@ public:
 
 
 public:
-	// If the changes are events that means the outfits have already been loaded
+	// If the changes are events that means the ships have already been loaded
 	// and we can call FinishLoading() straight away.
 	void Load(const DataNode &node, bool eventChange = false);
 	void FinishLoading();
@@ -57,14 +57,14 @@ public:
 
 	// Get the price of the item.
 	// Does not check conditions are met or the location is matched.
-	double GetRelativeCost(const Outfit &item) const;
+	double GetRelativeCost(const Ship &item) const;
 
 	SellType GetSellType() const;
 
 	// Convert the given sellType into a string.
 	static const std::string &GetShown(SellType sellType);
 
-	bool Has(const Outfit &item) const;
+	bool Has(const Ship &item) const;
 
 	// Check if this planet with the given conditions of the player match the conditions of the CustomSale.
 	bool Matches(const Planet &planet, const ConditionsStore &playerConditions) const;
@@ -82,18 +82,18 @@ private:
 	ConditionSet conditions;
 	const Planet *location = nullptr;
 
-	std::map<const Sale<Outfit> *, double> relativePrices;
-	std::map<const Sale<Outfit> *, double> relativeOffsets;
+	std::map<const Sale<Ship> *, double> relativePrices;
+	std::map<const Sale<Ship> *, double> relativeOffsets;
 
-	std::map<const Outfit *, double> relativeOutfitPrices;
-	std::map<const Outfit *, double> relativeOutfitOffsets;
+	std::map<const Ship *, double> relativeShipPrices;
+	std::map<const Ship *, double> relativeShipOffsets;
 
-	// All outfits this customSale has, kept in cache.
-	Sale<Outfit> seen;
+	// All ships this customSale has, kept in cache.
+	Sale<Ship> seen;
 	bool cacheValid = false;
 
 	SellType sellType = SellType::DEFAULT;
 
-	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
-	std::vector<std::pair<const Outfit *, double *>> toConvert;
+	// When loading we cannot be sure all ships are loaded, so store those we need to convert into relative values.
+	std::vector<std::pair<const Ship *, double *>> toConvert;
 };
