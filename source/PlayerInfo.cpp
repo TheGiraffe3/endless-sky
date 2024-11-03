@@ -791,7 +791,8 @@ void PlayerInfo::IncrementDate()
 
 
 	// The standard prices will be used to query the value of the fleet of the player, instead of the local prices.
-	CustomSaleManager::Clear();
+	CustomOutfitSaleManager::Clear();
+	CustomShipSaleManager::Clear();
 
 	// For accounting, keep track of the player's net worth. This is for
 	// calculation of yearly income to determine maximum mortgage amounts.
