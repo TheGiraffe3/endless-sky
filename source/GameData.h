@@ -119,8 +119,8 @@ public:
 
 	static const Set<Color> &Colors();
 	static const Set<Conversation> &Conversations();
-	static const Set<CustomOutfitSales> &CustomOutfitSaless();
-	static const Set<CustomShipSales> &CustomShipSaless();
+	static const Set<CustomOutfitSales> &CustomOutfitSales();
+	static const Set<CustomShipSales> &CustomShipSales();
 	static const Set<Effect> &Effects();
 	static const Set<GameEvent> &Events();
 	static const Set<Fleet> &Fleets();
