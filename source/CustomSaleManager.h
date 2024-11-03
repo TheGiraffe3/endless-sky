@@ -45,7 +45,7 @@ public:
 
 
 private:
-	static std::map<CustomSale::SellType, CustomSale> customSales;
+	static std::map<CustomOutfitSale::SellType, CustomOutfitSale> customOutfitSales;
 };
 
 
@@ -67,5 +67,5 @@ public:
 
 
 private:
-	static std::map<CustomSale::SellType, CustomSale> customSales;
+	static std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
 };
