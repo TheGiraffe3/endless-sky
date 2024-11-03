@@ -25,25 +25,23 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 using namespace std;
 
-map<CustomOutfitSale::SellType, CustomOutfitSale> CustomSaleManager::customOutfitSales = {};
-map<CustomShipSale::SellType, CustomShipSale> CustomSaleManager::customShipSales = {};
+map<CustomOutfitSale::SellType, CustomOutfitSale> CustomOutfitSaleManager::customOutfitSales = {};
+map<CustomShipSale::SellType, CustomShipSale> CustomShipSaleManager::customShipSales = {};
 
 
 
-void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
+void CustomOutfitSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
 {
 	Clear();
 	if(!planet)
 		return;
 	for(const auto &sale : GameData::CustomOutfitSales())
 		customOutfitSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
-	for(const auto &sale : GameData::CustomShipSales())
-		customShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
 }
 
 
 
-void CustomSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
+void CustomOutfitSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
 {
 	Clear();
 	if(!system)
@@ -54,6 +52,31 @@ void CustomSaleManager::Refresh(const System *system, const ConditionsStore &con
 			const Planet &planet = *object.GetPlanet();
 			for(const auto &sale : GameData::CustomOutfitSales())
 				customOutfitSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+		}
+}
+
+
+
+void CustomShipSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
+{
+	Clear();
+	if(!planet)
+		return;
+	for(const auto &sale : GameData::CustomShipSales())
+		customShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+}
+
+
+
+void CustomShipSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
+{
+	Clear();
+	if(!system)
+		return;
+	for(const StellarObject &object : system->Objects())
+		if(object.HasSprite() && object.HasValidPlanet())
+		{
+			const Planet &planet = *object.GetPlanet();
 			for(const auto &sale : GameData::CustomShipSales())
 				customShipSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
 		}
@@ -120,8 +143,14 @@ int64_t CustomShipSaleManager::ShipCost(const Ship &ship)
 
 
 
-void CustomSaleManager::Clear()
+void CustomOutfitSaleManager::Clear()
 {
 	customOutfitSales = {};
+}
+
+
+
+void CustomShipSaleManager::Clear()
+{
 	customShipSales = {};
 }
