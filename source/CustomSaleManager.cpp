@@ -35,8 +35,8 @@ void CustomOutfitSaleManager::Refresh(const Planet *planet, const ConditionsStor
 	Clear();
 	if(!planet)
 		return;
-	for(const auto &sale : GameData::CustomOutfitSales())
-		customOutfitSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+	for(const auto &sale : GameData::CustomOutfitSale())
+		customOutfitSale[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
 }
 
 
