@@ -1,4 +1,4 @@
-/* CustomSale.h
+/* CustomShipSale.h
 Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
@@ -34,7 +34,7 @@ class Ship;
 
 // Class used to stock ship and their local changes, being prices and sell types,
 // linked by a ship or group of ships (aka shipyards).
-class CustomSale {
+class CustomShipSale {
 public:
 	// Sell types: none is meant to be default, meaning the visibility depends on the shipyard,
 	// import means it is shown whilst still not being buyable.
@@ -52,8 +52,8 @@ public:
 	void Load(const DataNode &node, bool eventChange = false);
 	void FinishLoading();
 
-	// Adds another CustomSale to this one if the conditions allow it.
-	bool Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store);
+	// Adds another CustomShipSale to this one if the conditions allow it.
+	bool Add(const CustomShipSale &other, const Planet &planet, const ConditionsStore &store);
 
 	// Get the price of the item.
 	// Does not check conditions are met or the location is matched.
@@ -66,7 +66,7 @@ public:
 
 	bool Has(const Ship &item) const;
 
-	// Check if this planet with the given conditions of the player match the conditions of the CustomSale.
+	// Check if this planet with the given conditions of the player match the conditions of the CustomShipSale.
 	bool Matches(const Planet &planet, const ConditionsStore &playerConditions) const;
 
 	bool IsEmpty();
@@ -88,7 +88,7 @@ private:
 	std::map<const Ship *, double> relativeShipPrices;
 	std::map<const Ship *, double> relativeShipOffsets;
 
-	// All ships this customSale has, kept in cache.
+	// All ships this CustomShipSale has, kept in cache.
 	Sale<Ship> seen;
 	bool cacheValid = false;
 

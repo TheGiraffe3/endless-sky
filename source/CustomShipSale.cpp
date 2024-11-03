@@ -1,4 +1,4 @@
-/* CustomSale.cpp
+/* CustomShipSale.cpp
 Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
@@ -27,9 +27,9 @@ using namespace std;
 
 namespace
 {
-	const auto show = map<CustomSale::SellType, const string> {
-		{CustomSale::SellType::DEFAULT, ""},
-		{CustomSale::SellType::IMPORT, "import"}
+	const auto show = map<CustomShipSale::SellType, const string> {
+		{CustomShipSale::SellType::DEFAULT, ""},
+		{CustomShipSale::SellType::IMPORT, "import"}
 	};
 	// Initially put values at this to know if we found what we're looking for,
 	// whilst allowing 0 in the searched list.
@@ -38,7 +38,7 @@ namespace
 
 
 
-void CustomSale::Load(const DataNode &node, bool eventChange)
+void CustomShipSale::Load(const DataNode &node, bool eventChange)
 {
 	const Set<Sale<Ship>> &items = GameData::Shipyards();
 	const Set<Ship> &ships = GameData::Ships();
@@ -159,7 +159,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 				conditions = ConditionSet{};
 			conditions.Load(child);
 		}
-		// CustomSales are separated between ships and shipyards in the data files.
+		// CustomShipSales are separated between ships and shipyards in the data files.
 		else if(mode == "ships")
 		{
 			if(!add)
@@ -218,7 +218,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 
 
 
-void CustomSale::FinishLoading()
+void CustomShipSale::FinishLoading()
 {
 	for(const auto &it : toConvert)
 		if(it.first->Cost() != 0)
@@ -243,7 +243,7 @@ void CustomSale::FinishLoading()
 
 
 
-bool CustomSale::Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store)
+bool CustomShipSale::Add(const CustomShipSale &other, const Planet &planet, const ConditionsStore &store)
 {
 	cacheValid = false;
 	if(!Matches(planet, store))
@@ -299,7 +299,7 @@ bool CustomSale::Add(const CustomSale &other, const Planet &planet, const Condit
 
 
 
-double CustomSale::GetRelativeCost(const Ship &item) const
+double CustomShipSale::GetRelativeCost(const Ship &item) const
 {
 	// Ship prices have priority over shipyard prices, so consider them first,
 	// and only consider the shipyard prices if the ships have no set price.
@@ -333,21 +333,21 @@ double CustomSale::GetRelativeCost(const Ship &item) const
 
 
 
-CustomSale::SellType CustomSale::GetSellType() const
+CustomShipSale::SellType CustomShipSale::GetSellType() const
 {
 	return sellType;
 }
 
 
 
-const string &CustomSale::GetShown(CustomSale::SellType sellType)
+const string &CustomShipSale::GetShown(CustomShipSale::SellType sellType)
 {
 	return show.find(sellType)->second;
 }
 
 
 
-bool CustomSale::Has(const Ship &item) const
+bool CustomShipSale::Has(const Ship &item) const
 {
 	if(relativeShipPrices.find(&item) != relativeShipPrices.end())
 		return true;
@@ -364,7 +364,7 @@ bool CustomSale::Has(const Ship &item) const
 
 
 
-bool CustomSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
+bool CustomShipSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
 {
 	return (location ? location == &planet : locationFilter.Matches(&planet)) &&
 		(conditions.IsEmpty() || conditions.Test(playerConditions));
@@ -372,7 +372,7 @@ bool CustomSale::Matches(const Planet &planet, const ConditionsStore &playerCond
 
 
 
-bool CustomSale::IsEmpty()
+bool CustomShipSale::IsEmpty()
 {
 	return relativePrices.empty() && relativeOffsets.empty() &&
 		relativeShipPrices.empty() && relativeShipOffsets.empty();
@@ -380,7 +380,7 @@ bool CustomSale::IsEmpty()
 
 
 
-void CustomSale::Clear()
+void CustomShipSale::Clear()
 {
-	*this = CustomSale{};
+	*this = CustomShipSale{};
 }

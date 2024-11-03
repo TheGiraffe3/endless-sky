@@ -1,4 +1,4 @@
-/* CustomSale.cpp
+/* CustomOutfitSale.cpp
 Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
@@ -27,9 +27,9 @@ using namespace std;
 
 namespace
 {
-	const auto show = map<CustomSale::SellType, const string> {
-		{CustomSale::SellType::DEFAULT, ""},
-		{CustomSale::SellType::IMPORT, "import"}
+	const auto show = map<CustomOutfitSale::SellType, const string> {
+		{CustomOutfitSale::SellType::DEFAULT, ""},
+		{CustomOutfitSale::SellType::IMPORT, "import"}
 	};
 	// Initially put values at this to know if we found what we're looking for,
 	// whilst allowing 0 in the searched list.
@@ -38,7 +38,7 @@ namespace
 
 
 
-void CustomSale::Load(const DataNode &node, bool eventChange)
+void CustomOutfitSale::Load(const DataNode &node, bool eventChange)
 {
 	const Set<Sale<Outfit>> &items = GameData::Outfitters();
 	const Set<Outfit> &outfits = GameData::Outfits();
@@ -159,7 +159,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 				conditions = ConditionSet{};
 			conditions.Load(child);
 		}
-		// CustomSales are separated between outfits and outfitters in the data files.
+		// CustomOutfitSales are separated between outfits and outfitters in the data files.
 		else if(mode == "outfits")
 		{
 			if(!add)
@@ -218,7 +218,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 
 
 
-void CustomSale::FinishLoading()
+void CustomOutfitSale::FinishLoading()
 {
 	for(const auto &it : toConvert)
 		if(it.first->Cost() != 0)
@@ -254,7 +254,7 @@ void CustomSale::FinishLoading()
 
 
 
-bool CustomSale::Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store)
+bool CustomOutfitSale::Add(const CustomOutfitSale &other, const Planet &planet, const ConditionsStore &store)
 {
 	cacheValid = false;
 	if(!Matches(planet, store))
@@ -310,7 +310,7 @@ bool CustomSale::Add(const CustomSale &other, const Planet &planet, const Condit
 
 
 
-double CustomSale::GetRelativeCost(const Outfit &item) const
+double CustomOutfitSale::GetRelativeCost(const Outfit &item) const
 {
 	// Outfit prices have priority over outfitter prices, so consider them first,
 	// and only consider the outfitter prices if the outfits have no set price.
@@ -344,21 +344,21 @@ double CustomSale::GetRelativeCost(const Outfit &item) const
 
 
 
-CustomSale::SellType CustomSale::GetSellType() const
+CustomOutfitSale::SellType CustomOutfitSale::GetSellType() const
 {
 	return sellType;
 }
 
 
 
-const string &CustomSale::GetShown(CustomSale::SellType sellType)
+const string &CustomOutfitSale::GetShown(CustomOutfitSale::SellType sellType)
 {
 	return show.find(sellType)->second;
 }
 
 
 
-bool CustomSale::Has(const Outfit &item) const
+bool CustomOutfitSale::Has(const Outfit &item) const
 {
 	if(relativeOutfitPrices.find(&item) != relativeOutfitPrices.end())
 		return true;
@@ -375,7 +375,7 @@ bool CustomSale::Has(const Outfit &item) const
 
 
 
-bool CustomSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
+bool CustomOutfitSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
 {
 	return (location ? location == &planet : locationFilter.Matches(&planet)) &&
 		(conditions.IsEmpty() || conditions.Test(playerConditions));
@@ -383,7 +383,7 @@ bool CustomSale::Matches(const Planet &planet, const ConditionsStore &playerCond
 
 
 
-bool CustomSale::IsEmpty()
+bool CustomOutfitSale::IsEmpty()
 {
 	return relativePrices.empty() && relativeOffsets.empty() &&
 		relativeOutfitPrices.empty() && relativeOutfitOffsets.empty();
@@ -391,7 +391,7 @@ bool CustomSale::IsEmpty()
 
 
 
-void CustomSale::Clear()
+void CustomOutfitSale::Clear()
 {
-	*this = CustomSale{};
+	*this = CustomOutfitSale{};
 }
