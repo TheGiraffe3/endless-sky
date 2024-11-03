@@ -30,8 +30,8 @@ class CategoryList;
 class Color;
 class ConditionsStore;
 class Conversation;
-class CustomOutfitSales;
-class CustomShipSales;
+class CustomOutfitSale;
+class CustomShipSale;
 class DataNode;
 class DataWriter;
 class Date;
@@ -119,8 +119,8 @@ public:
 
 	static const Set<Color> &Colors();
 	static const Set<Conversation> &Conversations();
-	static const Set<CustomOutfitSales> &CustomOutfitSales();
-	static const Set<CustomShipSales> &CustomShipSales();
+	static const Set<CustomOutfitSale> &CustomOutfitSale();
+	static const Set<CustomShipSale> &CustomShipSale();
 	static const Set<Effect> &Effects();
 	static const Set<GameEvent> &Events();
 	static const Set<Fleet> &Fleets();
