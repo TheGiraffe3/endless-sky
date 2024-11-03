@@ -229,14 +229,6 @@ void CustomSale::FinishLoading()
 		}
 	toConvert.clear();
 
-	vector<string> undefinedShips;
-	for(const auto &it : relativeShipPrices)
-		if(!it.first->IsDefined())
-			undefinedShips.emplace_back("\"" + it.first->TrueName() + "\"");
-	for(const auto &it : relativeShipOffsets)
-		if(!it.first->IsDefined())
-			undefinedShips.emplace_back("\"" + it.first->TrueName() + "\"");
-
 	if(!undefinedShips.empty())
 	{
 		bool plural = undefinedShips.size() > 1;
