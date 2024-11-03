@@ -184,7 +184,7 @@ void CustomSale::Load(const DataNode &node, bool eventChange)
 			else
 				child.PrintTrace("Skipping unrecognized attribute:");
 		}
-		else if(mode == "Shipyards")
+		else if(mode == "shipyards")
 		{
 			if(!add)
 			{
@@ -225,10 +225,7 @@ void CustomSale::FinishLoading()
 			*it.second /= it.first->Cost();
 		else
 		{
-			Logger::LogError(it.first->TrueName() +
-				" has no base price and thus cannot have its price modified by pricing.");
-			relativeShipPrices.erase(it.first);
-			relativeShipOffsets.erase(it.first);
+			// Do nothing.
 		}
 	toConvert.clear();
 
