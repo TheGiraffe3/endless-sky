@@ -60,7 +60,7 @@ void CustomShipSaleManager::Refresh(const Planet *planet, const ConditionsStore 
 	if(!planet)
 		return;
 	for(const auto &sale : GameData::CustomShipSales())
-		customShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+		CustomShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
 }
 
 
@@ -75,7 +75,7 @@ void CustomShipSaleManager::Refresh(const System *system, const ConditionsStore 
 		{
 			const Planet &planet = *object.GetPlanet();
 			for(const auto &sale : GameData::CustomShipSales())
-				customShipSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+				CustomShipSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
 		}
 }
 
