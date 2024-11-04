@@ -587,7 +587,7 @@ const Set<Conversation> &GameData::Conversations()
 
 
 
-const Set<CustomOutfitSales> &GameData::CustomOutfitSales() {
+const Set<CustomOutfitSale> &GameData::CustomOutfitSales() {
 	return objects.customOutfitSales;
 }
 
