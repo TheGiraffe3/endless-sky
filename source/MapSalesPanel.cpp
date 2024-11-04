@@ -175,9 +175,9 @@ bool MapSalesPanel::Click(int x, int y, int clicks)
 	{
 		const System *previousSystem = MapPanel::selectedSystem;
 		bool result = MapPanel::Click(x, y, clicks);
-	if(MapPanel::selectedSystem != previousSystem)
+		if(MapPanel::selectedSystem != previousSystem)
 			CustomOutfitSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
-			CustomShipSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
+			// CustomShipSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
 		return result;
 	}
 
