@@ -62,7 +62,7 @@ public:
 	SellType GetSellType() const;
 
 	// Convert the given sellType into a string.
-	static const std::string &GetShown(SellType sellType);
+	static inline const std::string &GetShown(SellType sellType);
 
 	bool Has(const Ship &item) const;
 
