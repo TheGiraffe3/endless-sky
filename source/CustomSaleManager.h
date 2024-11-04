@@ -44,7 +44,7 @@ public:
 	static void Clear();
 
 
-private:
+public:
 	static std::map<CustomOutfitSale::SellType, CustomOutfitSale> customOutfitSales;
 };
 
@@ -66,6 +66,6 @@ public:
 	static void Clear();
 
 
-private:
+public:
 	static std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
 };

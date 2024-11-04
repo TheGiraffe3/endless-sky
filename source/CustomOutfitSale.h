@@ -72,11 +72,7 @@ public:
 	bool IsEmpty();
 
 
-private:
-	void Clear();
-
-
-private:
+public:
 	std::string name;
 	LocationFilter locationFilter;
 	ConditionSet conditions;
@@ -96,4 +92,8 @@ private:
 
 	// When loading we cannot be sure all outfits are loaded, so store those we need to convert into relative values.
 	std::vector<std::pair<const Outfit *, double *>> toConvert;
+
+
+private:
+	void Clear();
 };
