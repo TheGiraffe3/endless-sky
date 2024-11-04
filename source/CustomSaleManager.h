@@ -67,5 +67,5 @@ public:
 
 
 public:
-	static std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
+	static inline std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
 };
