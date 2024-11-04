@@ -56,7 +56,8 @@ MapSalesPanel::MapSalesPanel(PlayerInfo &player, bool isOutfitters)
 	isOutfitters(isOutfitters),
 	collapsed(player.Collapsed(isOutfitters ? "outfitter map" : "shipyard map"))
 {
-	CustomSaleManager::Refresh(player.GetSystem(), player.Conditions());
+	CustomOutfitSaleManager::Refresh(player.GetSystem(), player.Conditions());
+	CustomShipSaleManager::Refresh(player.GetSystem(), player.Conditions());
 }
 
 
@@ -67,7 +68,8 @@ MapSalesPanel::MapSalesPanel(const MapPanel &panel, bool isOutfitters)
 	isOutfitters(isOutfitters),
 	collapsed(player.Collapsed(isOutfitters ? "outfitter map" : "shipyard map"))
 {
-	CustomSaleManager::Refresh(player.GetSystem(), player.Conditions());
+	CustomOutfitSaleManager::Refresh(player.GetSystem(), player.Conditions());
+	CustomShipSaleManager::Refresh(player.GetSystem(), player.Conditions());
 	commodity = SHOW_SPECIAL;
 }
 
@@ -174,7 +176,8 @@ bool MapSalesPanel::Click(int x, int y, int clicks)
 		const System *previousSystem = MapPanel::selectedSystem;
 		bool result = MapPanel::Click(x, y, clicks);
 		if(MapPanel::selectedSystem != previousSystem)
-			CustomSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
+			CustomOutfitSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
+			// CustomShipSaleManager::Refresh(MapPanel::selectedSystem, player.Conditions());
 		return result;
 	}
 

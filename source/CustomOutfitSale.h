@@ -1,4 +1,4 @@
-/* CustomSale.h
+/* CustomOutfitSale.h
 Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
@@ -33,8 +33,8 @@ class Outfit;
 
 
 // Class used to stock Outfits and their local changes, being prices and sell types,
-// linked by outfit or by group of outfits (aka outfitters).
-class CustomSale {
+// linked by an outfit or group of outfits (aka outfitters).
+class CustomOutfitSale {
 public:
 	// Sell types: none is meant to be default, meaning the visibility depends on the outfitter,
 	// import means it is shown whilst still not being buyable.
@@ -52,8 +52,8 @@ public:
 	void Load(const DataNode &node, bool eventChange = false);
 	void FinishLoading();
 
-	// Adds another CustomSale to this one if the conditions allow it.
-	bool Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store);
+	// Adds another CustomOutfitSale to this one if the conditions allow it.
+	bool Add(const CustomOutfitSale &other, const Planet &planet, const ConditionsStore &store);
 
 	// Get the price of the item.
 	// Does not check conditions are met or the location is matched.
@@ -66,7 +66,7 @@ public:
 
 	bool Has(const Outfit &item) const;
 
-	// Check if this planet with the given conditions of the player match the conditions of the CustomSale.
+	// Check if this planet with the given conditions of the player match the conditions of the CustomOutfitSale.
 	bool Matches(const Planet &planet, const ConditionsStore &playerConditions) const;
 
 	bool IsEmpty();
@@ -88,7 +88,7 @@ private:
 	std::map<const Outfit *, double> relativeOutfitPrices;
 	std::map<const Outfit *, double> relativeOutfitOffsets;
 
-	// All outfits this customSale has, kept in cache.
+	// All outfits this CustomOutfitSale has, kept in cache.
 	Sale<Outfit> seen;
 	bool cacheValid = false;
 

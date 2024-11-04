@@ -98,7 +98,9 @@ void UniverseObjects::FinishLoading()
 	for(auto &&it : persons)
 		it.second.FinishLoading();
 
-	for(auto &&it : customSales)
+	for(auto &&it : customOutfitSales)
+		it.second.FinishLoading();
+	for(auto &&it : customShipSales)
 		it.second.FinishLoading();
 	// Calculate minable values.
 	for(auto &&it : minables)
@@ -147,7 +149,9 @@ void UniverseObjects::Change(const DataNode &node)
 	else if(node.Token(0) == "outfitter" && node.Size() >= 2)
 		outfitSales.Get(node.Token(1))->Load(node, outfits);
 	else if(node.Token(0) == "pricing" && node.Size() >= 3)
-		customSales.Get(node.Token(2))->Load(node, true);
+		customOutfitSales.Get(node.Token(2))->Load(node, true);
+	else if(node.Token(0) == "pricing" && node.Size() >= 3)
+		customShipSales.Get(node.Token(2))->Load(node, true);
 	else if(node.Token(0) == "planet" && node.Size() >= 2)
 		planets.Get(node.Token(1))->Load(node, wormholes);
 	else if(node.Token(0) == "shipyard" && node.Size() >= 2)
@@ -379,7 +383,9 @@ void UniverseObjects::LoadFile(const string &path, bool debugMode)
 		else if(key == "planet" && node.Size() >= 2)
 			planets.Get(node.Token(1))->Load(node, wormholes);
 		else if(key == "pricing" && node.Size() >= 3)
-			customSales.Get(node.Token(2))->Load(node);
+			customOutfitSales.Get(node.Token(2))->Load(node);
+		else if(key == "pricing" && node.Size() >= 3)
+			customShipSales.Get(node.Token(2))->Load(node);
 		else if(key == "ship" && node.Size() >= 2)
 		{
 			// Allow multiple named variants of the same ship model.

@@ -15,7 +15,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "CustomSale.h"
+#include "CustomOutfitSale.h"
+#include "CustomShipSale.h"
 
 #include <map>
 
@@ -27,7 +28,7 @@ class System;
 
 
 
-class CustomSaleManager {
+class CustomOutfitSaleManager {
 public:
 	// Refresh the active CustomSales to correspond to the planet and conditions.
 	static void Refresh(const Planet *planet, const ConditionsStore &conditions);
@@ -36,14 +37,35 @@ public:
 	// Return if can be bought. And imported item will still be shown but not be buyable.
 	static bool CanBuy(const Outfit &outfit);
 
-	// Get the full/relative cost of the outfit/ship with the last cached conditions.
+	// Get the full/relative cost of the outfit with the last cached conditions.
 	static int64_t OutfitCost(const Outfit &outfit);
 	static double OutfitRelativeCost(const Outfit &outfit);
-	static int64_t ShipCost(const Ship &ship);
 	// Delete all cached data.
 	static void Clear();
 
 
 private:
-	static std::map<CustomSale::SellType, CustomSale> customSales;
+	static std::map<CustomOutfitSale::SellType, CustomOutfitSale> customOutfitSales;
+};
+
+
+
+class CustomShipSaleManager {
+public:
+	// Refresh the active CustomSales to correspond to the planet and conditions.
+	static void Refresh(const Planet *planet, const ConditionsStore &conditions);
+	// Or to all planets in this system.
+	static void Refresh(const System *system, const ConditionsStore &conditions);
+	// Return if can be bought. And imported item will still be shown but not be buyable.
+	static bool CanBuy(const Ship &ship);
+
+	// Get the full/relative cost of the ship with the last cached conditions.
+	static int64_t ShipCost(const Ship &ship);
+	static double ShipRelativeCost(const Ship &ship);
+	// Delete all cached data.
+	static void Clear();
+
+
+private:
+	static std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
 };
