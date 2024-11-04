@@ -57,7 +57,7 @@ MapSalesPanel::MapSalesPanel(PlayerInfo &player, bool isOutfitters)
 	collapsed(player.Collapsed(isOutfitters ? "outfitter map" : "shipyard map"))
 {
 	CustomOutfitSaleManager::Refresh(player.GetSystem(), player.Conditions());
-	CustomShipSaleManager::Refresh(player.GetSystem(), player.Conditions())
+	CustomShipSaleManager::Refresh(player.GetSystem(), player.Conditions());
 }
 
 
