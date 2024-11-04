@@ -101,7 +101,7 @@ private:
 	std::atomic<double> progress;
 
 
-private:
+public:
 	Set<Color> colors;
 	Set<Conversation> conversations;
 	Set<CustomOutfitSale> customOutfitSales;
