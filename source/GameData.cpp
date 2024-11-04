@@ -593,8 +593,7 @@ const Set<CustomOutfitSale> &GameData::CustomOutfitSales() {
 
 
 
-const Set<CustomShipSale> &GameData::CustomShipSales()
-{
+const Set<CustomShipSale> &GameData::CustomShipSales() {
 	return objects.customShipSales;
 }
 
