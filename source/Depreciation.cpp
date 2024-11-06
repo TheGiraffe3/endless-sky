@@ -49,9 +49,6 @@ namespace {
 		return GameData::GetGamerules().DepreciationMaxAge() + GracePeriod();
 	}
 
-	// Calculate the value fraction for an item of the given age.
-	static double Depreciate(int age);
-
 	// Names for the two kinds of depreciation records.
 	string NAME[2] = {"fleet depreciation", "stock depreciation"};
 }
@@ -62,22 +59,6 @@ namespace {
 double Depreciation::Full()
 {
 	return Min();
-}
-
-
-
-// Calculate the value fraction for an item of the given age.
-double Depreciation::Depreciate(int age)
-{
-	if(age <= GracePeriod())
-		return 1.;
-
-	if(age >= MaxAge())
-		return Min();
-
-	double daily = pow(Daily(), age - GracePeriod());
-	double linear = static_cast<double>(MaxAge() - age) / (MaxAge() - GracePeriod());
-	return Min() + (1. - Min()) * daily * linear;
 }
 
 
@@ -97,6 +78,22 @@ int Depreciation::AgeForDepreciation(double depreciation)
 	while(Depreciate(age) > depreciation)
 		age++;
 	return age;
+}
+
+
+
+// Calculate the value fraction for an item of the given age.
+double Depreciation::Depreciate(int age)
+{
+	if(age <= GracePeriod())
+		return 1.;
+
+	if(age >= MaxAge())
+		return Min();
+
+	double daily = pow(Daily(), age - GracePeriod());
+	double linear = static_cast<double>(MaxAge() - age) / (MaxAge() - GracePeriod());
+	return Min() + (1. - Min()) * daily * linear;
 }
 
 
