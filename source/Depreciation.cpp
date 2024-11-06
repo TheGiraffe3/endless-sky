@@ -400,3 +400,9 @@ double Depreciation::DefaultDepreciation() const
 {
 	return (isStock ? 1. : Min());
 }
+
+
+private:
+	// Calculate the value fraction for an item of the given age.
+	static double Depreciate(int age);
+};
