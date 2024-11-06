@@ -86,4 +86,9 @@ private:
 
 	std::map<const Ship *, std::map<int, int>> ships;
 	std::map<const Outfit *, std::map<int, int>> outfits;
+
+
+private:
+	// Calculate the value fraction for an item of the given age.
+	static double Depreciate(int age);
 };
