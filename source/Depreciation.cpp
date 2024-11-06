@@ -49,6 +49,9 @@ namespace {
 		return GameData::GetGamerules().DepreciationMaxAge() + GracePeriod();
 	}
 
+	// Calculate the value fraction for an item of the given age.
+	static double Depreciate(int age);
+
 	// Names for the two kinds of depreciation records.
 	string NAME[2] = {"fleet depreciation", "stock depreciation"};
 }
@@ -400,9 +403,3 @@ double Depreciation::DefaultDepreciation() const
 {
 	return (isStock ? 1. : Min());
 }
-
-
-private:
-	// Calculate the value fraction for an item of the given age.
-	static double Depreciate(int age);
-};
