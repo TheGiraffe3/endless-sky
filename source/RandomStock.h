@@ -23,6 +23,13 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 
 
+class RandomStock {
+private:
+	ConditionSet toStock;
+}
+
+
+
 // Struct representing a ship or outfit that will sometimes be in stock.
 template <class Item>
 struct RandomStockItem
