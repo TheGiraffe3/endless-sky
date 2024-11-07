@@ -23,10 +23,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 
 
-class RandomStock {
-private:
-	ConditionSet toStock;
-};
+// class RandomStock {
+// private:
+//	ConditionSet toStock;
+// };
 
 
 
