@@ -72,7 +72,7 @@ void RandomStock<Item>::Load(const DataNode &node, const Set<Item> &items)
 				if(grand.Size() < 2)
 					grand.PrintTrace("Error: Expected key to have a value:");
 				else if(grandToken == "to" && grand.Token(2) == "stock")
-					toStock.Load(grand);
+					randomStock.Load(grand);
 				else if(grandToken == "quantity")
 					rs.quantity = grand.Value(1);
 				else if(grandToken == "depreciation")
