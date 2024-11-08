@@ -15,5 +15,5 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 class RandomStock {
 private:
-	ConditionSet toStock
+	ConditionSet toStock;
 };
