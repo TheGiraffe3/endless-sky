@@ -1,4 +1,4 @@
-/* RandomStock.h
+/* RandomStock.cpp
 Copyright (c) 2024 by Loymdayddaud
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
