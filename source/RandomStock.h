@@ -36,7 +36,7 @@ struct RandomStockItem
 {
 	const Item *item;
 	// Probability this item is in stock, as a percentage.
-	unsigned int probability = 100;
+	// unsigned int probability = 100;
 	// The number of such a set of items in stock.
 	unsigned int quantity = 1;
 	// Days of depreciation.
