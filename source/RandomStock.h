@@ -45,7 +45,7 @@ class RandomStock : public std::list<RandomStockItem<Item>>
 public:
 	void Load(const DataNode &node, const Set<Item> &items);
 
-private:
+// private:
 	ConditionSet toStock;
 };
 
