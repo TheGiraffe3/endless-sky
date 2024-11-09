@@ -259,7 +259,6 @@ target_sources(EndlessSkyLib PRIVATE
 	Random.cpp
 	Random.h
 	RandomEvent.h
- 	RandomStock.cpp
 	RandomStock.h
 	Rectangle.cpp
 	Rectangle.h
