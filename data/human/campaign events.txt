@@ -2218,7 +2218,7 @@ event "pug invasion"
 
 
 event "pug invasion 2"
-	unlink "Vega" "Menkent"
+	unlink "Vega" "Aladfar"
 	unlink "Vega" "Sol"
 	unlink "Altair" "Sol"
 	unlink "Fomalhaut" "Markab"
@@ -2306,6 +2306,10 @@ event "pug invasion 3"
 		fleet "Large Core Merchants" 3200
 		fleet "Small Pug" 1200
 		fleet "Large Pug" 2500
+	system "Alshain"
+		government "Pug"
+		fleet "Small Pug" 950
+		fleet "Large Pug" 1975
 	planet "Maker"
 		security 0
 		tribute 1
@@ -2322,14 +2326,16 @@ event "pug invasion 3"
 
 
 event "pug invasion 4"
-	unlink "Caph" "Sol"
+	unlink "Caph" "Tau Ceti"
 	unlink "Caph" "Eteron"
 	unlink "Diphda" "Acamar"
 	unlink "Diphda" "Ankaa"
-	link "Fomalhaut" "Caph"
+	link "Van Maanen's Star" "Caph"
 	unvisit "Caph"
 	unvisit "Diphda"
+	unvisit "Van Maanen's Star"
 	unvisit "Ankaa"
+	unvisit "Alshain"
 	"tribute: Reunion" /= 2900
 	"tribute: Kraken Station" /= 500
 	"tribute: Tinker" /= 1100
@@ -2354,6 +2360,15 @@ event "pug invasion 4"
 		fleet "Small Pug" 700
 		fleet "Large Pug" 1000
 		fleet "Human Miners" 2000
+	system "Alshain"
+		government "Pug"
+		fleet "Small Core Merchants" 550
+		fleet "Large Core Merchants" 650
+		fleet "Small Pug" 750
+		fleet "Large Pug" 1050
+	system "Van Maanen's Star"
+		government "Pug"
+		fleet "Large Pug" 975
 	planet "Reunion"
 		security 0
 		tribute 1
@@ -2522,6 +2537,35 @@ event "pug flee"
 		fleet "Small Southern Pirates" 1000
 		fleet "Large Southern Pirates" 3000
 		fleet "Derelict Southern" 10000
+	system "Tau Ceti"
+		fleet "Small Northern Merchants" 300
+		fleet "Large Northern Merchants" 500
+		fleet "Small Republic" 1000
+		fleet "Large Republic" 3000
+		fleet "Republic Logistics" 2000
+		fleet "Small Core Merchants" 1000
+		fleet "Large Core Merchants" 2000
+		fleet "Human Miners" 1000
+	system "Van Maanen's Star"
+		fleet "Small Core Merchants" 1000
+		fleet "Large Core Merchants" 1200
+		fleet "Small Northern Merchants" 300
+		fleet "Large Northern Merchants" 500
+		fleet "Small Republic" 1000
+		fleet "Large Republic" 3000
+		fleet "Republic Logistics" 3000
+		fleet "Human Miners" 2000
+	system "Alshain"
+		fleet "Small Core Merchants" 400
+		fleet "Large Core Merchants" 600
+		fleet "Small Northern Merchants" 1000
+		fleet "Large Northern Merchants" 3000
+		fleet "Small Republic" 3000
+		fleet "Large Republic" 6000
+		fleet "Republic Logistics" 6000
+		fleet "Small Syndicate" 9000
+		fleet "Small Core Pirates" 4000
+		fleet "Human Miners" 3000
 	system "Deneb"
 		fleet "Small Core Merchants" 5000
 		add object "Pug Wormhole"
@@ -2558,6 +2602,12 @@ event "pug territory liberated"
 		government Syndicate
 	system "Caph"
 		government Syndicate
+	system "Tau Ceti"
+		government Republic
+	system "Van Maanen's Star"
+		government Republic
+	system "Alshain"
+		government Republic
 	"tribute: Rand" *= 500
 	"tribute: Oblivion" *= 500
 	"tribute: Silver" *= 700
@@ -2636,8 +2686,8 @@ event "pug link restoration 1"
 
 event "pug link restoration 2"
 	link "Zeta Aquilae" "Ascella"
-	link "Caph" "Sol"
-	link "Vega" "Menkent"
+	link "Caph" "Tau Ceti"
+	link "Vega" "Aladfar"
 
 
 
@@ -2915,14 +2965,14 @@ event "fwc attack vega"
 event "fwc pug invasion"
 	unlink "Vega" "Sol"
 	unlink "Altair" "Sol"
-	unlink "Altair" "Fomalhaut"
+	unlink "Van Maanen's Star" "Fomalhaut"
 	unlink "Delta Capricorni" "Markab"
 	unlink "Delta Capricorni" "Scheat"
 	unlink "Alderamin" "Alnair"
 	unlink "Zeta Aquilae" "Ascella"
 	unlink "Rasalhague" "Ascella"
 	unlink "Rasalhague" "Cebalrai"
-	unlink "Vega" "Menkent"
+	unlink "Vega" "Aladfar"
 	link "Vega" "Deneb"
 	link "Altair" "Deneb"
 	link "Delta Capricorni" "Deneb"
@@ -3263,7 +3313,7 @@ event "fwc kaus borealis ceded back"
 
 
 event "fwc link restoration 1"
-	link "Vega" "Menkent"
+	link "Vega" "Aladfar"
 	link "Altair" "Sol"
 
 
@@ -3275,7 +3325,7 @@ event "fwc link restoration 2"
 
 
 event "fwc link restoration 3"
-	link "Altair" "Fomalhaut"
+	link "Van Maanen's Star" "Fomalhaut"
 	link "Delta Capricorni" "Scheat"
 
 
