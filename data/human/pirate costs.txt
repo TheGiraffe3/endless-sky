@@ -16,4 +16,3 @@ pricing ships "Pirate Shuttle Sales"
 		government "Pirate"
 	offset
 		"Shuttle" 0.75 %
-  
