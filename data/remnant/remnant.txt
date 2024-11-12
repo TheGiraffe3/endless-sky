@@ -1067,23 +1067,3 @@ outfitter "Remnant Salvage"
 
 outfitter "Void Sprite Parts"
 	"Void Sprite Parts"
-
-pricing outfits "Remnant Hai Keystones"
-	import
-	location
-		government "Remnant"
-	conditions
-		or
-			has "Remnant: Key Stones: done"
-			has "Remnant: Key Stones (Pre-Hai) 2: done"
-	value
-		"Quantum Keystone" 230000
-
-pricing outfits "Remnant Jump Drives"
-	import
-	location
-		government "Remnant"
-	conditions
-		1 = 1
-	value
-		"Jump Drive" 500000
