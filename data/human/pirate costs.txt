@@ -11,8 +11,21 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-pricing ships "Pirate Shuttle Sales"
+pricing ships "Pirate Small Ship Sales"
 	location
 		government "Pirate"
 	offset
+		"Scout" 0.97 %
+		"Scrapper" 0.80 %
 		"Shuttle" 0.75 %
+		"Sparrow" 0.95 %
+		"Wasp" 0.94 %
+
+pricing ships "Pirate Heavy Warship Sales"
+	location
+		government "Pirate"
+	offset
+		"Falcon" 1.04 %
+		"Leviathan" 1.03 %
+		"Protector" 1.09 %
+		"Vanguard" 1.11 %
