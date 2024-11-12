@@ -794,3 +794,12 @@ phrase "hostile disabled unfettered"
 	word
 		"!"
 		"."
+
+pricing outfits "Unfettered Jump Drives"
+	import
+	location
+		government "Hai (Unfettered)"
+	conditions
+		has "Unfettered Jump Drive 1: done"
+	value
+		"Jump Drive" 1000000
