@@ -27,7 +27,7 @@ pricing outfits "Quarg Technology Friendly Groups"
 
 pricing outfits "Quarg Technology Hostile Groups"
 	location
-		government "Hai (Unfettered)" "Independant" "Pirate"
+		government "Hai (Unfettered)" "Independent" "Pirate"
 	offset
 		"Nanotech Battery" 2 %
 		"Antimatter Core" 2 %
@@ -100,7 +100,7 @@ pricing outfits "Quarg Technology Friendly Groups"
 
 pricing outfits "Quarg Technology Hostile Groups"
 	location
-		government "Hai (Unfettered)" "Independant" "Pirate"
+		government "Hai (Unfettered)" "Independent" "Pirate"
 	offset
 		"Quarg Skylark" 2 %
 		"Quarg Wardragon" 2 %
