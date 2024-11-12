@@ -1078,3 +1078,12 @@ pricing outfits "Remnant Hai Keystones"
 			has "Remnant: Key Stones (Pre-Hai) 2: done"
 	value
 		"Quantum Keystone" 230000
+
+pricing outfits "Remnant Jump Drives"
+	import
+	location
+		government "Remnant"
+	conditions
+		1 = 1
+	value
+		"Jump Drive" 500000
