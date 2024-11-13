@@ -74,6 +74,8 @@ pricing outfits "Unfettered Jump Drives"
 pricing ships "Pirate Small Ship Sales"
 	location
 		government "Pirate"
+	conditions
+		1 = 1
 	value
 		"Scout" 4992004
 #		"Scrapper" 0.80 %
@@ -82,25 +84,25 @@ pricing ships "Pirate Small Ship Sales"
 #		"Wasp" 0.94 %
 
 pricing ships "Pirate Heavy Warship Sales"
-	location
-		government "Pirate"
-	offset
-		"Falcon" 1.04 %
-		"Leviathan" 1.03 %
-		"Protector" 1.09 %
-		"Vanguard" 1.11 %
+#	location
+#		government "Pirate"
+#	offset
+#		"Falcon" 1.04 %
+#		"Leviathan" 1.03 %
+#		"Protector" 1.09 %
+#		"Vanguard" 1.11 %
 
 
-pricing ships "Quarg Technology Friendly Groups"
-	location
-		government "Free Worlds" "Hai" "Neutral" "Republic" "Syndicate"
-	offset
-		"Quarg Skylark" 0.01 %
-		"Quarg Wardragon" 0.01 %
+# pricing ships "Quarg Technology Friendly Groups"
+#	location
+#		government "Free Worlds" "Hai" "Neutral" "Republic" "Syndicate"
+#	offset
+#		"Quarg Skylark" 0.01 %
+#		"Quarg Wardragon" 0.01 %
 
-pricing ships "Quarg Technology Hostile Groups"
-	location
-		government "Hai (Unfettered)" "Independent" "Pirate"
-	offset
-		"Quarg Skylark" 2 %
-		"Quarg Wardragon" 2 %
+# pricing ships "Quarg Technology Hostile Groups"
+#	location
+#		government "Hai (Unfettered)" "Independent" "Pirate"
+#	offset
+#		"Quarg Skylark" 2 %
+#		"Quarg Wardragon" 2 %
