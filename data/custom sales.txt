@@ -91,14 +91,14 @@ pricing ships "Pirate Heavy Warship Sales"
 		"Vanguard" 1.11 %
 
 
-pricing outfits "Quarg Technology Friendly Groups"
+pricing ships "Quarg Technology Friendly Groups"
 	location
 		government "Free Worlds" "Hai" "Neutral" "Republic" "Syndicate"
 	offset
 		"Quarg Skylark" 0.01 %
 		"Quarg Wardragon" 0.01 %
 
-pricing outfits "Quarg Technology Hostile Groups"
+pricing ships "Quarg Technology Hostile Groups"
 	location
 		government "Hai (Unfettered)" "Independent" "Pirate"
 	offset
