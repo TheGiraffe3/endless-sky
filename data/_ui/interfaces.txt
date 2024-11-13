@@ -928,11 +928,11 @@ interface "escort element"
 
 interface "planet"
 	image "land"
-		center -60 -140
+		center 0 -140
 	sprite "ui/planet dialog"
-		center -60 0
+		center 0 0
 	button l
-		center -60 -140
+		center 0 -140
 		dimensions 720 360
 
 	box "content"
