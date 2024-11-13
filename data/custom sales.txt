@@ -74,12 +74,12 @@ pricing outfits "Unfettered Jump Drives"
 pricing ships "Pirate Small Ship Sales"
 	location
 		government "Pirate"
-	offset
-		"Scout" 0.97 %
-		"Scrapper" 0.80 %
-		"Shuttle" 0.75 %
-		"Sparrow" 0.95 %
-		"Wasp" 0.94 %
+	value
+		"Scout" 4992004
+#		"Scrapper" 0.80 %
+#		"Shuttle" 0.75 %
+#		"Sparrow" 0.95 %
+#		"Wasp" 0.94 %
 
 pricing ships "Pirate Heavy Warship Sales"
 	location
