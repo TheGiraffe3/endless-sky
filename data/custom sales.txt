@@ -54,8 +54,6 @@ pricing outfits "Remnant Jump Drives"
 	import
 	location
 		government "Remnant"
-	conditions
-		1 = 1
 	value
 		"Jump Drive" 500000
 
