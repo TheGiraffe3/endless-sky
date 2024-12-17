@@ -759,6 +759,7 @@ void PlayerInfo::AdvanceDate(int amount)
 			if(!mission.IsFailed(*this))
 				mission.Do(Mission::DAILY, *this);
 		}
+		DoAccounting();
 		if(tributeIncome)
 			message += Format::CreditString(tributeIncome) + " in tribute";
 		if(salariesIncome && tributeIncome && b.assetsReturns)
@@ -788,8 +789,6 @@ void PlayerInfo::AdvanceDate(int amount)
 	string message = accounts.Step(assets, Salaries(), b.maintenanceCosts);
 	if(!message.empty())
 		Messages::Add(message, Messages::Importance::High);
-
-		DoAccounting();
 	}
 	// Reset the reload counters for all your ships.
 	for(const shared_ptr<Ship> &ship : ships)
