@@ -38,7 +38,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "PrintData.h"
 #include "Screen.h"
 #include "image/SpriteSet.h"
-#include "SpriteShader.h"
+#include "shader/SpriteShader.h"
 #include "TaskQueue.h"
 #include "test/Test.h"
 #include "test/TestContext.h"
@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
 		Preferences::Load();
 
 		// Load global conditions:
-		DataFile globalConditions(Files::Config() + "global conditions.txt");
+		DataFile globalConditions(Files::Config() / "global conditions.txt");
 		for(const DataNode &node : globalConditions)
 			if(node.Token(0) == "conditions")
 				GameData::GlobalConditions().Load(node);
@@ -510,7 +510,7 @@ void PrintHelp()
 void PrintVersion()
 {
 	cerr << endl;
-	cerr << "Endless Sky ver. 0.10.10-delta" << endl;
+	cerr << "Endless Sky ver. 0.10.10.5-delta" << endl;
 	cerr << "License GPLv3+: GNU GPL version 3 or later: <https://gnu.org/licenses/gpl.html>" << endl;
 	cerr << "This is free software: you are free to change and redistribute it." << endl;
 	cerr << "There is NO WARRANTY, to the extent permitted by law." << endl;
