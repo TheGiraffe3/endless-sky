@@ -774,12 +774,6 @@ void PlayerInfo::AdvanceDate(int amount)
 	for(const shared_ptr<Ship> &ship : ships)
 		assets += ship->Cargo().Value(system);
 
-	// Have the player pay salaries, mortgages, etc. and print a message that
-	// summarizes the payments that were made.
-	string message = accounts.Step(assets, Salaries(), b.maintenanceCosts);
-	if(!message.empty())
-		Messages::Add(message, Messages::Importance::High);
-	}
 	// Reset the reload counters for all your ships.
 	for(const shared_ptr<Ship> &ship : ships)
 		ship->GetArmament().ReloadAll();
