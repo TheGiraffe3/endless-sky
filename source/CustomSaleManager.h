@@ -39,6 +39,7 @@ public:
 	// Get the full/relative cost of the outfit with the last cached conditions.
 	static int64_t OutfitCost(const Outfit &outfit);
 	static double OutfitRelativeCost(const Outfit &outfit);
+	static int64_t ShipCost(const Ship &ship);
 	// Delete all cached data.
 	static void Clear();
 
