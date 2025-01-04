@@ -23,7 +23,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Color.h"
 #include "Conversation.h"
 #include "CustomOutfitSale.h"
-#include "CustomShipSale.h"
 #include "Effect.h"
 #include "Fleet.h"
 #include "FormationPattern.h"
@@ -107,7 +106,6 @@ private:
 	Set<Color> colors;
 	Set<Conversation> conversations;
 	Set<CustomOutfitSale> customOutfitSales;
-	Set<CustomShipSale> customShipSales;
 	Set<Effect> effects;
 	Set<GameEvent> events;
 	Set<Fleet> fleets;
