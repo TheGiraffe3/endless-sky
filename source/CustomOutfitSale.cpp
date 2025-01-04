@@ -161,7 +161,7 @@ void CustomOutfitSale::Load(const DataNode &node, bool eventChange)
 		}
 		// CustomOutfitSales are separated between outfits and outfitters in the data files.
 		// This mode could apply to ships and shipyards later on, though shipyards stocking
-		// sold ships might need to be implemented first. 
+		// sold ships might need to be implemented first.
 		else if(mode == "outfits")
 		{
 			if(!add)
