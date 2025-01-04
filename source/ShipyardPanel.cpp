@@ -19,7 +19,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "comparators/BySeriesAndIndex.h"
 #include "ClickZone.h"
 #include "Color.h"
-#include "CustomSaleManager.h"
 #include "Dialog.h"
 #include "text/DisplayText.h"
 #include "text/Font.h"
@@ -102,10 +101,6 @@ void ShipyardPanel::DrawItem(const string &name, const Point &point)
 		return;
 
 	DrawShip(*ship, point, ship == selectedShip);
-
-	// For now there is only default or import.
-	if(!CustomShipSaleManager::CanBuy(*ship))
-		message += " (" + CustomShipSale::GetShown(CustomShipSale::SellType::IMPORT) + ")";
 }
 
 
@@ -239,7 +234,7 @@ ShopPanel::BuyResult ShipyardPanel::CanBuy(bool onlyOwned) const
 
 
 
-void ShipyardPanel::Buy(bool onlyOwned) const
+void ShipyardPanel::Buy(bool onlyOwned)
 {
 	int64_t licenseCost = LicenseCost(&selectedShip->Attributes());
 	if(licenseCost < 0)
@@ -260,8 +255,6 @@ void ShipyardPanel::Buy(bool onlyOwned) const
 		message += selectedShip->PluralModelName() + "! (Or leave it blank to use randomly chosen names.)";
 
 	GetUI()->Push(new ShipNameDialog(this, &ShipyardPanel::BuyShip, message));
-
-	bool isSold = CustomShipSaleManager::CanBuy(*selectedShip);
 }
 
 
