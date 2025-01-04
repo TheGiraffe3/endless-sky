@@ -54,33 +54,6 @@ void CustomOutfitSaleManager::Refresh(const System *system, const ConditionsStor
 
 
 
-void CustomShipSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
-{
-	Clear();
-	if(!planet)
-		return;
-	for(const auto &sale : GameData::CustomShipSales())
-		customShipSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
-}
-
-
-
-void CustomShipSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
-{
-	Clear();
-	if(!system)
-		return;
-	for(const StellarObject &object : system->Objects())
-		if(object.HasSprite() && object.HasValidPlanet())
-		{
-			const Planet &planet = *object.GetPlanet();
-			for(const auto &sale : GameData::CustomShipSales())
-				customShipSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
-		}
-}
-
-
-
 bool CustomOutfitSaleManager::CanBuy(const Outfit &outfit)
 {
 	const auto &it = customOutfitSales.find(CustomOutfitSale::SellType::IMPORT);
@@ -109,45 +82,7 @@ double CustomOutfitSaleManager::OutfitRelativeCost(const Outfit &outfit)
 
 
 
-bool CustomShipSaleManager::CanBuy(const Ship &ship)
-{
-	const auto &it = customShipSales.find(CustomShipSale::SellType::IMPORT);
-	return it == customShipSales.end() || !it->second.Has(ship);
-}
-
-
-
-double CustomShipSaleManager::ShipRelativeCost(const Ship &ship)
-{
-	if(customShipSales.empty())
-		return 1.;
-	// Iterate in the opposite order, since any higher customSale has priority.
-	for(auto &&selling = customShipSales.rbegin(); selling != customShipSales.rend(); ++selling)
-		if(selling->second.Has(ship))
-			return selling->second.GetRelativeCost(ship);
-	return 1.;
-}
-
-
-
-int64_t CustomShipSaleManager::ShipCost(const Ship &ship)
-{
-	int64_t localCost = ship.ChassisCost();
-	for(auto it : ship.Outfits())
-		localCost += (CustomOutfitSaleManager::OutfitCost(*it.first) * it.second);
-	return localCost;
-}
-
-
-
 void CustomOutfitSaleManager::Clear()
 {
 	customOutfitSales = {};
-}
-
-
-
-void CustomShipSaleManager::Clear()
-{
-	customShipSales = {};
 }
