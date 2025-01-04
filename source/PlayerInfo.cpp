@@ -766,7 +766,6 @@ void PlayerInfo::AdvanceDate(int amount)
 
 	// The standard prices will be used to query the value of the fleet of the player, instead of the local prices.
 	CustomOutfitSaleManager::Clear();
-	CustomShipSaleManager::Clear();
 
 
 	// Reset the reload counters for all your ships.
