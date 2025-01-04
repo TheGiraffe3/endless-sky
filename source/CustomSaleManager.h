@@ -16,7 +16,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 
 #include "CustomOutfitSale.h"
-#include "CustomShipSale.h"
 
 #include <map>
 
@@ -46,26 +45,4 @@ public:
 
 public:
 	static inline std::map<CustomOutfitSale::SellType, CustomOutfitSale> customOutfitSales;
-};
-
-
-
-class CustomShipSaleManager {
-public:
-	// Refresh the active CustomSales to correspond to the planet and conditions.
-	static void Refresh(const Planet *planet, const ConditionsStore &conditions);
-	// Or to all planets in this system.
-	static void Refresh(const System *system, const ConditionsStore &conditions);
-	// Return if can be bought. And imported item will still be shown but not be buyable.
-	static bool CanBuy(const Ship &ship);
-
-	// Get the full/relative cost of the ship with the last cached conditions.
-	static int64_t ShipCost(const Ship &ship);
-	static double ShipRelativeCost(const Ship &ship);
-	// Delete all cached data.
-	static void Clear();
-
-
-public:
-	static inline std::map<CustomShipSale::SellType, CustomShipSale> customShipSales;
 };
