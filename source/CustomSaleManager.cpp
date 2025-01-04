@@ -25,7 +25,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 using namespace std;
 
-map<CustomOutfitSale::SellType, CustomOutfitSale> CustomOutfitSaleManager::customOutfitSales = {};
+//map<CustomOutfitSale::SellType, CustomOutfitSale> CustomOutfitSaleManager::customOutfitSales = {};
 
 void CustomOutfitSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
 {
