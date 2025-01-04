@@ -70,8 +70,6 @@ target_sources(EndlessSkyLib PRIVATE
 	CustomOutfitSale.h
 	CustomSaleManager.cpp
 	CustomSaleManager.h
-	CustomShipSale.cpp
-	CustomShipSale.h
 	DamageDealt.h
 	DamageProfile.cpp
 	DamageProfile.h
