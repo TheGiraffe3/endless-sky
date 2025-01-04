@@ -111,7 +111,6 @@ ShopPanel::ShopPanel(PlayerInfo &player, bool isOutfitter)
 	SetIsFullScreen(true);
 	SetInterruptible(false);
 	CustomOutfitSaleManager::Refresh(planet, player.Conditions());
-	CustomShipSaleManager::Refresh(planet, player.Conditions());
 }
 
 
