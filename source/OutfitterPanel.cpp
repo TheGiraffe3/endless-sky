@@ -240,8 +240,8 @@ void OutfitterPanel::DrawItem(const string &name, const Point &point)
 		message = "(not sold here)";
 
 	// For now there is only default or import.
-	if(!CustomOutfitSaleManager::CanBuy(*outfit))
-		message += " (" + CustomOutfitSale::GetShown(CustomOutfitSale::SellType::IMPORT) + ")";
+	if(!CustomSaleManager::CanBuy(*outfit))
+		message += " (" + CustomSale::GetShown(CustomSale::SellType::IMPORT) + ")";
 
 	if(!message.empty())
 	{
@@ -362,7 +362,7 @@ ShopPanel::BuyResult OutfitterPanel::CanBuy(bool onlyOwned) const
 	// Check if the outfit is available to get at all.
 	bool isInCargo = player.Cargo().Get(selectedOutfit);
 	bool isInStorage = player.Storage().Get(selectedOutfit);
-	bool isSold = CustomOutfitSaleManager::CanBuy(*selectedOutfit);
+	bool isSold = CustomSaleManager::CanBuy(*selectedOutfit);
 	bool isInStore = (outfitter.Has(selectedOutfit) && isSold) || player.Stock(selectedOutfit) > 0;
 	if(isInStorage && (onlyOwned || isInStore || playerShip))
 	{
@@ -597,7 +597,7 @@ void OutfitterPanel::Buy(bool onlyOwned)
 			{
 				// Check if the outfit is for sale or in stock so that we can actually buy it.
 				if((!outfitter.Has(selectedOutfit) && player.Stock(selectedOutfit) <= 0) ||
-									!CustomOutfitSaleManager::CanBuy(*selectedOutfit))
+									!CustomSaleManager::CanBuy(*selectedOutfit))
 					continue;
 				player.Cargo().Add(selectedOutfit);
 				int64_t price = player.StockDepreciation().Value(selectedOutfit, day);

@@ -27,18 +27,18 @@ using namespace std;
 
 map<CustomSale::SellType, CustomSale> CustomSaleManager::customSales = {};
 
-void CustomOutfitSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
+void CustomSaleManager::Refresh(const Planet *planet, const ConditionsStore &conditions)
 {
 	Clear();
 	if(!planet)
 		return;
-	for(const auto &sale : GameData::CustomOutfitSales())
-		customOutfitSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
+	for(const auto &sale : GameData::CustomSales())
+		CustomSales[sale.second.GetSellType()].Add(sale.second, *planet, conditions);
 }
 
 
 
-void CustomOutfitSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
+void CustomSaleManager::Refresh(const System *system, const ConditionsStore &conditions)
 {
 	Clear();
 	if(!system)
@@ -47,34 +47,34 @@ void CustomOutfitSaleManager::Refresh(const System *system, const ConditionsStor
 		if(object.HasSprite() && object.HasValidPlanet())
 		{
 			const Planet &planet = *object.GetPlanet();
-			for(const auto &sale : GameData::CustomOutfitSales())
-				customOutfitSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
+			for(const auto &sale : GameData::CustomSales())
+				CustomSales[sale.second.GetSellType()].Add(sale.second, planet, conditions);
 		}
 }
 
 
 
-bool CustomOutfitSaleManager::CanBuy(const Outfit &outfit)
+bool CustomSaleManager::CanBuy(const Outfit &outfit)
 {
-	const auto &it = customOutfitSales.find(CustomOutfitSale::SellType::IMPORT);
-	return it == customOutfitSales.end() || !it->second.Has(outfit);
+	const auto &it = CustomSales.find(CustomSale::SellType::IMPORT);
+	return it == CustomSales.end() || !it->second.Has(outfit);
 }
 
 
 
-int64_t CustomOutfitSaleManager::OutfitCost(const Outfit &outfit)
+int64_t CustomSaleManager::OutfitCost(const Outfit &outfit)
 {
 	return OutfitRelativeCost(outfit) * outfit.Cost();
 }
 
 
 
-double CustomOutfitSaleManager::OutfitRelativeCost(const Outfit &outfit)
+double CustomSaleManager::OutfitRelativeCost(const Outfit &outfit)
 {
-	if(customOutfitSales.empty())
+	if(CustomSales.empty())
 		return 1.;
 	// Iterate in the opposite order, since any higher customSale has priority.
-	for(auto &&selling = customOutfitSales.rbegin(); selling != customOutfitSales.rend(); ++selling)
+	for(auto &&selling = CustomSales.rbegin(); selling != CustomSales.rend(); ++selling)
 		if(selling->second.Has(outfit))
 			return selling->second.GetRelativeCost(outfit);
 	return 1.;
@@ -82,7 +82,7 @@ double CustomOutfitSaleManager::OutfitRelativeCost(const Outfit &outfit)
 
 
 
-void CustomOutfitSaleManager::Clear()
+void CustomSaleManager::Clear()
 {
-	customOutfitSales = {};
+	CustomSales = {};
 }

@@ -22,7 +22,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Command.h"
 #include "ConditionsStore.h"
 #include "Conversation.h"
-#include "CustomOutfitSale.h"
+#include "CustomSale.h"
 #include "DataFile.h"
 #include "DataNode.h"
 #include "DataWriter.h"
@@ -78,7 +78,7 @@ using namespace std;
 
 namespace {
 	UniverseObjects objects;
-	Set<CustomOutfitSale> defaultCustomOutfitSales;
+	Set<CustomSale> defaultCustomSales;
 	Set<Fleet> defaultFleets;
 	Set<Government> defaultGovernments;
 	Set<Planet> defaultPlanets;
@@ -241,7 +241,7 @@ shared_future<void> GameData::BeginLoad(TaskQueue &queue, bool onlyLoadData, boo
 void GameData::FinishLoading()
 {
 	// Store the current state, to revert back to later.
-	defaultCustomOutfitSales = objects.customOutfitSales;
+	defaultCustomSales = objects.CustomSales;
 	defaultFleets = objects.fleets;
 	defaultGovernments = objects.governments;
 	defaultPlanets = objects.planets;
@@ -382,7 +382,7 @@ UniverseObjects &GameData::Objects()
 // Revert any changes that have been made to the universe.
 void GameData::Revert()
 {
-	objects.customOutfitSales.Revert(defaultCustomOutfitSales);
+	objects.CustomSales.Revert(defaultCustomSales);
 	objects.fleets.Revert(defaultFleets);
 	objects.governments.Revert(defaultGovernments);
 	objects.planets.Revert(defaultPlanets);
@@ -592,8 +592,8 @@ const Set<Conversation> &GameData::Conversations()
 
 
 
-const Set<CustomOutfitSale> &GameData::CustomOutfitSales() {
-	return objects.customOutfitSales;
+const Set<CustomSale> &GameData::CustomSales() {
+	return objects.CustomSales;
 }
 
 

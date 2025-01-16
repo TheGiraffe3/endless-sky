@@ -15,7 +15,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "CustomOutfitSale.h"
+#include "CustomSale.h"
 
 #include <map>
 
@@ -27,7 +27,7 @@ class System;
 
 
 
-class CustomOutfitSaleManager {
+class CustomSaleManager {
 public:
 	// Refresh the active CustomSales to correspond to the planet and conditions.
 	static void Refresh(const Planet *planet, const ConditionsStore &conditions);
@@ -45,5 +45,5 @@ public:
 
 
 public:
-	static inline std::map<CustomOutfitSale::SellType, CustomOutfitSale> customOutfitSales;
+	static inline std::map<CustomSale::SellType, CustomSale> CustomSales;
 };

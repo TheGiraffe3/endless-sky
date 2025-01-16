@@ -1,4 +1,4 @@
-/* CustomOutfitSale.cpp
+/* CustomSale.cpp
 Copyright (c) 2024 by Hurleveur
 
 Endless Sky is free software: you can redistribute it and/or modify it under the
@@ -13,7 +13,7 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "CustomOutfitSale.h"
+#include "CustomSale.h"
 
 #include "ConditionsStore.h"
 #include "DataNode.h"
@@ -27,9 +27,9 @@ using namespace std;
 
 namespace
 {
-	const auto show = map<CustomOutfitSale::SellType, const string> {
-		{CustomOutfitSale::SellType::DEFAULT, ""},
-		{CustomOutfitSale::SellType::IMPORT, "import"}
+	const auto show = map<CustomSale::SellType, const string> {
+		{CustomSale::SellType::DEFAULT, ""},
+		{CustomSale::SellType::IMPORT, "import"}
 	};
 	// Initially put values at this to know if we found what we're looking for,
 	// whilst allowing 0 in the searched list.
@@ -38,7 +38,7 @@ namespace
 
 
 
-void CustomOutfitSale::Load(const DataNode &node, bool eventChange)
+void CustomSale::Load(const DataNode &node, bool eventChange)
 {
 	const Set<Sale<Outfit>> &items = GameData::Outfitters();
 	const Set<Outfit> &outfits = GameData::Outfits();
@@ -159,7 +159,7 @@ void CustomOutfitSale::Load(const DataNode &node, bool eventChange)
 				conditions = ConditionSet{};
 			conditions.Load(child);
 		}
-		// CustomOutfitSales are separated between outfits and outfitters in the data files.
+		// CustomSales are separated between outfits and outfitters in the data files.
 		// This mode could apply to ships and shipyards later on, though shipyards stocking
 		// sold ships might need to be implemented first.
 		else if(mode == "outfits")
@@ -220,7 +220,7 @@ void CustomOutfitSale::Load(const DataNode &node, bool eventChange)
 
 
 
-void CustomOutfitSale::FinishLoading()
+void CustomSale::FinishLoading()
 {
 	for(const auto &it : toConvert)
 		if(it.first->Cost() != 0)
@@ -256,7 +256,7 @@ void CustomOutfitSale::FinishLoading()
 
 
 
-bool CustomOutfitSale::Add(const CustomOutfitSale &other, const Planet &planet, const ConditionsStore &store)
+bool CustomSale::Add(const CustomSale &other, const Planet &planet, const ConditionsStore &store)
 {
 	cacheValid = false;
 	if(!Matches(planet, store))
@@ -312,7 +312,7 @@ bool CustomOutfitSale::Add(const CustomOutfitSale &other, const Planet &planet, 
 
 
 
-double CustomOutfitSale::GetRelativeCost(const Outfit &item) const
+double CustomSale::GetRelativeCost(const Outfit &item) const
 {
 	// Outfit prices have priority over outfitter prices, so consider them first,
 	// and only consider the outfitter prices if the outfits have no set price.
@@ -346,21 +346,21 @@ double CustomOutfitSale::GetRelativeCost(const Outfit &item) const
 
 
 
-CustomOutfitSale::SellType CustomOutfitSale::GetSellType() const
+CustomSale::SellType CustomSale::GetSellType() const
 {
 	return sellType;
 }
 
 
 
-const string &CustomOutfitSale::GetShown(CustomOutfitSale::SellType sellType)
+const string &CustomSale::GetShown(CustomSale::SellType sellType)
 {
 	return show.find(sellType)->second;
 }
 
 
 
-bool CustomOutfitSale::Has(const Outfit &item) const
+bool CustomSale::Has(const Outfit &item) const
 {
 	if(relativeOutfitPrices.find(&item) != relativeOutfitPrices.end())
 		return true;
@@ -377,7 +377,7 @@ bool CustomOutfitSale::Has(const Outfit &item) const
 
 
 
-bool CustomOutfitSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
+bool CustomSale::Matches(const Planet &planet, const ConditionsStore &playerConditions) const
 {
 	return (location ? location == &planet : locationFilter.Matches(&planet)) &&
 		(conditions.IsEmpty() || conditions.Test(playerConditions));
@@ -385,7 +385,7 @@ bool CustomOutfitSale::Matches(const Planet &planet, const ConditionsStore &play
 
 
 
-bool CustomOutfitSale::IsEmpty()
+bool CustomSale::IsEmpty()
 {
 	return relativePrices.empty() && relativeOffsets.empty() &&
 		relativeOutfitPrices.empty() && relativeOutfitOffsets.empty();
@@ -393,7 +393,7 @@ bool CustomOutfitSale::IsEmpty()
 
 
 
-void CustomOutfitSale::Clear()
+void CustomSale::Clear()
 {
-	*this = CustomOutfitSale{};
+	*this = CustomSale{};
 }
