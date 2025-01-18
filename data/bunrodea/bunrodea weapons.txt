@@ -50,7 +50,11 @@ outfit "Locust Turret"
 		sound "locust blaster"
 		"hit effect" "bullet impact"
 		"inaccuracy" 5
+<<<<<<< HEAD
 		"turret turn" 6
+=======
+		"turret turn" 3.7
+>>>>>>> d752db3c7... feat(balance): Revert turret turn rate nerf while preserving rebalance (#10860)
 		"velocity" 10
 		"random velocity" 2
 		"lifetime" 40
