@@ -196,6 +196,7 @@ star "planet/rogue-radiating"
 	power .2
 	wind .6
 
+# Compact stellar objects.
 star "star/neutron"
 	power 4
 	wind 0.4
@@ -203,6 +204,27 @@ star "star/neutron"
 star "star/neutron-small"
 	power 2
 	wind 0.2
+	icon "map/small-neutron-star"
+star "star/magnetar"
+	power 4
+	wind 0.8
+	icon "map/magnetar-star"
+star "star/black-hole"
+	power 0
+	wind 0
+	icon "map/black-hole-star"
+star "star/small-black-hole"
+	power 0
+	wind 0
+	icon "map/small-black-hole-star"
+star "star/coal-black-hole"
+	power 0
+	wind 0
+	icon "map/coal-black-hole-star"
+star "star/twilight-black-hole"
+	power 2.4
+	wind 0.3
+	icon "map/twilight-black-hole-star"
 
 # Dwarves scaled like stars.
 star "star/o-dwarf"
