@@ -79,8 +79,8 @@ template <class Type>
 	void SetMousePosition(Point position);
 
 	// Get the in-system strength of each government's allies and enemies.
-	int64_t AllyStrength(const Government *government);
-	int64_t EnemyStrength(const Government *government);
+	int64_t AllyStrength(const Government *government) const;
+	int64_t EnemyStrength(const Government *government) const;
 
 	// Find nearest landing location.
 	static const StellarObject *FindLandingLocation(const Ship &ship, const bool refuel = true);
@@ -119,7 +119,7 @@ private:
 	static double TurnToward(const Ship &ship, const Point &vector, const double precision = 0.9999);
 	static bool MoveToPlanet(Ship &ship, Command &command);
 	static bool MoveTo(Ship &ship, Command &command, const Point &targetPosition,
-		const Point &targetVelocity, double radius, double slow);
+		const Point &targetVelocity, double radius, double slow, double cruiseSpeed = -1.);
 	static bool Stop(Ship &ship, Command &command, double maxSpeed = 0., const Point direction = Point());
 	static void PrepareForHyperspace(Ship &ship, Command &command);
 	static void CircleAround(Ship &ship, Command &command, const Body &target);
