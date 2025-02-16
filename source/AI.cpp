@@ -2468,7 +2468,6 @@ bool AI::MoveTo(Ship &ship, Command &command, const Point &targetPosition,
 	// command active. Therefore, if this ship should use its afterburner, use the
 	// max velocity with afterburner thrust included.
 	double maxVelocity = ship.MaxVelocity(ShouldUseAfterburner(ship)) * .99;
-  bool movingTowardsTarget = (velocity.Unit().Dot(dp.Unit()) > .95);
 	if(isFacing && (velocity.LengthSquared() <= maxVelocity * maxVelocity
 			|| dp.Unit().Dot(velocity.Unit()) < .95))
 		command |= Command::FORWARD;
