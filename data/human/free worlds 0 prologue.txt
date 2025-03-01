@@ -2282,17 +2282,16 @@ mission "Defend Sabik"
 			fighters
 				names "republic fighter"
 			variant
-				"Carrier"
-				"Lance" 8
-				"Combat Drone" 6
-				"Frigate" 2
-				"Gunboat" 3
-				"Rainmaker" 3
+				"Cruiser"
+				"Combat Drone" 4
+				"Frigate"
+				"Gunboat" 2
+				"Rainmaker"
 	npc evade
 		government "Republic"
 		personality heroic
 		system "Kornephoros"
-		fleet 2
+		fleet
 			names "republic capital"
 			fighters
 				names "republic fighter"
@@ -2332,7 +2331,7 @@ mission "Defend Sabik"
 				"Falcon"
 				"Osprey" 2
 				"Hawk" 3
-				"Sparrow" 5
+				"Sparrow" 4
 	npc
 		government "Free Worlds"
 		personality heroic disables
@@ -2341,13 +2340,8 @@ mission "Defend Sabik"
 			names "free worlds capital"
 			variant
 				"Bastion" 2
-				"Argosy" 4
-				"Fury" 6
-		fleet
-			names "free worlds capital"
-			variant
-				"Bastion" 2
-				"Argosy" 4
+				"Argosy" 3
+				"Fury" 2
 	npc
 		government "Free Worlds"
 		personality heroic disables
@@ -2355,7 +2349,7 @@ mission "Defend Sabik"
 		fleet
 			names "free worlds capital"
 			variant
-				"Falcon" 2
+				"Falcon"
 	npc
 		government "Free Worlds"
 		personality heroic waiting disables
