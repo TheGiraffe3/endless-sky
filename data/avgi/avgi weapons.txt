@@ -16,6 +16,8 @@
 
 outfit "Speck Round"
 	category "Ammunition"
+	series "Ammunition"
+	index 07010
 	cost 6
 	thumbnail "outfit/speck round"
 	"mass" 0.003
@@ -26,6 +28,8 @@ outfit "Speck Round"
 
 outfit "Speck Magazine"
 	category "Ammunition"
+	series "Ammunition"
+	index 07011
 	cost 12000
 	thumbnail "outfit/speck magazine"
 	"mass" 2.4
@@ -36,9 +40,9 @@ outfit "Speck Magazine"
 
 
 outfit "Speckle Coilgun"
-	series "Avgi: Kinetics"
-	index 10
 	category "Guns"
+	series "Guns"
+	index 07010
 	cost 32000
 	thumbnail "outfit/speckle coilgun"
 	"mass" 6.3
@@ -67,9 +71,9 @@ outfit "Speckle Coilgun"
 	
 
 outfit "Speckle Turret"
-	series "Avgi: Kinetics"
-	index 20
 	category "Turrets"
+	series "Turrets"
+	index 07020
 	cost 90000
 	thumbnail "outfit/speckle turret"
 	"mass" 16.8
@@ -139,6 +143,8 @@ effect "speck impact"
 
 outfit "Optical Lasing Generator"
 	category "Systems"
+	series "Special Systems"
+	index 07010
 	cost 1200000
 	thumbnail "outfit/optical lasing generator"
 	"mass" 30
@@ -149,9 +155,9 @@ outfit "Optical Lasing Generator"
 
 
 outfit "Green Optical Laser"
-	series "Avgi: Beams"
-	index 10
 	category "Turrets"
+	series "Anti-Missile"
+	index 07010
 	cost 90000
 	thumbnail "outfit/green optical laser"
 	"mass" 6
@@ -202,9 +208,9 @@ effect "green laser scattering"
 
 
 outfit "Blue Optical Laser"
-	series "Avgi: Beams"
-	index 20
 	category "Turrets"
+	series "Turrets"
+	index 07010
 	licenses
 		"Twilight Guard"
 	cost 120000
@@ -283,9 +289,9 @@ effect "laser ejecta"
 
 
 outfit "Ultrarelativistic Electron Beam"
-	series "Avgi: Beams"
-	index 30
 	category "Guns"
+	series "Guns"
+	index 07020
 	cost 3000000
 	thumbnail "outfit/unknown"
 	"mass" 90
@@ -355,9 +361,9 @@ effect "electron flare"
 
 
 outfit "External Launch Rail"
-	series "Avgi: Missiles"s
-	index 10
 	category "Secondary Weapons"
+	series "Secondary Weapons"
+	index 07010
 	licenses
 		"Avgi Atomics"
 	cost 90000
@@ -391,9 +397,9 @@ outfit "External Launch Rail"
 
 
 outfit "External Launch Tube"
-	series "Avgi: Missiles"
-	index 20
 	category "Secondary Weapons"
+	series "Secondary Weapons"
+	index 07020
 	licenses
 		"Twilight Guard"
 	cost 450000
@@ -429,9 +435,9 @@ outfit "External Launch Tube"
 
 outfit "Medium VLS"
 	"display name" "Vertical Launch Array (36)"
-	series "Avgi: Missiles"
-	index 30
 	category "Secondary Weapons"
+	series "Secondary Weapons"
+	index 07030
 	licenses
 		"Twilight Guard"
 	cost 240000
@@ -470,9 +476,9 @@ outfit "Medium VLS"
 
 
 outfit `"Nettle" KKV`
-	series "Avgi: Missiles"
-	index 40
 	category "Ammunition"
+	series "Ammunition"
+	index 07020
 	licenses
 		"Twilight Guard"
 	cost 450
@@ -484,9 +490,9 @@ outfit `"Nettle" KKV`
 
 
 outfit "Nettle Magazine"
-	series "Avgi: Missiles"
-	index 50
 	category "Ammunition"
+	series "Ammunition"
+	index 07021
 	licenses
 		"Twilight Guard"
 	cost 60000
@@ -555,9 +561,9 @@ effect "fleck impact"
 	"velocity scale" -.12
 
 outfit `"Orchid" Nuclear Missile`
-	series "Avgi: Missiles"
-	index 60
 	category "Ammunition"
+	series "Ammunition"
+	index 07030
 	licenses
 		"Avgi Atomics"
 	cost 300000
@@ -570,9 +576,9 @@ outfit `"Orchid" Nuclear Missile`
 
 
 outfit "Orchid Magazine"
-	series "Avgi: Missiles"
-	index 70
 	category "Ammunition"
+	series "Ammunition"
+	index 07031
 	licenses
 		"Avgi Atomics"
 	cost 150000
@@ -712,9 +718,9 @@ outfit "Orchid Divert Stage Expended"
 
 
 outfit `"Ophrys" Nuclear Torpedo`
-	series "Avgi: Missiles"
-	index 80
 	category "Ammunition"
+	series "Ammunition"
+	index 07040
 	licenses
 		"Avgi Atomics"
 	cost 90000
@@ -727,9 +733,9 @@ outfit `"Ophrys" Nuclear Torpedo`
 
 
 outfit "Ophrys Stockpile"
-	series "Avgi: Missiles"
-	index 90
 	category "Ammunition"
+	series "Ammunition"
+	index 07041
 	licenses
 		"Avgi Atomics"
 	cost 210000
