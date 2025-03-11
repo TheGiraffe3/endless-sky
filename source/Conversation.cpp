@@ -18,6 +18,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "DataNode.h"
 #include "DataWriter.h"
 #include "text/Format.h"
+#include "GameData.h"
 #include "Phrase.h"
 #include "image/Sprite.h"
 #include "image/SpriteSet.h"
@@ -103,6 +104,8 @@ void Conversation::Load(const DataNode &node)
 	// Make sure this really is a conversation specification.
 	if(node.Token(0) != "conversation")
 		return;
+	if(node.Size() >= 2)
+		name = node.Token(1);
 
 	// Free any previously loaded data.
 	nodes.clear();
@@ -113,7 +116,7 @@ void Conversation::Load(const DataNode &node)
 		{
 			// A scene always starts a new text node.
 			AddNode();
-			nodes.back().scene = SpriteSet::Get(child.Token(1));
+			nodes.back().scene = GameData::Sprites().Get(child.Token(1));
 		}
 		else if(child.Token(0) == "label" && child.Size() >= 2)
 		{
@@ -336,6 +339,13 @@ bool Conversation::IsValidIntro() const noexcept
 	return any_of(nodes.begin(), nodes.end(), [](const Node &node) noexcept -> bool {
 		return node.isChoice && node.elements.empty();
 	});
+}
+
+
+
+const string &Conversation::Name() const noexcept
+{
+	return name;
 }
 
 

@@ -15,12 +15,14 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "ImageBuffer.h"
 #include "../Point.h"
 
+#include <array>
 #include <cstdint>
+#include <filesystem>
 #include <string>
-
-class ImageBuffer;
+#include <vector>
 
 
 
@@ -35,10 +37,11 @@ public:
 	const std::string &Name() const;
 
 	// Add the given frames, optionally uploading them. The given buffer will be cleared afterwards.
-	void AddFrames(ImageBuffer &buffer, bool is2x);
+	void AddFrames(ImageBuffer &buffer, bool is2x, std::vector<std::filesystem::path> path);
 	void AddSwizzleMaskFrames(ImageBuffer &buffer, bool is2x);
 	// Free up all textures loaded for this sprite.
 	void Unload();
+	const std::vector<std::filesystem::path> &Path(bool is2x) const;
 
 	// Image dimensions, in pixels.
 	float Width() const;
@@ -61,6 +64,8 @@ public:
 
 private:
 	std::string name;
+	std::array<std::vector<std::filesystem::path>, 2> paths;
+	bool isLoaded = false;
 
 	uint32_t texture[2] = {0, 0};
 	uint32_t swizzleMask[2] = {0, 0};
@@ -68,4 +73,6 @@ private:
 	float width = 0.f;
 	float height = 0.f;
 	int frames = 0;
+
+	friend class Editor;
 };

@@ -32,9 +32,12 @@ public:
 	const Type *Get(const std::string &name) const { return &data[name]; }
 	// If an item already exists in this set, get it. Otherwise, return a null
 	// pointer rather than creating the item.
+	Type *Find(const std::string &name);
 	const Type *Find(const std::string &name) const;
 
 	bool Has(const std::string &name) const { return data.contains(name); }
+	void Rename(const std::string &name, const std::string &newName) const;
+	void Erase(const std::string &name) const { data[name] = {}; }
 
 	typename std::map<std::string, Type>::iterator begin() { return data.begin(); }
 	typename std::map<std::string, Type>::const_iterator begin() const { return data.begin(); }
@@ -43,10 +46,12 @@ public:
 	typename std::map<std::string, Type>::const_iterator end() const { return data.end(); }
 
 	int size() const { return data.size(); }
+	void clear() const { data.clear(); }
 	bool empty() const { return data.empty(); }
 	// Remove any objects in this set that are not in the given set, and for
 	// those that are in the given set, revert to their contents.
 	void Revert(const Set<Type> &other);
+	void RevertNoOverwrite(const Set<Type> &other);
 
 
 private:
@@ -60,6 +65,24 @@ const Type *Set<Type>::Find(const std::string &name) const
 {
 	auto it = data.find(name);
 	return (it == data.end() ? nullptr : &it->second);
+}
+
+
+
+template <class Type>
+Type *Set<Type>::Find(const std::string &name)
+{
+	return const_cast<Type *>(const_cast<const Set<Type> *>(this)->Find(name));
+}
+
+
+
+template <typename T>
+void Set<T>::Rename(const std::string &name, const std::string &newName) const
+{
+	auto node = data.extract(name);
+	node.key() = newName;
+	data.insert(std::move(node));
 }
 
 
@@ -79,6 +102,30 @@ void Set<Type>::Revert(const Set<Type> &other)
 			// If this is an entry that is in the set we are reverting to, copy
 			// the state we are reverting to.
 			it->second = oit->second;
+			++it;
+			++oit;
+		}
+
+		// There should never be a case when an entry in the set we are
+		// reverting to has a name that is not also in this set.
+	}
+}
+
+
+
+template <class Type>
+void Set<Type>::RevertNoOverwrite(const Set<Type> &other)
+{
+	auto it = data.begin();
+	auto oit = other.data.begin();
+
+	while(it != data.end())
+	{
+		if(oit == other.data.end() || it->first < oit->first)
+			it = data.erase(it);
+		else if(it->first == oit->first)
+		{
+			// Don't overwrite!
 			++it;
 			++oit;
 		}

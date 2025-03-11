@@ -41,6 +41,7 @@ bool Sound::Load(const filesystem::path &path, const string &name)
 	if(path.extension() != ".wav")
 		return false;
 	this->name = name;
+	this->path = path;
 
 	isLooped = path.stem().string().ends_with('~');
 	bool isFast = isLooped ? path.stem().string().ends_with("@3x~") : path.stem().string().ends_with("@3x");
@@ -62,12 +63,29 @@ bool Sound::Load(const filesystem::path &path, const string &name)
 		alGenBuffers(1, &buf);
 	alBufferData(buf, AL_FORMAT_MONO16, &data.front(), bytes, frequency);
 
+	isLoaded = true;
 	return true;
 }
 
 
 
+void Sound::Unload() const
+{
+	ALuint id = buffer;
+	alDeleteBuffers(1, &id);
+	isLoaded = false;
+}
+
+
+
 const string &Sound::Name() const
+{
+	return name;
+}
+
+
+
+const string &Sound::Path() const
 {
 	return name;
 }

@@ -37,4 +37,6 @@ private:
 	int cargo = 3;
 	std::vector<std::string> commodities;
 	std::set<const Sale<Outfit> *> outfitters;
+
+	friend class FleetEditor;
 };

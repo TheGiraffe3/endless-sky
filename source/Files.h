@@ -63,8 +63,14 @@ public:
 	static std::string Name(const std::filesystem::path &path);
 
 	// File IO.
+<<<<<<< HEAD
 	static FILE *Open(const std::filesystem::path &path, bool write = false);
 	static std::string Read(const std::filesystem::path &path);
+=======
+	static void CreateNewDirectory(const std::string &path);
+	static FILE *Open(const std::string &path, bool write = false);
+	static std::string Read(const std::string &path);
+>>>>>>> 0.10.10-editor-patched
 	static std::string Read(FILE *file);
 	static void Write(const std::filesystem::path &path, const std::string &data);
 	static void Write(FILE *file, const std::string &data);

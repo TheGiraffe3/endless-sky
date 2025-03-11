@@ -74,6 +74,18 @@ public:
 			facing(b.facing), launchEffects(b.launchEffects) {}
 		Bay &operator=(const Bay &b) { return *this = Bay(b); }
 
+		bool operator==(const Bay &rhs) const
+		{
+			return
+				point == rhs.point &&
+				ship == rhs.ship &&
+				category == rhs.category &&
+				side == rhs.side &&
+				facing.Degrees() == rhs.facing.Degrees() &&
+				launchEffects == rhs.launchEffects;
+		}
+		bool operator!=(const Bay &rhs) const { return !(*this == rhs); }
+
 		Point point;
 		std::shared_ptr<Ship> ship;
 		std::string category;
@@ -145,6 +157,7 @@ public:
 
 	// Get the name of this particular ship.
 	const std::string &Name() const;
+	const std::string &TrueName() const { return variantName.empty() ? TrueModelName() : VariantName(); }
 
 	// Set / Get the name of this model of ship.
 	void SetTrueModelName(const std::string &model);
@@ -628,6 +641,7 @@ private:
 	// Installed outfits, cargo, etc.:
 	Outfit attributes;
 	Outfit baseAttributes;
+	Outfit addAttributesList;
 	bool addAttributes = false;
 	const Outfit *explosionWeapon = nullptr;
 	std::map<const Outfit *, int> outfits;
@@ -699,6 +713,17 @@ private:
 	public:
 		Leak(const Effect *effect = nullptr) : effect(effect) {}
 
+		bool operator==(const Leak &rhs) const
+		{
+			return
+				effect == rhs.effect &&
+				location == rhs.location &&
+				angle.Degrees() == rhs.angle.Degrees() &&
+				openPeriod == rhs.openPeriod &&
+				closePeriod == rhs.closePeriod;
+		}
+		bool operator!=(const Leak &rhs) const { return !(*this == rhs); }
+
 		const Effect *effect = nullptr;
 		Point location;
 		Angle angle;
@@ -729,5 +754,7 @@ private:
 	std::vector<std::weak_ptr<Ship>> escorts;
 	std::weak_ptr<Ship> parent;
 
+	friend class OutfitEditor;
+	friend class ShipEditor;
 	bool removeBays = false;
 };

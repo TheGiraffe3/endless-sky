@@ -16,6 +16,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "News.h"
 
 #include "DataNode.h"
+#include "GameData.h"
 #include "Random.h"
 #include "image/SpriteSet.h"
 
@@ -65,7 +66,7 @@ void News::Load(const DataNode &node)
 				// Collect all values to be removed.
 				auto toRemove = set<const Sprite *>{};
 				for(int i = valueIndex; i < child.Size(); ++i)
-					toRemove.emplace(SpriteSet::Get(child.Token(i)));
+					toRemove.emplace(GameData::Sprites().Get(child.Token(i)));
 
 				// Erase them in unison.
 				portraits.erase(remove_if(portraits.begin(), portraits.end(),
@@ -75,9 +76,9 @@ void News::Load(const DataNode &node)
 			else
 			{
 				for(int i = valueIndex; i < child.Size(); ++i)
-					portraits.push_back(SpriteSet::Get(child.Token(i)));
+					portraits.push_back(GameData::Sprites().Get(child.Token(i)));
 				for(const DataNode &grand : child)
-					portraits.push_back(SpriteSet::Get(grand.Token(0)));
+					portraits.push_back(GameData::Sprites().Get(grand.Token(0)));
 			}
 		}
 		else if(tag == "message")

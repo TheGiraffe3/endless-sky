@@ -1266,7 +1266,7 @@ void MapPanel::DrawTravelPlan()
 // Display the name of and distance to the selected system.
 void MapPanel::DrawSelectedSystem()
 {
-	const Sprite *sprite = SpriteSet::Get("ui/selected system");
+	const Sprite *sprite = GameData::Sprites().Get("ui/selected system");
 	SpriteShader::Draw(sprite, Point(0. + selectedSystemOffset, Screen::Top() + .5f * sprite->Height()));
 
 	string text;
@@ -1464,7 +1464,7 @@ void MapPanel::DrawSystems()
 			}
 		}
 
-		if(commodity == SHOW_GOVERNMENT && node.government && node.government->GetName() != "Uninhabited")
+		if(commodity == SHOW_GOVERNMENT && node.government && node.government->Name() != "Uninhabited")
 		{
 			// For every government that is drawn, keep track of how close it
 			// is to the center of the view. The four closest governments

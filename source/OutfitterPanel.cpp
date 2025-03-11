@@ -266,6 +266,7 @@ double OutfitterPanel::DrawDetails(const Point &center)
 {
 	string selectedItem = "Nothing Selected";
 	const Font &font = FontSet::Get(14);
+	const Color &bright = *GameData::Colors().Get("bright");
 
 	double heightOffset = 20.;
 
@@ -275,13 +276,14 @@ double OutfitterPanel::DrawDetails(const Point &center)
 		selectedItem = selectedOutfit->DisplayName();
 
 		const Sprite *thumbnail = selectedOutfit->Thumbnail();
-		const float tileSize = thumbnail
+		const Sprite *background = GameData::Sprites().Get("ui/outfitter selected");
+
+		float tileSize = thumbnail
 			? max(thumbnail->Height(), static_cast<float>(TileSize()))
 			: static_cast<float>(TileSize());
 		const Point thumbnailCenter(center.X(), center.Y() + 20 + static_cast<int>(tileSize / 2));
 		const Point startPoint(center.X() - INFOBAR_WIDTH / 2 + 20, center.Y() + 20 + tileSize);
 
-		const Sprite *background = SpriteSet::Get("ui/outfitter selected");
 		SpriteShader::Draw(background, thumbnailCenter);
 		if(thumbnail)
 			SpriteShader::Draw(thumbnail, thumbnailCenter);
@@ -301,7 +303,7 @@ double OutfitterPanel::DrawDetails(const Point &center)
 			{
 				const Color &dim = *GameData::Colors().Get("medium");
 				font.Draw(DESCRIPTION, startPoint + Point(35., 12.), dim);
-				const Sprite *collapsedArrow = SpriteSet::Get("ui/collapsed");
+				const Sprite *collapsedArrow = GameData::Sprites().Get("ui/collapsed");
 				SpriteShader::Draw(collapsedArrow, startPoint + Point(20., 20.));
 			}
 
@@ -322,7 +324,6 @@ double OutfitterPanel::DrawDetails(const Point &center)
 	}
 
 	// Draw this string representing the selected item (if any), centered in the details side panel
-	const Color &bright = *GameData::Colors().Get("bright");
 	Point selectedPoint(center.X() - INFOBAR_WIDTH / 2, center.Y());
 	font.Draw({selectedItem, {INFOBAR_WIDTH, Alignment::CENTER, Truncate::MIDDLE}},
 		selectedPoint, bright);
@@ -772,12 +773,12 @@ bool OutfitterPanel::ShouldHighlight(const Ship *ship)
 
 void OutfitterPanel::DrawKey()
 {
-	const Sprite *back = SpriteSet::Get("ui/outfitter key");
+	const Sprite *back = GameData::Sprites().Get("ui/outfitter key");
 	SpriteShader::Draw(back, Screen::BottomLeft() + .5 * Point(back->Width(), -back->Height()));
 
 	const Font &font = FontSet::Get(14);
 	Color color[2] = {*GameData::Colors().Get("medium"), *GameData::Colors().Get("bright")};
-	const Sprite *box[2] = {SpriteSet::Get("ui/unchecked"), SpriteSet::Get("ui/checked")};
+	const Sprite *box[2] = {GameData::Sprites().Get("ui/unchecked"), GameData::Sprites().Get("ui/checked")};
 
 	Point pos = Screen::BottomLeft() + Point(10., -VisibilityCheckboxesSize() - 20.);
 	Point off = Point(10., -.5 * font.Height());
@@ -866,7 +867,7 @@ bool OutfitterPanel::ShipCanSell(const Ship *ship, const Outfit *outfit)
 void OutfitterPanel::DrawOutfit(const Outfit &outfit, const Point &center, bool isSelected, bool isOwned)
 {
 	const Sprite *thumbnail = outfit.Thumbnail();
-	const Sprite *back = SpriteSet::Get(
+	const Sprite *back = GameData::Sprites().Get(
 		isSelected ? "ui/outfitter selected" : "ui/outfitter unselected");
 	SpriteShader::Draw(back, center);
 	SpriteShader::Draw(thumbnail, center);

@@ -668,7 +668,7 @@ void MissionPanel::SetSelectedScrollAndCenter(bool immediate)
 
 void MissionPanel::DrawKey() const
 {
-	const Sprite *back = SpriteSet::Get("ui/mission key");
+	const Sprite *back = GameData::Sprites().Get("ui/mission key");
 	SpriteShader::Draw(back, Screen::BottomLeft() + .5 * Point(back->Width(), -back->Height()));
 
 	const Font &font = FontSet::Get(14);
@@ -762,13 +762,13 @@ Point MissionPanel::DrawPanel(Point pos, const string &label, int entries, bool 
 	FillShader::Fill(pos + .5 * size, size, back);
 
 	// Edges:
-	const Sprite *bottom = SpriteSet::Get("ui/bottom edge");
+	const Sprite *bottom = GameData::Sprites().Get("ui/bottom edge");
 	Point edgePos = pos + Point(.5 * size.X(), size.Y());
 	Point bottomOff(0., .5 * bottom->Height());
 	SpriteShader::Draw(bottom, edgePos + bottomOff);
 
-	const Sprite *left = SpriteSet::Get("ui/left edge");
-	const Sprite *right = SpriteSet::Get("ui/right edge");
+	const Sprite *left = GameData::Sprites().Get("ui/left edge");
+	const Sprite *right = GameData::Sprites().Get("ui/right edge");
 	double dy = .5 * left->Height();
 	Point leftOff(-.5 * (size.X() + left->Width()), 0.);
 	Point rightOff(.5 * (size.X() + right->Width()), 0.);
@@ -785,14 +785,14 @@ Point MissionPanel::DrawPanel(Point pos, const string &label, int entries, bool 
 
 	// Panel sorting
 	const Sprite *rush[2] = {
-			SpriteSet::Get("ui/sort rush include"), SpriteSet::Get("ui/sort rush separate") };
+			GameData::Sprites().Get("ui/sort rush include"), GameData::Sprites().Get("ui/sort rush separate") };
 	const Sprite *acceptable[2] = {
-			SpriteSet::Get("ui/sort unacceptable include"), SpriteSet::Get("ui/sort unacceptable separate") };
+			GameData::Sprites().Get("ui/sort unacceptable include"), GameData::Sprites().Get("ui/sort unacceptable separate") };
 	const Sprite *sortIcon[4] = {
-			SpriteSet::Get("ui/sort abc"), SpriteSet::Get("ui/sort pay"),
-			SpriteSet::Get("ui/sort speed"), SpriteSet::Get("ui/sort convenient") };
+			GameData::Sprites().Get("ui/sort abc"), GameData::Sprites().Get("ui/sort pay"),
+			GameData::Sprites().Get("ui/sort speed"), GameData::Sprites().Get("ui/sort convenient") };
 	const Sprite *arrow[2] = {
-			SpriteSet::Get("ui/sort descending"), SpriteSet::Get("ui/sort ascending") };
+			GameData::Sprites().Get("ui/sort descending"), GameData::Sprites().Get("ui/sort ascending") };
 
 	// Draw Sorting Columns
 	if(entries && sorter)
@@ -831,7 +831,7 @@ Point MissionPanel::DrawList(const list<Mission> &list, Point pos, const std::li
 	const Color &unselected = *GameData::Colors().Get("medium");
 	const Color &selected = *GameData::Colors().Get("bright");
 	const Color &dim = *GameData::Colors().Get("dim");
-	const Sprite *fast = SpriteSet::Get("ui/fast forward");
+	const Sprite *fast = GameData::Sprites().Get("ui/fast forward");
 	bool separated = false;
 
 	for(auto it = list.begin(); it != list.end(); ++it)

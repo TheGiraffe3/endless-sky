@@ -40,6 +40,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "SavedGame.h"
 #include "Ship.h"
 #include "ShipEvent.h"
+#include "audio/SoundSet.h"
 #include "ShipJumpNavigation.h"
 #include "StartConditions.h"
 #include "StellarObject.h"
@@ -1524,7 +1525,11 @@ void PlayerInfo::Land(UI *ui)
 
 	if(!freshlyLoaded)
 	{
+<<<<<<< HEAD
 		Audio::Play(Audio::Get("landing"), SoundCategory::ENGINE);
+=======
+		Audio::Play("landing");
+>>>>>>> 0.10.10-editor-patched
 		Audio::PlayMusic(planet->MusicName());
 	}
 
@@ -1670,7 +1675,11 @@ bool PlayerInfo::TakeOff(UI *ui, const bool distributeCargo)
 		return false;
 
 	shouldLaunch = false;
+<<<<<<< HEAD
 	Audio::Play(Audio::Get("takeoff"), SoundCategory::ENGINE);
+=======
+	Audio::Play("takeoff");
+>>>>>>> 0.10.10-editor-patched
 
 	// Jobs are only available when you are landed.
 	availableJobs.clear();
@@ -4550,20 +4559,28 @@ void PlayerInfo::Save(DataWriter &out) const
 
 	// Save a list of systems the player has visited.
 	WriteSorted(visitedSystems,
+<<<<<<< HEAD
 		[](const System *const *lhs, const System *const *rhs)
 			{ return (*lhs)->TrueName() < (*rhs)->TrueName(); },
 		[&out](const System *system)
 		{
 			out.Write("visited", system->TrueName());
+=======
+		[](const System *lhs, const System *rhs)
+			{ return lhs->Name() < rhs->Name(); },
+		[&out](const System &system)
+		{
+			out.Write("visited", system.Name());
+>>>>>>> 0.10.10-editor-patched
 		});
 
 	// Save a list of planets the player has visited.
 	WriteSorted(visitedPlanets,
-		[](const Planet *const *lhs, const Planet *const *rhs)
-			{ return (*lhs)->TrueName() < (*rhs)->TrueName(); },
-		[&out](const Planet *planet)
+		[](const Planet *lhs, const Planet *rhs)
+			{ return lhs->TrueName() < rhs->TrueName(); },
+		[&out](const Planet &planet)
 		{
-			out.Write("visited planet", planet->TrueName());
+			out.Write("visited planet", planet.TrueName());
 		});
 
 	if(!harvested.empty())
@@ -4671,7 +4688,7 @@ void PlayerInfo::Fine(UI *ui)
 				ui->Push(new ConversationPanel(*this, *conversation));
 			else
 			{
-				message = "Before you can leave your ship, the " + gov->GetName()
+				message = "Before you can leave your ship, the " + gov->Name()
 					+ " authorities show up and begin scanning it. They say, \"Captain "
 					+ LastName()
 					+ ", we detect highly illegal material on your ship.\""

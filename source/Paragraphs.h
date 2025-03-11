@@ -16,12 +16,12 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 
 #include "ConditionSet.h"
+#include "ConditionsStore.h"
 
 #include <string>
 #include <utility>
 #include <vector>
 
-class ConditionsStore;
 class DataNode;
 
 
@@ -30,8 +30,7 @@ class DataNode;
 // See the planet and spaceport description code for examples.
 class Paragraphs {
 public:
-	using ConditionalText = std::vector<std::pair<ConditionSet, std::string>>;
-	using ConstIterator = ConditionalText::const_iterator;
+	using const_iterator = std::vector<std::pair<ConditionSet, std::string>>::const_iterator;
 
 
 public:
@@ -41,6 +40,9 @@ public:
 	// Discard all description lines.
 	void Clear();
 
+	bool operator==(const Paragraphs &other) const { return text == other.text; }
+	bool operator!=(const Paragraphs &other) const { return !(*this == other); }
+
 	// Is this object totally void of all information?
 	bool IsEmpty() const;
 
@@ -48,14 +50,14 @@ public:
 	bool IsEmptyFor(const ConditionsStore &vars) const;
 
 	// Concatenate all lines which match these vars.
-	std::string ToString(const ConditionsStore &vars) const;
+	std::string ToString(const ConditionsStore &vars = {}) const;
 
 	// Iterate over all text. Needed to support PrintData.
 	// These must use standard naming conventions (begin, end) for compatibility with range-based for loops.
-	ConstIterator begin() const;
-	ConstIterator end() const;
+	const_iterator begin() const;
+	const_iterator end() const;
 
 
 private:
-	ConditionalText text;
+	std::vector<std::pair<ConditionSet, std::string>> text;
 };

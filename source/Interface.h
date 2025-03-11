@@ -21,6 +21,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "text/truncate.hpp"
 
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -35,10 +36,6 @@ class Sprite;
 // the contents of an Information object.
 class Interface {
 public:
-	// A destructor is needed to clean up the polymorphic list of elements.
-	Interface() = default;
-	~Interface();
-
 	void Load(const DataNode &node);
 
 	// Draw this interface. If the given panel is not null, also register any
@@ -241,7 +238,7 @@ private:
 
 
 private:
-	std::vector<Element *> elements;
+	std::vector<std::shared_ptr<Element>> elements;
 	std::map<std::string, Element> points;
 	std::map<std::string, double> values;
 	std::map<std::string, std::vector<double>> lists;

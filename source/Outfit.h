@@ -153,6 +153,9 @@ private:
 	std::map<const Sound *, int> cargoScanSounds;
 	std::map<const Sound *, int> outfitScanSounds;
 	const Sprite *flotsamSprite = nullptr;
+
+	friend class ShipEditor;
+	friend class OutfitEditor;
 };
 
 

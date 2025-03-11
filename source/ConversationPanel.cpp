@@ -126,7 +126,7 @@ void ConversationPanel::Draw()
 		Point(boxWidth, Screen::Height()),
 		back);
 
-	Panel::DrawEdgeSprite(SpriteSet::Get("ui/right edge"), Screen::Left() + boxWidth);
+	Panel::DrawEdgeSprite(GameData::Sprites().Get("ui/right edge"), Screen::Left() + boxWidth);
 
 	// Get the font and colors we'll need for drawing everything.
 	const Font &font = FontSet::Get(14);

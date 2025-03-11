@@ -20,6 +20,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Effect.h"
 #include "GameData.h"
 #include "Outfit.h"
+#include "audio/SoundSet.h"
 #include "image/SpriteSet.h"
 
 #include <algorithm>
@@ -79,14 +80,14 @@ void Weapon::LoadWeapon(const DataNode &node)
 		else if(key == "hardpoint sprite")
 			hardpointSprite.LoadSprite(child);
 		else if(key == "sound")
-			sound = Audio::Get(child.Token(1));
+			sound = GameData::Sounds().Get(child.Token(1));
 		else if(key == "ammo")
 		{
 			int usage = (child.Size() >= 3) ? child.Value(2) : 1;
 			ammo = make_pair(GameData::Outfits().Get(child.Token(1)), max(0, usage));
 		}
 		else if(key == "icon")
-			icon = SpriteSet::Get(child.Token(1));
+			icon = GameData::Sprites().Get(child.Token(1));
 		else if(key == "fire effect")
 		{
 			int count = (child.Size() >= 3) ? child.Value(2) : 1;

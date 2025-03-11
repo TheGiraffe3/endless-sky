@@ -197,4 +197,6 @@ private:
 
 	Wormhole *wormhole = nullptr;
 	std::vector<const System *> systems;
+
+	friend class PlanetEditor;
 };

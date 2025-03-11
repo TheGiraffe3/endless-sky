@@ -17,7 +17,12 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #include "Collision.h"
 #include "CollisionType.h"
+<<<<<<< HEAD
 #include "shader/DrawList.h"
+=======
+#include "DrawList.h"
+#include "GameData.h"
+>>>>>>> 0.10.10-editor-patched
 #include "image/Mask.h"
 #include "Minable.h"
 #include "Projectile.h"
@@ -60,7 +65,7 @@ void AsteroidField::Clear()
 // Add a new asteroid to the list, using the sprite with the given name.
 void AsteroidField::Add(const string &name, int count, double energy)
 {
-	const Sprite *sprite = SpriteSet::Get("asteroid/" + name + "/spin");
+	const Sprite *sprite = GameData::Sprites().Get("asteroid/" + name + "/spin");
 	for(int i = 0; i < count; ++i)
 		asteroids.emplace_back(sprite, energy);
 }

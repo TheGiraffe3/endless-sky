@@ -15,49 +15,139 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #include "SpriteSet.h"
 
+#include "../Set.h"
+#include "../Files.h"
+#include "../GameData.h"
 #include "../Logger.h"
 #include "Sprite.h"
 
-#include <map>
-#include <mutex>
-
 using namespace std;
 
-namespace {
-	map<string, Sprite> sprites;
-
-	mutex modifyMutex;
-}
 
 
-
-const Sprite *SpriteSet::Get(const string &name)
+const Sprite *SpriteSet::Get(const string &name) const
 {
-	return Modify(name);
-}
+	lock_guard<mutex> guard(modifyMutex);
 
-
-
-void SpriteSet::CheckReferences()
-{
-	for(const auto &pair : sprites)
+	auto it = sprites.Find(name);
+	if(!it)
 	{
-		const Sprite &sprite = pair.second;
-		if(sprite.Height() == 0 && sprite.Width() == 0)
-			// Landscapes are allowed to still be empty.
-			if(pair.first.compare(0, 5, "land/") != 0)
-				Logger::LogError("Warning: image \"" + pair.first + "\" is referred to, but has no pixels.");
+		it = sprites.Get(name);
+		*it = Sprite(name);
 	}
+	return it;
 }
 
 
 
 Sprite *SpriteSet::Modify(const string &name)
 {
-	lock_guard<mutex> guard(modifyMutex);
+	return const_cast<Sprite *>(Get(name));
+}
 
-	auto it = sprites.find(name);
-	if(it == sprites.end())
-		it = sprites.emplace(name, Sprite(name)).first;
-	return &it->second;
+
+
+const vector<const Sprite *> &SpriteSet::MoonSprites() const
+{
+	return moonSprites;
+}
+
+
+
+const vector<const Sprite *> &SpriteSet::StationSprites() const
+{
+	return stationSprites;
+}
+
+
+
+const vector<const Sprite *> &SpriteSet::GiantSprites() const
+{
+	return giantSprites;
+}
+
+
+const vector<const Sprite *> &SpriteSet::PlanetSprites() const
+{
+	return planetSprites;
+}
+
+
+
+const vector<const Sprite *> &SpriteSet::StarSprites() const
+{
+	return starSprites;
+}
+
+
+
+void SpriteSet::CheckReferences() const
+{
+	moonSprites.clear();
+	stationSprites.clear();
+	giantSprites.clear();
+	starSprites.clear();
+
+	for(const auto &pair : sprites)
+	{
+		const auto &name = pair.first;
+		const Sprite &sprite = pair.second;
+		if(sprite.Height() == 0 && sprite.Width() == 0)
+			// Landscapes are allowed to still be empty.
+			if(pair.first.compare(0, 5, "land/") != 0)
+				Logger::LogError("Warning: image \"" + pair.first + "\" is referred to, but has no pixels.");
+		// Sort the planet sprites for the system editor.
+		if(!name.compare(0, 7, "planet/"))
+		{
+			// Ignore ringworlds, panels, dyson and wormholes.
+			if(name.find("ringworld") != string::npos)
+				continue;
+			if(name.find("wormhole") != string::npos)
+				continue;
+			if(name.find("panels") != string::npos)
+				continue;
+			if(name.find("dyson") != string::npos)
+				continue;
+			if(name.find("gas3-c") != string::npos)
+				// This is the Coalition satellite planet bruh.
+				continue;
+			if(name.find("-rouge") != string::npos)
+			{
+				// This is actually a star!
+				starSprites.push_back(&sprite);
+				continue;
+			}
+			if(name.find("station") != string::npos)
+			{
+				stationSprites.push_back(&sprite);
+				continue;
+			}
+
+			auto radius = sprite.Width() / 2. - 4.;
+
+			// Sort the sprites based on radius.
+			if(radius <= 50.)
+				moonSprites.push_back(&sprite);
+			else if(radius >= 120.)
+				giantSprites.push_back(&sprite);
+			else
+				planetSprites.push_back(&sprite);
+		}
+		else if(!name.compare(0, 5, "star/"))
+		{
+			// Ignore novas, blackholes, neutron stars, etc.
+			if(name.find("nova") != string::npos)
+				continue;
+			if(name.find("black-hole") != string::npos)
+				continue;
+			if(name.find("neutron") != string::npos)
+				continue;
+			if(name.find("wr") != string::npos)
+				continue;
+			if(name.find("carbon") != string::npos)
+				continue;
+
+			starSprites.push_back(&sprite);
+		}
+	}
 }

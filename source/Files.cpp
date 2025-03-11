@@ -84,6 +84,11 @@ void Files::Init(const char * const *argv)
 
 	}
 
+#ifdef __EMSCRIPTEN__
+	config = "/";
+	resources = "/";
+#endif
+
 	if(resources.empty())
 	{
 		// Find the path to the resource directory. This will depend on the
@@ -338,7 +343,23 @@ string Files::Name(const filesystem::path &path)
 
 
 
+<<<<<<< HEAD
 FILE *Files::Open(const filesystem::path &path, bool write)
+=======
+void Files::CreateNewDirectory(const string &path)
+{
+#if defined _WIN32
+	if(!CreateDirectoryW(Utf8::ToUTF16(path).c_str(), nullptr))
+		Logger::LogError("Failed to create directory at '" + path + "'.");
+#else
+	mkdir(path.c_str(), 0755);
+#endif
+}
+
+
+
+FILE *Files::Open(const string &path, bool write)
+>>>>>>> 0.10.10-editor-patched
 {
 #if defined _WIN32
 	FILE *file = nullptr;

@@ -18,10 +18,19 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "DataFile.h"
 #include "DataNode.h"
 #include "Files.h"
+#include "text/FontSet.h"
+#include "GameData.h"
+#include "image/ImageSet.h"
 #include "Information.h"
 #include "Logger.h"
+#include "image/MaskManager.h"
+#include "audio/Music.h"
+#include "PlayerInfo.h"
+#include "Politics.h"
+#include "Random.h"
 #include "image/Sprite.h"
 #include "image/SpriteSet.h"
+#include "StarField.h"
 #include "TaskQueue.h"
 
 #include <algorithm>
@@ -33,8 +42,43 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 using namespace std;
 
+namespace {
+	// A value in [0, 1] representing how many source files have been processed for content.
+	atomic<double> progress;
+
+	// A local cache of the menu background interface for thread-safe access.
+	mutex menuBackgroundMutex;
+	Interface menuBackgroundCache;
+}
 
 
+
+namespace {
+	// TODO (C++14): make these 2 methods generic lambdas visible only to the CheckReferences method.
+	// Log a warning for an "undefined" class object that was never loaded from disk.
+	// Class objects with a deferred definition should still get named when content is loaded.
+	template <class Type>
+	bool NameIfDeferred(const set<string> &deferred, pair<const string, Type> &it)
+	{
+		if(deferred.count(it.first))
+			it.second.SetName(it.first);
+		else
+			return false;
+
+		return true;
+	}
+	// Set the name of an "undefined" class object, so that it can be written to the player's save.
+	template <class Type>
+	void NameAndWarn(const string &noun, pair<const string, Type> &it)
+	{
+		it.second.SetName(it.first);
+		Warn(noun, it.first);
+	}
+}
+
+
+
+<<<<<<< HEAD
 shared_future<void> UniverseObjects::Load(TaskQueue &queue, const vector<filesystem::path> &sources, bool debugMode)
 {
 	progress = 0.;
@@ -56,20 +100,34 @@ shared_future<void> UniverseObjects::Load(TaskQueue &queue, const vector<filesys
 						make_move_iterator(list.begin()),
 						make_move_iterator(list.end()));
 			}
+=======
+void UniverseObjects::Load(const vector<string> &sources, bool debugMode)
+{
+	progress = 0.;
 
-			const double step = 1. / (static_cast<int>(files.size()) + 1);
-			for(const auto &path : files)
-			{
-				LoadFile(path, debugMode);
+	vector<string> files;
+	for(const string &source : sources)
+	{
+		// Iterate through the paths starting with the last directory given. That
+		// is, things in folders near the start of the path have the ability to
+		// override things in folders later in the path.
+		auto list = Files::RecursiveList(source + "data/");
+		files.reserve(files.size() + list.size());
+		files.insert(files.end(),
+				make_move_iterator(list.begin()),
+				make_move_iterator(list.end()));
+	}
+>>>>>>> 0.10.10-editor-patched
 
-				// Increment the atomic progress by one step.
-				// We use acquire + release to prevent any reordering.
-				auto val = progress.load(memory_order_acquire);
-				progress.store(val + step, memory_order_release);
-			}
-			FinishLoading();
-			progress = 1.;
-		});
+	LoadFolder(files, debugMode);
+}
+
+
+
+void UniverseObjects::LoadFrom(const string &path, bool debugMode)
+{
+	progress = 0.;
+	LoadFolder(Files::RecursiveList(path), debugMode);
 }
 
 
@@ -251,7 +309,7 @@ void UniverseObjects::CheckReferences()
 	}
 	// Government names are used in mission NPC blocks and LocationFilters.
 	for(auto &&it : governments)
-		if(it.second.GetTrueName().empty() && !NameIfDeferred(deferred["government"], it))
+		if(it.second.TrueName().empty() && !NameIfDeferred(deferred["government"], it))
 			NameAndWarn("government", it);
 	// Minables are not serialized.
 	for(const auto &it : minables)
@@ -316,7 +374,29 @@ void UniverseObjects::CheckReferences()
 
 
 
+<<<<<<< HEAD
 void UniverseObjects::LoadFile(const filesystem::path &path, bool debugMode)
+=======
+void UniverseObjects::LoadFolder(const vector<string> &files, bool debugMode)
+{
+	const double step = 1. / (static_cast<int>(files.size()) + 1);
+	for(const auto &path : files)
+	{
+		LoadFile(path, debugMode);
+
+		// Increment the atomic progress by one step.
+		// We use acquire + release to prevent any reordering.
+		auto val = progress.load(memory_order_acquire);
+		progress.store(val + step, memory_order_release);
+	}
+	FinishLoading();
+	progress = 1.;
+}
+
+
+
+void UniverseObjects::LoadFile(const string &path, bool debugMode)
+>>>>>>> 0.10.10-editor-patched
 {
 	// This is an ordinary file. Check to see if it is an image.
 	if(path.extension() != ".txt")
@@ -410,11 +490,11 @@ void UniverseObjects::LoadFile(const filesystem::path &path, bool debugMode)
 		else if(key == "landing message" && node.Size() >= 2)
 		{
 			for(const DataNode &child : node)
-				landingMessages[SpriteSet::Get(child.Token(0))] = node.Token(1);
+				landingMessages[GameData::Sprites().Get(child.Token(0))] = node.Token(1);
 		}
 		else if(key == "star" && node.Size() >= 2)
 		{
-			const Sprite *sprite = SpriteSet::Get(node.Token(1));
+			const Sprite *sprite = GameData::Sprites().Get(node.Token(1));
 			for(const DataNode &child : node)
 			{
 				if(child.Token(0) == "power" && child.Size() >= 2)

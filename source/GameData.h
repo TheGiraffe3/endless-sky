@@ -38,6 +38,7 @@ class Effect;
 class Fleet;
 class FormationPattern;
 class Galaxy;
+class GameAssets;
 class GameEvent;
 class Gamerules;
 class Government;
@@ -55,7 +56,9 @@ class Phrase;
 class Planet;
 class Politics;
 class Ship;
+class SoundSet;
 class Sprite;
+class SpriteSet;
 class StarField;
 class StartConditions;
 class System;
@@ -76,7 +79,7 @@ class Wormhole;
 // universe.
 class GameData {
 public:
-	static std::shared_future<void> BeginLoad(TaskQueue &queue, bool onlyLoadData, bool debugMode, bool preventUpload);
+	static std::future<void> BeginLoad(int options);
 	static void FinishLoading();
 	// Check for objects that are referred to but never defined.
 	static void CheckReferences();
@@ -87,7 +90,7 @@ public:
 	static bool IsLoaded();
 	// Begin loading a sprite that was previously deferred. Currently this is
 	// done with all landscapes to speed up the program's startup.
-	static void Preload(TaskQueue &queue, const Sprite *sprite);
+	static std::future<void> Preload(const Sprite *sprite);
 
 	// Get the list of resource sources (i.e. plugin folders).
 	static const std::vector<std::filesystem::path> &Sources();
@@ -174,6 +177,10 @@ public:
 
 	static const TextReplacements &GetTextReplacements();
 
+	static const Set<std::string> &Music();
+	static const SpriteSet &Sprites();
+	static const SoundSet &Sounds();
+	static GameAssets &Assets();
 	static const Gamerules &GetGamerules();
 
 	// Thread-safe way to draw the menu background.
@@ -181,6 +188,5 @@ public:
 
 
 private:
-	static void LoadSources(TaskQueue &queue);
-	static std::map<std::string, std::shared_ptr<ImageSet>> FindImages();
+	static void LoadSources();
 };

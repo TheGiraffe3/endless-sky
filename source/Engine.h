@@ -38,6 +38,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include <list>
 #include <map>
 #include <memory>
+#include <optional>
+#ifndef ES_NO_THREADS
+#include <thread>
+#endif // ES_NO_THREADS
 #include <utility>
 #include <vector>
 
@@ -69,6 +73,7 @@ public:
 	void Place();
 	// Place NPCs spawned by a mission that offers when the player is not landed.
 	void Place(const std::list<NPC> &npcs, std::shared_ptr<Ship> flagship = nullptr);
+	void Place(const std::shared_ptr<Ship> &ship);
 
 	// Wait for the previous calculations (if any) to be done.
 	void Wait();
@@ -97,6 +102,8 @@ public:
 	// government; gov projectiles stop targeting the player and player's
 	// projectiles stop targeting gov.
 	void BreakTargeting(const Government *gov);
+
+	void SetCustomCenter(std::optional<Point> center) { newCustomCenter = std::move(center); }
 
 
 private:
@@ -165,7 +172,8 @@ private:
 
 
 private:
-	void EnterSystem();
+	void ThreadEntryPoint();
+	void EnterSystem(const System *system = nullptr);
 
 	void CalculateStep();
 
@@ -198,7 +206,13 @@ private:
 
 
 private:
+	friend class ArenaPanel;
+
 	PlayerInfo &player;
+
+	std::shared_ptr<Ship> targetShip;
+	std::optional<Point> customCenter;
+	std::optional<Point> newCustomCenter;
 
 	std::list<std::shared_ptr<Ship>> ships;
 	std::vector<Projectile> projectiles;
@@ -220,21 +234,22 @@ private:
 
 	AI ai;
 
-	TaskQueue queue;
+#ifndef ES_NO_THREADS
+	std::thread calcThread;
+	std::condition_variable condition;
+	std::mutex swapMutex;
+	bool hasFinishedCalculating = true;
+	bool terminate = false;
+#endif // ES_NO_THREADS
 
-	// ES uses a technique called double buffering to calculate the next frame and render the current one simultaneously.
-	// To facilitate this, it uses two buffers for each list of things to draw - one for the next frame's calculations and
-	// one for rendering the current frame. A little synchronization is required to prevent mutable references to the
-	// currently rendering buffer.
-	size_t currentCalcBuffer = 0;
-	size_t currentDrawBuffer = 0;
-	DrawList draw[2];
-	BatchDrawList batchDraw[2];
-	Radar radar[2];
-
+	bool calcTickTock = false;
+	bool drawTickTock = false;
 	bool wasActive = false;
 	bool isMouseHoldEnabled = false;
 	bool isMouseTurningEnabled = false;
+	DrawList draw[2];
+	BatchDrawList batchDraw[2];
+	Radar radar[2];
 
 	// Viewport position and velocity.
 	Point center;
@@ -308,4 +323,7 @@ private:
 	double load = 0.;
 	int loadCount = 0;
 	double loadSum = 0.;
+
+	friend class Editor;
+	friend class ArenaControl;
 };

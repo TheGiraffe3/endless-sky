@@ -18,6 +18,9 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "SoundCategory.h"
 
 #include <filesystem>
+
+#include "../Set.h"
+
 #include <string>
 #include <vector>
 
@@ -36,21 +39,18 @@ class Sound;
 class Audio {
 public:
 	// Begin loading sounds (in a separate thread).
+<<<<<<< HEAD
 	static void Init(const std::vector<std::filesystem::path> &sources);
 	static void LoadSounds(const std::vector<std::filesystem::path> &sources);
 	static void CheckReferences(bool parseOnly = false);
-
-	// Report the progress of loading sounds.
-	static double GetProgress();
+=======
+	static void Init();
+	static void CheckReferences();
+>>>>>>> 0.10.10-editor-patched
 
 	// Get or set the volume (between 0 and 1).
 	static double Volume(SoundCategory category);
 	static void SetVolume(double level, SoundCategory category);
-
-	// Get a pointer to the named sound. The name is the path relative to the
-	// "sound/" folder, and without ~ if it's on the end, or the extension.
-	// Do not call this function until Progress() is 100%.
-	static const Sound *Get(const std::string &name);
 
 	// Set the listener's position, and also update any sounds that have been
 	// added but deferred because they were added from a thread other than the
@@ -58,11 +58,21 @@ public:
 	static void Update(const Point &listenerPosition);
 
 	// Play the given sound, at full volume.
+<<<<<<< HEAD
 	static void Play(const Sound *sound, SoundCategory category);
 
 	// Play the given sound, as if it is at the given distance from the
 	// "listener". This will make it softer and change the left / right balance.
 	static void Play(const Sound *sound, const Point &position, SoundCategory category);
+=======
+	static void Play(const Sound *sound);
+	static void Play(const std::string &sound);
+
+	// Play the given sound, as if it is at the given distance from the
+	// "listener". This will make it softer and change the left / right balance.
+	static void Play(const Sound *sound, const Point &position);
+	static void Play(const std::string &sound, const Point &position);
+>>>>>>> 0.10.10-editor-patched
 
 	// Play the given music. An empty string means to play nothing.
 	static void PlayMusic(const std::string &name);
@@ -80,4 +90,8 @@ public:
 
 	// Shut down the audio system (because we're about to quit).
 	static void Quit();
+
+
+private:
+	static bool musicEnabled;
 };

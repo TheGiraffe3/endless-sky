@@ -49,12 +49,6 @@ class UI;
 class Mission {
 public:
 	Mission() = default;
-	// Copying a mission instance isn't allowed.
-	Mission(const Mission &) = delete;
-	Mission &operator=(const Mission &) = delete;
-	Mission(Mission &&) = default;
-	Mission &operator=(Mission &&) = default;
-	~Mission() noexcept = default;
 
 	// Construct and Load() at the same time.
 	explicit Mission(const DataNode &node);

@@ -15,6 +15,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <cmath>
+
 #ifdef __SSE3__
 #include <pmmintrin.h>
 #endif
@@ -83,6 +85,9 @@ public:
 	// Use the max of each x and each y coordinates.
 	friend Point max(const Point &p, const Point &q);
 
+	friend bool operator==(const Point &lhs, const Point &rhs);
+	friend bool operator!=(const Point &lhs, const Point &rhs);
+
 
 private:
 #ifdef __SSE3__
@@ -148,4 +153,23 @@ inline const double &Point::Y() const noexcept
 #else
 	return y;
 #endif
+}
+
+
+
+inline bool operator==(const Point &lhs, const Point &rhs)
+{
+	constexpr double eps = .000001;
+#ifdef __SSE3__
+	return std::abs(lhs.val.x - rhs.val.x) < eps && std::abs(lhs.val.y - rhs.val.y) < eps;
+#else
+	return std::abs(lhs.x - rhs.x) < eps && std::abs(lhs.y - rhs.y) < eps;
+#endif
+}
+
+
+
+inline bool operator!=(const Point &lhs, const Point &rhs)
+{
+	return !(lhs == rhs);
 }

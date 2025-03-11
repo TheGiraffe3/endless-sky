@@ -20,7 +20,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Date.h"
 #include "text/Format.h"
 #include "GameData.h"
+<<<<<<< HEAD
 #include "Planet.h"
+=======
+>>>>>>> 0.10.10-editor-patched
 #include "image/SpriteSet.h"
 #include "System.h"
 
@@ -85,7 +88,7 @@ void SavedGame::Load(const filesystem::path &path)
 				if(child.Token(0) == "name" && child.Size() >= 2)
 					shipName = child.Token(1);
 				else if(child.Token(0) == "sprite" && child.Size() >= 2)
-					shipSprite = SpriteSet::Get(child.Token(1));
+					shipSprite = GameData::Sprites().Get(child.Token(1));
 			}
 		}
 	}

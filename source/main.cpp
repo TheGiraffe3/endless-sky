@@ -25,10 +25,12 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Files.h"
 #include "text/Font.h"
 #include "FrameTimer.h"
+#include "GameAssets.h"
 #include "GameData.h"
 #include "GameLoadingPanel.h"
 #include "GameWindow.h"
 #include "Logger.h"
+#include "MenuAnimationPanel.h"
 #include "MainPanel.h"
 #include "MenuPanel.h"
 #include "Panel.h"
@@ -84,7 +86,7 @@ int main(int argc, char *argv[])
 		InitConsole();
 #endif
 	Conversation conversation;
-	bool debugMode = false;
+	int loadOptions = 0;
 	bool loadOnly = false;
 	bool checkAssets = false;
 	bool printTests = false;
@@ -118,7 +120,7 @@ int main(int argc, char *argv[])
 		else if(arg == "-t" || arg == "--talk")
 			conversation = LoadConversation();
 		else if(arg == "-d" || arg == "--debug")
-			debugMode = true;
+			loadOptions |= GameAssets::Debug;
 		else if(arg == "-p" || arg == "--parse-save")
 			loadOnly = true;
 		else if(arg == "--parse-assets")
@@ -136,8 +138,16 @@ int main(int argc, char *argv[])
 	// Whether we are running an integration test.
 	const bool isTesting = !testToRunName.empty();
 	try {
-		// Load plugin preferences before game data if any.
-		Plugins::LoadSettings();
+		TaskQueue taskQueue;
+
+		const bool isConsoleOnly = loadOnly || printTests || printData;
+		if(isConsoleOnly)
+			loadOptions |= GameAssets::OnlyData;
+		else
+		{
+			// OpenAL needs to be initialized before we begin loading any sounds/music.
+			Audio::Init();
+		}
 
 		TaskQueue queue;
 
@@ -145,6 +155,7 @@ int main(int argc, char *argv[])
 		bool isConsoleOnly = loadOnly || printTests || printData;
 		auto dataFuture = GameData::BeginLoad(queue, isConsoleOnly, debugMode,
 			isConsoleOnly || checkAssets || (isTesting && !debugMode));
+		future<void> dataLoading = GameData::BeginLoad(loadOptions);
 
 		// If we are not using the UI, or performing some automated task, we should load
 		// all data now.
@@ -235,7 +246,7 @@ int main(int argc, char *argv[])
 			Audio::SetVolume(0, SoundCategory::MASTER);
 
 		// This is the main loop where all the action begins.
-		GameLoop(player, queue, conversation, testToRunName, debugMode);
+		GameLoop(player, conversation, testToRunName, loadOptions & GameAssets::Debug);
 	}
 	catch(Test::known_failure_tag)
 	{
@@ -280,7 +291,26 @@ void GameLoop(PlayerInfo &player, TaskQueue &queue, const Conversation &conversa
 	// Whether the game data is done loading. This is used to trigger any
 	// tests to run.
 	bool dataFinishedLoading = false;
-	menuPanels.Push(new GameLoadingPanel(player, queue, conversation, gamePanels, dataFinishedLoading));
+	menuPanels.Push(new GameLoadingPanel([&player, &conversation, &menuPanels, &gamePanels] (GameLoadingPanel *This)
+		{
+			player.LoadRecent();
+
+			menuPanels.Pop(This);
+			if(conversation.IsEmpty())
+			{
+				menuPanels.Push(new MenuPanel(player, gamePanels));
+				menuPanels.Push(new MenuAnimationPanel());
+			}
+			else
+			{
+				menuPanels.Push(new MenuAnimationPanel());
+
+				auto *talk = new ConversationPanel(player, conversation);
+
+				talk->SetCallback([ui = &menuPanels](int response) { ui->Quit(); });
+				menuPanels.Push(talk);
+			}
+		}, dataFinishedLoading));
 
 	bool showCursor = true;
 	int cursorTime = 0;
@@ -377,37 +407,21 @@ void GameLoop(PlayerInfo &player, TaskQueue &queue, const Conversation &conversa
 			SDL_Keymod mod = SDL_GetModState();
 			Font::ShowUnderlines(mod & KMOD_ALT);
 
-			// In full-screen mode, hide the cursor if inactive for ten seconds,
-			// but only if the player is flying around in the main view.
-			bool inFlight = (menuPanels.IsEmpty() && gamePanels.Root() == gamePanels.Top());
-			++cursorTime;
-			bool shouldShowCursor = (!GameWindow::IsFullscreen() || cursorTime < 600 || !inFlight);
-			if(shouldShowCursor != showCursor)
-			{
-				showCursor = shouldShowCursor;
-				SDL_ShowCursor(showCursor);
-			}
+		// Process any tasks to execute.
+		TaskQueue::ProcessTasks();
 
-			// Switch off fast-forward if the player is not in flight or flight-related screen
-			// (for example when the boarding dialog shows up or when the player lands). The player
-			// can switch fast-forward on again when flight is resumed.
-			bool allowFastForward = !gamePanels.IsEmpty() && gamePanels.Top()->AllowsFastForward();
-			if(Preferences::Has("Interrupt fast-forward") && !inFlight && isFastForward && !allowFastForward)
-				isFastForward = false;
-
-			// Tell all the panels to step forward, then draw them.
-			((!isPaused && menuPanels.IsEmpty()) ? gamePanels : menuPanels).StepAll();
-
-			// Caps lock slows the frame rate in debug mode.
-			// Slowing eases in and out over a couple of frames.
-			if((mod & KMOD_CAPS) && inFlight && debugMode)
-			{
-				if(frameRate > 10)
-				{
-					frameRate = max(frameRate - 5, 10);
-					timer.SetFrameRate(frameRate);
-				}
-			}
+		// All manual events and processing done. Handle any test inputs and events if we have any.
+		const Test *runningTest = testContext.CurrentTest();
+		if(runningTest && dataFinishedLoading)
+		{
+			// When flying around, all test processing must be handled in the
+			// thread-safe section of Engine. When not flying around (and when no
+			// Engine exists), then it is safe to execute the tests from here.
+			auto mainPanel = gamePanels.Root();
+			if(!isPaused && inFlight && menuPanels.IsEmpty() && mainPanel)
+				mainPanel->SetTestContext(testContext);
+			else if(debugMode && testDebugUIDelay > 0)
+				--testDebugUIDelay;
 			else
 			{
 				if(frameRate < 60)
@@ -430,7 +444,7 @@ void GameLoop(PlayerInfo &player, TaskQueue &queue, const Conversation &conversa
 			// we should draw the game panels instead:
 			(menuPanels.IsEmpty() ? gamePanels : menuPanels).DrawAll();
 			if(isFastForward)
-				SpriteShader::Draw(SpriteSet::Get("ui/fast forward"), Screen::TopLeft() + Point(10., 10.));
+				SpriteShader::Draw(GameData::Sprites().Get("ui/fast forward"), Screen::TopLeft() + Point(10., 10.));
 
 			GameWindow::Step();
 

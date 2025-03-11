@@ -82,8 +82,8 @@ void AmmoDisplay::Draw(const Rectangle &ammoBox, const Point &iconDim) const
 	const double &ammoIconHeight = iconDim.Y();
 	// Pad the ammo list by the same amount on all four sides.
 	double ammoPad = .5 * (ammoBox.Width() - ammoIconWidth);
-	const Sprite *selectedSprite = SpriteSet::Get("ui/ammo selected");
-	const Sprite *unselectedSprite = SpriteSet::Get("ui/ammo unselected");
+	const Sprite *selectedSprite = GameData::Sprites().Get("ui/ammo selected");
+	const Sprite *unselectedSprite = GameData::Sprites().Get("ui/ammo unselected");
 	const Color &selectedColor = *GameData::Colors().Get("bright");
 	const Color &unselectedColor = *GameData::Colors().Get("dim");
 

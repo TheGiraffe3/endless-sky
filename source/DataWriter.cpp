@@ -128,15 +128,15 @@ void DataWriter::WriteComment(const string &str)
 
 
 // Write a token, given as a character string.
-void DataWriter::WriteToken(const char *a)
+void DataWriter::WriteToken(const char *a, bool needsQuoting)
 {
-	WriteToken(string(a));
+	WriteToken(string(a), needsQuoting);
 }
 
 
 
 // Write a token, given as a string object.
-void DataWriter::WriteToken(const string &a)
+void DataWriter::WriteToken(const string &a, bool needsQuoting)
 {
 	out << *before;
 	out << Quote(a);
@@ -144,6 +144,14 @@ void DataWriter::WriteToken(const string &a)
 	// The next token written will not be the first one on this line, so it only
 	// needs to have a single space before it.
 	before = &space;
+}
+
+
+
+// Write a token of a bool;
+void DataWriter::WriteToken(bool b)
+{
+	WriteToken(static_cast<int>(b));
 }
 
 

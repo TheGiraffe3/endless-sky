@@ -613,7 +613,7 @@ void MapDetailPanel::DrawKey()
 		vector<pair<string, Color>> alreadyDisplayed;
 		for(const auto &it : distances)
 		{
-			const string &displayName = it.second->GetName();
+			const string &displayName = it.second->Name();
 			const Color &displayColor = it.second->GetColor();
 			auto foundIt = find(alreadyDisplayed.begin(), alreadyDisplayed.end(),
 					make_pair(displayName, displayColor));
@@ -704,7 +704,7 @@ void MapDetailPanel::DrawInfo()
 	double maxPlanetPanelHeight = mapInterface->GetValue("max planet panel height");
 
 	const double bottomGovY = mapInterface->GetValue("government Y");
-	const Sprite *systemSprite = SpriteSet::Get("ui/map system");
+	const Sprite *systemSprite = GameData::Sprites().Get("ui/map system");
 
 	bool canView = player.CanView(*selectedSystem);
 
@@ -736,12 +736,12 @@ void MapDetailPanel::DrawInfo()
 
 		// Edges:
 		Point pos(Screen::Left(), Screen::Top());
-		const Sprite *bottom = SpriteSet::Get("ui/bottom edge");
+		const Sprite *bottom = GameData::Sprites().Get("ui/bottom edge");
 		Point edgePos = pos + Point(.5 * size.X(), size.Y());
 		Point bottomOff(-23.5, .5 * bottom->Height() - 1);
 		SpriteShader::Draw(bottom, edgePos + bottomOff);
 
-		const Sprite *right = SpriteSet::Get("ui/right edge");
+		const Sprite *right = GameData::Sprites().Get("ui/right edge");
 		Point rightOff(.5 * (size.X() + right->Width()) - 1, -right->Height() / 2.);
 		SpriteShader::Draw(right, edgePos + rightOff);
 
@@ -766,7 +766,7 @@ void MapDetailPanel::DrawInfo()
 	SpriteShader::Draw(systemSprite, uiPoint + Point(systemSprite->Width() / 2. - textMargin, 0.));
 
 	const Font &font = FontSet::Get(14);
-	const Sprite *alertSprite = SpriteSet::Get(commodity == SHOW_DANGER ? "ui/red alert" : "ui/red alert grayed");
+	const Sprite *alertSprite = GameData::Sprites().Get(commodity == SHOW_DANGER ? "ui/red alert" : "ui/red alert grayed");
 	const float alertScale = min<float>(1.f, min<double>(textMargin,
 		font.Height()) / max(alertSprite->Width(), alertSprite->Height()));
 	SpriteShader::Draw(alertSprite, uiPoint + Point(-textMargin / 2., -7. + font.Height() / 2.), alertScale);
@@ -777,7 +777,7 @@ void MapDetailPanel::DrawInfo()
 	font.Draw({systemName, alignLeft}, uiPoint + Point(0., -7.), medium);
 
 	governmentY = uiPoint.Y() + textMargin;
-	string gov = canView ? selectedSystem->GetGovernment()->GetName() : "Unknown Government";
+	string gov = canView ? selectedSystem->GetGovernment()->Name() : "Unknown Government";
 	font.Draw({gov, alignLeft}, uiPoint + Point(0., 13.), (commodity == SHOW_GOVERNMENT) ? medium : dim);
 	if(commodity == SHOW_GOVERNMENT)
 		PointerShader::Draw(uiPoint + Point(0., 20.), Point(1., 0.),
@@ -787,7 +787,7 @@ void MapDetailPanel::DrawInfo()
 	uiPoint = Point(Screen::Left() + startingX, Screen::Bottom() - tradeHeight);
 
 	// Trade sprite goes after at the bottom.
-	const Sprite *tradeSprite = SpriteSet::Get("ui/map trade");
+	const Sprite *tradeSprite = GameData::Sprites().Get("ui/map trade");
 	SpriteShader::Draw(tradeSprite, uiPoint);
 	tradeY = uiPoint.Y() - tradeSprite->Height() / 2. + 15.;
 
@@ -844,7 +844,7 @@ void MapDetailPanel::DrawInfo()
 	{
 		static const int X_OFFSET = 240;
 		static const int WIDTH = 500;
-		const Sprite *panelSprite = SpriteSet::Get("ui/description panel");
+		const Sprite *panelSprite = GameData::Sprites().Get("ui/description panel");
 		Point pos(Screen::Right() - X_OFFSET - .5f * panelSprite->Width(),
 			Screen::Top() + .5f * panelSprite->Height());
 		SpriteShader::Draw(panelSprite, pos);
@@ -865,7 +865,7 @@ void MapDetailPanel::DrawInfo()
 void MapDetailPanel::DrawOrbits()
 {
 	planets.clear();
-	const Sprite *orbitSprite = SpriteSet::Get("ui/orbits and key");
+	const Sprite *orbitSprite = GameData::Sprites().Get("ui/orbits and key");
 	SpriteShader::Draw(orbitSprite, Screen::TopRight() + .5 * Point(-orbitSprite->Width(), orbitSprite->Height()));
 	Point orbitCenter = Screen::TopRight() + Point(-120., 160.);
 

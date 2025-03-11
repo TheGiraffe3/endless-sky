@@ -74,7 +74,7 @@ const string &Sprite::Name() const
 
 
 // Add the given frames, optionally uploading them. The given buffer will be cleared afterwards.
-void Sprite::AddFrames(ImageBuffer &buffer, bool is2x)
+void Sprite::AddFrames(ImageBuffer &buffer, bool is2x, vector<filesystem::path> path)
 {
 	// If this is the 1x image, its dimensions determine the sprite's size.
 	if(!is2x)
@@ -87,6 +87,8 @@ void Sprite::AddFrames(ImageBuffer &buffer, bool is2x)
 	// Only non-empty buffers need to be added to the sprite.
 	if(buffer.Pixels())
 		AddBuffer(buffer, &texture[is2x]);
+
+	paths[is2x] = std::move(path);
 }
 
 
@@ -121,6 +123,15 @@ void Sprite::Unload()
 	width = 0.f;
 	height = 0.f;
 	frames = 0;
+
+	isLoaded = false;
+}
+
+
+
+const vector<filesystem::path> &Sprite::Path(bool is2x) const
+{
+	return paths[is2x];
 }
 
 

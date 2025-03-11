@@ -53,9 +53,9 @@ HailPanel::HailPanel(PlayerInfo &player, const shared_ptr<Ship> &ship, function<
 
 	const Government *gov = ship->GetGovernment();
 	if(!ship->Name().empty())
-		header = gov->GetName() + " " + ship->Noun() + " \"" + ship->Name() + "\":";
+		header = gov->Name() + " " + ship->Noun() + " \"" + ship->Name() + "\":";
 	else
-		header = ship->DisplayModelName() + " (" + gov->GetName() + "):";
+		header = ship->DisplayModelName() + " (" + gov->Name() + "):";
 	// Drones are always unpiloted, so they never respond to hails.
 	bool isMute = ship->GetPersonality().IsMute() || (ship->Attributes().Category() == "Drone");
 	hasLanguage = !isMute && (gov->Language().empty() || player.Conditions().Get("language: " + gov->Language()));
@@ -141,7 +141,11 @@ HailPanel::HailPanel(PlayerInfo &player, const StellarObject *object)
 
 	const Government *gov = planet ? planet->GetGovernment() : player.GetSystem()->GetGovernment();
 	if(planet)
+<<<<<<< HEAD
 		header = gov->GetName() + " " + planet->Noun() + " \"" + planet->DisplayName() + "\":";
+=======
+		header = gov->Name() + " " + planet->Noun() + " \"" + planet->Name() + "\":";
+>>>>>>> 0.10.10-editor-patched
 	hasLanguage = (gov->Language().empty() || player.Conditions().Get("language: " + gov->Language()));
 
 	// If the player is hailing a planet, determine if a mission grants them clearance before checking
@@ -394,7 +398,7 @@ bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, boo
 				{
 					bribed = ship->GetGovernment();
 					bribed->Bribe();
-					Messages::Add("You bribed a " + bribed->GetName() + " ship "
+					Messages::Add("You bribed a " + bribed->Name() + " ship "
 						+ Format::CreditString(bribe) + " to refrain from attacking you today."
 							, Messages::Importance::High);
 				}

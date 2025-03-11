@@ -15,11 +15,13 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "mfunction.h"
 #include "Panel.h"
 
 #include <string>
 #include <vector>
 
+class Editor;
 class Conversation;
 class PlayerInfo;
 class TaskQueue;
@@ -31,18 +33,14 @@ class UI;
 // (like game data and save files).
 class GameLoadingPanel final : public Panel {
 public:
-	GameLoadingPanel(PlayerInfo &player, TaskQueue &queue, const Conversation &conversation,
-		UI &gamePanels, bool &finishedLoading);
+	GameLoadingPanel(mfunction<void(GameLoadingPanel *)> done, bool &finishedLoading);
 
 	void Step() final;
 	void Draw() final;
 
 
 private:
-	PlayerInfo &player;
-	TaskQueue &queue;
-	const Conversation &conversation;
-	UI &gamePanels;
+	mfunction<void(GameLoadingPanel *)> done;
 	bool &finishedLoading;
 
 	// The circular loading indicator shows 60 tick marks when all game data is loaded.

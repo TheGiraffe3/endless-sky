@@ -16,11 +16,13 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Audio.h"
 
 #include "../Files.h"
+#include "../GameData.h"
 #include "../Logger.h"
 #include "Music.h"
 #include "../Point.h"
 #include "../Random.h"
 #include "Sound.h"
+#include "SoundSet.h"
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -31,7 +33,9 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include <mutex>
 #include <set>
 #include <stdexcept>
+#ifndef ES_NO_THREADS
 #include <thread>
+#endif // ES_NO_THREADS
 #include <vector>
 
 using namespace std;
@@ -69,10 +73,6 @@ namespace {
 		SoundCategory category = SoundCategory::MASTER;
 	};
 
-	// Thread entry point for loading the sound files.
-	void Load();
-
-
 	// Mutex to make sure different threads don't modify the audio at the same time.
 	mutex audioMutex;
 
@@ -91,10 +91,10 @@ namespace {
 	// sure that all sounds from a given frame start at the same time.
 	map<const Sound *, QueueEntry> soundQueue;
 	map<const Sound *, QueueEntry> deferred;
+#ifndef ES_NO_THREADS
 	thread::id mainThreadID;
+#endif // ES_NO_THREADS
 
-	// Sound resources that have been loaded from files.
-	map<string, Sound> sounds;
 	// OpenAL "sources" available for playing sounds. There are a limited number
 	// of these, so they must be reused.
 	vector<Source> sources;
@@ -128,7 +128,11 @@ namespace {
 
 
 // Begin loading sounds (in a separate thread).
+<<<<<<< HEAD
 void Audio::Init(const vector<filesystem::path> &sources)
+=======
+void Audio::Init()
+>>>>>>> 0.10.10-editor-patched
 {
 	device = alcOpenDevice(nullptr);
 	if(!device)
@@ -140,7 +144,9 @@ void Audio::Init(const vector<filesystem::path> &sources)
 
 	// If we don't make it to this point, no audio will be played.
 	isInitialized = true;
+#ifndef ES_NO_THREADS
 	mainThreadID = this_thread::get_id();
+#endif // ES_NO_THREADS
 
 	// The listener is looking "into" the screen. This orientation vector is
 	// used to determine what sounds should be in the right or left speaker.
@@ -154,9 +160,12 @@ void Audio::Init(const vector<filesystem::path> &sources)
 	alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);
 	alDopplerFactor(0.);
 
+<<<<<<< HEAD
 	LoadSounds(sources);
 
 	// Create the music-streaming threads.
+=======
+>>>>>>> 0.10.10-editor-patched
 	currentTrack.reset(new Music());
 	previousTrack.reset(new Music());
 	alGenSources(1, &musicSource);
@@ -208,24 +217,7 @@ void Audio::CheckReferences(bool parseOnly)
 		return;
 	}
 
-	for(auto &&it : sounds)
-		if(it.second.Name().empty())
-			Logger::LogError("Warning: sound \"" + it.first + "\" is referred to, but does not exist.");
-}
-
-
-
-// Report the progress of loading sounds.
-double Audio::GetProgress()
-{
-	unique_lock<mutex> lock(audioMutex);
-
-	if(loadQueue.empty())
-		return 1.;
-
-	double done = sounds.size();
-	double total = done + loadQueue.size();
-	return done / total;
+	GameData::Sounds().CheckReferences();
 }
 
 
@@ -245,16 +237,6 @@ double Audio::Volume(SoundCategory category)
 void Audio::SetVolume(double level, SoundCategory category)
 {
 	volume[category] = clamp(level, 0., 1.);
-}
-
-
-
-// Get a pointer to the named sound. The name is the path relative to the
-// "sound/" folder, and without ~ if it's on the end, or the extension.
-const Sound *Audio::Get(const string &name)
-{
-	unique_lock<mutex> lock(audioMutex);
-	return &sounds[name];
 }
 
 
@@ -284,6 +266,13 @@ void Audio::Play(const Sound *sound, SoundCategory category)
 
 
 
+void Audio::Play(const string &sound)
+{
+	Play(GameData::Sounds().Get(sound));
+}
+
+
+
 // Play the given sound, as if it is at the given distance from the
 // "listener". This will make it softer and change the left / right balance.
 void Audio::Play(const Sound *sound, const Point &position, SoundCategory category)
@@ -291,6 +280,7 @@ void Audio::Play(const Sound *sound, const Point &position, SoundCategory catego
 	if(!isInitialized || !sound || !sound->Buffer() || !volume[SoundCategory::MASTER])
 		return;
 
+#ifndef ES_NO_THREADS
 	// Place sounds from the main thread directly into the queue. They are from
 	// the UI, and the Engine may not be running right now to call Update().
 	if(this_thread::get_id() == mainThreadID)
@@ -300,6 +290,16 @@ void Audio::Play(const Sound *sound, const Point &position, SoundCategory catego
 		unique_lock<mutex> lock(audioMutex);
 		deferred[sound].Add(position - listener, category);
 	}
+#else
+	queue[sound].Add(position - listener);
+#endif // ES_NO_THREADS
+}
+
+
+
+void Audio::Play(const string &sound, const Point &position)
+{
+	Play(GameData::Sounds().Get(sound), position);
 }
 
 
@@ -307,6 +307,9 @@ void Audio::Play(const Sound *sound, const Point &position, SoundCategory catego
 // Play the given music. An empty string means to play nothing.
 void Audio::PlayMusic(const string &name)
 {
+#ifdef __EMSCRIPTEN__
+	return; // Return early because Emscripten doesn't like threads! (and uses a no-op libmad mock)
+#endif
 	if(!isInitialized)
 		return;
 
@@ -492,6 +495,10 @@ void Audio::Step(bool isFastForward)
 	}
 	soundQueue.clear();
 
+#ifdef __EMSCRIPTEN__
+	return; // Return early because Emscripten doesn't like threads! (and uses a no-op libmad mock)
+#endif
+
 	// Queue up new buffers for the music, if necessary.
 	int buffersDone = 0;
 	alGetSourcei(musicSource, AL_BUFFERS_PROCESSED, &buffersDone);
@@ -535,18 +542,6 @@ void Audio::Step(bool isFastForward)
 // Shut down the audio system (because we're about to quit).
 void Audio::Quit()
 {
-	// First, check if sounds are still being loaded in a separate thread, and
-	// if so interrupt that thread and wait for it to quit.
-	unique_lock<mutex> lock(audioMutex);
-	if(!loadQueue.empty())
-		loadQueue.clear();
-	if(loadThread.joinable())
-	{
-		lock.unlock();
-		loadThread.join();
-		lock.lock();
-	}
-
 	// Now, stop and delete any OpenAL sources that are playing.
 	for(const Source &source : sources)
 	{
@@ -570,6 +565,7 @@ void Audio::Quit()
 	recycledSources.clear();
 
 	// Free the memory buffers for all the sound resources.
+<<<<<<< HEAD
 	for(const auto &it : sounds)
 	{
 		ALuint id = it.second.Buffer();
@@ -578,8 +574,13 @@ void Audio::Quit()
 		alDeleteBuffers(1, &id);
 	}
 	sounds.clear();
+=======
+	for(auto &it : GameData::Sounds())
+		it.second.Unload();
+>>>>>>> 0.10.10-editor-patched
 
 	// Clean up the music source and buffers.
+#ifndef __EMSCRIPTEN__
 	if(isInitialized)
 	{
 		alSourceStop(musicSource);
@@ -588,6 +589,7 @@ void Audio::Quit()
 		currentTrack.reset();
 		previousTrack.reset();
 	}
+#endif
 
 	// Close the connection to the OpenAL library.
 	if(context)
@@ -671,6 +673,7 @@ namespace {
 	{
 		return sound;
 	}
+<<<<<<< HEAD
 
 
 
@@ -716,4 +719,6 @@ namespace {
 				Logger::LogError("Unable to load sound \"" + name + "\" from path: " + path.string());
 		}
 	}
+=======
+>>>>>>> 0.10.10-editor-patched
 }

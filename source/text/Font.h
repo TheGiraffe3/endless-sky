@@ -17,7 +17,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #include "../shader/Shader.h"
 
-#include "../opengl.h"
+#include "opengl.h"
 
 #include <filesystem>
 #include <string>

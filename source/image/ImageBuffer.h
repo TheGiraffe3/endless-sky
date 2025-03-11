@@ -18,6 +18,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include <cstdint>
 #include <set>
 #include <string>
+#include <vector>
 
 class ImageFileData;
 
@@ -39,10 +40,6 @@ public:
 	// When initializing a buffer, we know the number of frames but not the size
 	// of them. So, it must be Allocate()d later.
 	ImageBuffer(int frames = 1);
-	ImageBuffer(const ImageBuffer &) = delete;
-	~ImageBuffer();
-
-	ImageBuffer &operator=(const ImageBuffer &) = delete;
 
 	// Set the number of frames. This must be called before allocating.
 	void Clear(int frames = 1);
@@ -71,5 +68,5 @@ private:
 	int width;
 	int height;
 	int frames;
-	uint32_t *pixels;
+	std::vector<uint32_t> pixels;
 };

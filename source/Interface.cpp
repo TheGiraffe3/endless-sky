@@ -65,15 +65,6 @@ namespace {
 
 
 
-// Destructor, which frees the memory used by the polymorphic list of elements.
-Interface::~Interface()
-{
-	for(Element *element : elements)
-		delete element;
-}
-
-
-
 // Load an interface.
 void Interface::Load(const DataNode &node)
 {
@@ -123,16 +114,16 @@ void Interface::Load(const DataNode &node)
 		{
 			// Check if this node specifies a known element type.
 			if(child.Token(0) == "sprite" || child.Token(0) == "image" || child.Token(0) == "outline")
-				elements.push_back(new ImageElement(child, anchor));
+				elements.emplace_back(new ImageElement(child, anchor));
 			else if(child.Token(0) == "label" || child.Token(0) == "string" || child.Token(0) == "button"
 					|| child.Token(0) == "dynamic button")
-				elements.push_back(new TextElement(child, anchor));
+				elements.emplace_back(new TextElement(child, anchor));
 			else if(child.Token(0) == "bar" || child.Token(0) == "ring")
-				elements.push_back(new BarElement(child, anchor));
+				elements.emplace_back(new BarElement(child, anchor));
 			else if(child.Token(0) == "pointer")
-				elements.push_back(new PointerElement(child, anchor));
+				elements.emplace_back(new PointerElement(child, anchor));
 			else if(child.Token(0) == "line")
-				elements.push_back(new LineElement(child, anchor));
+				elements.emplace_back(new LineElement(child, anchor));
 			else
 			{
 				child.PrintTrace("Skipping unrecognized element:");
@@ -150,7 +141,7 @@ void Interface::Load(const DataNode &node)
 // Draw this interface.
 void Interface::Draw(const Information &info, Panel *panel) const
 {
-	for(const Element *element : elements)
+	for(const auto &element : elements)
 		element->Draw(info, panel);
 }
 
@@ -428,7 +419,7 @@ Interface::ImageElement::ImageElement(const DataNode &node, const Point &globalA
 	// If this is a "sprite," look up the sprite with the given name. Otherwise,
 	// the sprite path will be dynamically supplied by the Information object.
 	if(node.Token(0) == "sprite")
-		sprite[Element::ACTIVE] = SpriteSet::Get(node.Token(1));
+		sprite[Element::ACTIVE] = GameData::Sprites().Get(node.Token(1));
 	else
 		name = node.Token(1);
 
@@ -454,9 +445,9 @@ bool Interface::ImageElement::ParseLine(const DataNode &node)
 	// The "inactive" and "hover" sprite only applies to non-dynamic images.
 	// The "colored" tag only applies to outlines.
 	if(node.Token(0) == "inactive" && node.Size() >= 2 && name.empty())
-		sprite[Element::INACTIVE] = SpriteSet::Get(node.Token(1));
+		sprite[Element::INACTIVE] = GameData::Sprites().Get(node.Token(1));
 	else if(node.Token(0) == "hover" && node.Size() >= 2 && name.empty())
-		sprite[Element::HOVER] = SpriteSet::Get(node.Token(1));
+		sprite[Element::HOVER] = GameData::Sprites().Get(node.Token(1));
 	else if(isOutline && node.Token(0) == "colored")
 		isColored = true;
 	else

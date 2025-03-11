@@ -59,7 +59,6 @@ private:
 	void UpdateAttributes(const Ship &ship, const PlayerInfo &player, bool descriptionCollapsed, bool scrollingPanel);
 	void UpdateOutfits(const Ship &ship, const PlayerInfo &player, const Depreciation &depreciation);
 
-
 private:
 	std::vector<std::string> attributeHeaderLabels;
 	std::vector<std::string> attributeHeaderValues;

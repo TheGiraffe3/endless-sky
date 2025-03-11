@@ -79,12 +79,16 @@ void Minable::Load(const DataNode &node)
 		else if(key == "noun")
 			noun = child.Token(1);
 		else if(key == "sprite")
+<<<<<<< HEAD
 		{
 			LoadSprite(child);
 			for(const DataNode &grand : child)
 				if(grand.Token(0) == "frame rate" || grand.Token(0) == "frame time")
 					useRandomFrameRate = false;
 		}
+=======
+			SetSprite(GameData::Sprites().Get(child.Token(1)));
+>>>>>>> 0.10.10-editor-patched
 		else if(key == "hull")
 			hull = child.Value(1);
 		else if(key == "random hull")

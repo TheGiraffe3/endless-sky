@@ -41,6 +41,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Ship.h"
 #include "ship/ShipAICache.h"
 #include "ShipEvent.h"
+#include "audio/SoundSet.h"
 #include "ShipJumpNavigation.h"
 #include "StellarObject.h"
 #include "System.h"
@@ -2923,9 +2924,8 @@ void AI::DoAppeasing(const shared_ptr<Ship> &ship, double *threshold) const
 	const Government *government = ship->GetGovernment();
 	const string &language = government->Language();
 	if(language.empty() || player.Conditions().Get("language: " + language))
-		Messages::Add(government->GetName() + " " + ship->Noun() + " \"" + ship->Name()
+		Messages::Add(ship->GetGovernment()->Name() + " " + ship->Noun() + " \"" + ship->Name()
 			+ "\": Please, just take my cargo and leave me alone.", Messages::Importance::Low);
-
 }
 
 
@@ -4397,7 +4397,11 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 		if(target)
 			message.clear();
 		else if(!message.empty())
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+			Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 
 		Messages::Importance messageImportance = Messages::Importance::High;
 
@@ -4420,7 +4424,11 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 				message = "The authorities on this " + next->GetPlanet()->Noun() +
 					" refuse to clear you to land here.";
 				messageImportance = Messages::Importance::Highest;
+<<<<<<< HEAD
 				Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+				Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 			}
 			else if(next != target)
 				message = "Switching landing targets. Now landing on " + next->DisplayName() + ".";
@@ -4460,14 +4468,22 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 			{
 				message = "There are no planets in this system that you can land on.";
 				messageImportance = Messages::Importance::Highest;
+<<<<<<< HEAD
 				Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+				Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 			}
 			else if(!target->GetPlanet()->CanLand())
 			{
 				message = "The authorities on this " + target->GetPlanet()->Noun() +
 					" refuse to clear you to land here.";
 				messageImportance = Messages::Importance::Highest;
+<<<<<<< HEAD
 				Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+				Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 			}
 			else if(!types.empty())
 			{
@@ -4677,25 +4693,41 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 		{
 			Messages::Add("You do not have a hyperdrive installed.", Messages::Importance::Highest);
 			autoPilot.Clear();
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+			Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 		}
 		else if(!ship.JumpNavigation().JumpFuel(ship.GetTargetSystem()))
 		{
 			Messages::Add("You cannot jump to the selected system.", Messages::Importance::Highest);
 			autoPilot.Clear();
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+			Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 		}
 		else if(!ship.JumpsRemaining() && !ship.IsEnteringHyperspace())
 		{
 			Messages::Add("You do not have enough fuel to make a hyperspace jump.", Messages::Importance::Highest);
 			autoPilot.Clear();
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+			Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 		}
 		else if(ship.IsLanding())
 		{
 			Messages::Add("You cannot jump while landing.", Messages::Importance::Highest);
 			autoPilot.Clear(Command::JUMP);
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("fail"), SoundCategory::UI);
+=======
+			Audio::Play("fail");
+>>>>>>> 0.10.10-editor-patched
 		}
 		else
 		{

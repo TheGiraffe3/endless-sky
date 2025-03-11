@@ -30,8 +30,45 @@ class DataWriter;
 // behaviors, like plundering ships or launching surveillance drones, that are
 // used to make some fleets noticeably different from others.
 class Personality {
+public :
+	static constexpr auto PACIFIST = 0;
+	static constexpr auto FORBEARING = 1;
+	static constexpr auto TIMID = 2;
+	static constexpr auto DISABLES = 3;
+	static constexpr auto PLUNDERS = 4;
+	static constexpr auto HUNTING = 5;
+	static constexpr auto STAYING = 6;
+	static constexpr auto ENTERING = 7;
+	static constexpr auto NEMESIS = 8;
+	static constexpr auto SURVEILLANCE = 9;
+	static constexpr auto UNINTERESTED = 10;
+	static constexpr auto WAITING = 11;
+	static constexpr auto DERELICT = 12;
+	static constexpr auto FLEEING = 13;
+	static constexpr auto ESCORT = 14;
+	static constexpr auto FRUGAL = 15;
+	static constexpr auto COWARD = 16;
+	static constexpr auto VINDICTIVE = 17;
+	static constexpr auto SWARMING = 18;
+	static constexpr auto UNCONSTRAINED = 19;
+	static constexpr auto MINING = 20;
+	static constexpr auto HARVESTS = 21;
+	static constexpr auto APPEASING = 22;
+	static constexpr auto MUTE = 23;
+	static constexpr auto OPPORTUNISTIC = 24;
+	static constexpr auto MERCIFUL = 25;
+	static constexpr auto TARGET = 26;
+	static constexpr auto MARKED = 27;
+	static constexpr auto LAUNCHING = 28;
+	static constexpr auto LINGERING = 29;
+	static constexpr auto DARING = 30;
+	static constexpr auto SECRETIVE = 31;
+	static constexpr auto RAMMING = 32;
+	static constexpr auto DECLOAKED = 33;
+
 public:
 	Personality() noexcept;
+	Personality(int personality) noexcept;
 
 	void Load(const DataNode &node);
 	void Save(DataWriter &out) const;
@@ -111,4 +148,6 @@ private:
 	double aimMultiplier;
 	Point confusion;
 	Point confusionVelocity;
+
+	friend class FleetEditor;
 };

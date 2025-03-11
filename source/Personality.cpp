@@ -113,8 +113,8 @@ namespace {
 	};
 
 	// Tokens that combine two or more flags.
-	const map<string, vector<PersonalityTrait>> COMPOSITE_TOKEN = {
-		{"heroic", {DARING, HUNTING}}
+	const map<string, vector<int>> COMPOSITE_TOKEN = {
+		{"heroic", {Personality::DARING, Personality::HUNTING}}
 	};
 
 	const double DEFAULT_CONFUSION = 10.;
@@ -126,8 +126,13 @@ namespace {
 Personality::Personality() noexcept
 	: flags(1LL << DISABLES), confusionMultiplier(DEFAULT_CONFUSION), aimMultiplier(1.)
 {
-	static_assert(LAST_ITEM_IN_PERSONALITY_TRAIT_ENUM == PERSONALITY_COUNT,
-		"PERSONALITY_COUNT must match the length of PersonalityTraits");
+}
+
+
+
+Personality::Personality(int personality) noexcept
+	: flags(personality), confusionMultiplier(DEFAULT_CONFUSION), aimMultiplier(1.)
+{
 }
 
 

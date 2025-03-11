@@ -45,6 +45,7 @@ public:
 
 	// Get the radius of this planet, i.e. how close you must be to land.
 	double Radius() const;
+	double RealRadius() const;
 
 	// Determine if this object represents a planet with valid data.
 	bool HasValidPlanet() const;
@@ -71,6 +72,13 @@ public:
 	const std::vector<RandomEvent<Hazard>> &Hazards() const;
 	// Find out how far this object is from its parent.
 	double Distance() const;
+	// Find out how fast this object is going.
+	double Speed() const;
+	// Find out the offset of this object.
+	double Offset() const;
+
+	friend bool operator==(const StellarObject &lhs, const StellarObject &rhs);
+	friend bool operator!=(const StellarObject &lhs, const StellarObject &rhs);
 
 
 private:
@@ -89,4 +97,29 @@ private:
 
 	// Let System handle setting all the values of an Object.
 	friend class System;
+	friend class SystemEditor;
+	friend class PlanetEditor;
+	friend class MainEditorPanel;
 };
+
+
+
+inline bool operator==(const StellarObject &lhs, const StellarObject &rhs)
+{
+	return lhs.planet == rhs.planet
+		&& lhs.distance == rhs.distance
+		&& lhs.speed == rhs.speed
+		&& lhs.parent == rhs.parent
+		&& lhs.message == rhs.message
+		&& lhs.isStar == rhs.isStar
+		&& lhs.isStation == rhs.isStation
+		&& lhs.isMoon == rhs.isMoon
+		&& static_cast<const Body &>(lhs) == static_cast<const Body &>(rhs);
+}
+
+
+
+inline bool operator!=(const StellarObject &lhs, const StellarObject &rhs)
+{
+	return !(lhs == rhs);
+}

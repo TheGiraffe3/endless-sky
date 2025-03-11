@@ -57,6 +57,13 @@ double StellarObject::Radius() const
 
 
 
+double StellarObject::RealRadius() const
+{
+	return HasSprite() ? .5 * min(Width(), Height()) : 100.;
+}
+
+
+
 bool StellarObject::HasValidPlanet() const
 {
 	return planet && planet->IsValid();
@@ -151,6 +158,22 @@ int StellarObject::Parent() const
 double StellarObject::Distance() const
 {
 	return distance;
+}
+
+
+
+// Find out how fast this object is goin.
+double StellarObject::Speed() const
+{
+	return speed;
+}
+
+
+
+// Find out the offset of this object.
+double StellarObject::Offset() const
+{
+	return offset;
 }
 
 

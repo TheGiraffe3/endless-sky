@@ -39,6 +39,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Random.h"
 #include "ShipEvent.h"
 #include "audio/Sound.h"
+#include "audio/SoundSet.h"
 #include "image/Sprite.h"
 #include "image/SpriteSet.h"
 #include "StellarObject.h"
@@ -265,7 +266,7 @@ void Ship::Load(const DataNode &node)
 		if(key == "sprite")
 			LoadSprite(child);
 		else if(child.Token(0) == "thumbnail" && child.Size() >= 2)
-			thumbnail = SpriteSet::Get(child.Token(1));
+			thumbnail = GameData::Sprites().Get(child.Token(1));
 		else if(key == "name" && child.Size() >= 2)
 			name = child.Token(1);
 		else if(key == "display name" && child.Size() >= 2)
@@ -285,7 +286,7 @@ void Ship::Load(const DataNode &node)
 			else
 			{
 				addAttributes = true;
-				attributes.Load(child);
+				addAttributesList.Load(child);
 			}
 		}
 		else if((key == "engine" || key == "reverse engine" || key == "steering engine") && child.Size() >= 3)
@@ -734,9 +735,10 @@ void Ship::FinishLoading(bool isNewInstance)
 	{
 		// Store attributes from an "add attributes" node in the ship's
 		// baseAttributes so they can be written to the save file.
-		baseAttributes.Add(attributes);
-		baseAttributes.AddLicenses(attributes);
+		baseAttributes.Add(addAttributesList);
+		baseAttributes.AddLicenses(addAttributesList);
 		addAttributes = false;
+		addAttributesList = {};
 	}
 	// Add the attributes of all your outfits to the ship's base attributes.
 	attributes = baseAttributes;
@@ -1942,7 +1944,11 @@ int Ship::Scan(const PlayerInfo &player)
 	auto playScanSounds = [](const map<const Sound *, int> &sounds, Point &position)
 	{
 		if(sounds.empty())
+<<<<<<< HEAD
 			Audio::Play(Audio::Get("scan"), position, SoundCategory::SCAN);
+=======
+			Audio::Play("scan", position);
+>>>>>>> 0.10.10-editor-patched
 		else
 			for(const auto &sound : sounds)
 				Audio::Play(sound.first, position, SoundCategory::SCAN);
@@ -1976,7 +1982,7 @@ int Ship::Scan(const PlayerInfo &player)
 		{
 			// If this ship has no name, show its model name instead.
 			string tag;
-			const string &gov = target->GetGovernment()->GetName();
+			const string &gov = target->GetGovernment()->Name();
 			if(!target->Name().empty())
 				tag = gov + " " + target->Noun() + " \"" + target->Name() + "\": ";
 			else
@@ -1986,18 +1992,18 @@ int Ship::Scan(const PlayerInfo &player)
 		}
 	}
 	else if(startedScanning && target->isYours && isImportant)
-		Messages::Add("The " + government->GetName() + " " + Noun() + " \""
+		Messages::Add("The " + government->Name() + " " + Noun() + " \""
 				+ Name() + "\" is attempting to scan your ship \"" + target->Name() + "\".",
 				Messages::Importance::Low);
 
 	if(target->isYours && !isYours && isImportant)
 	{
 		if(result & ShipEvent::SCAN_CARGO)
-			Messages::Add("The " + government->GetName() + " " + Noun() + " \""
+			Messages::Add("The " + government->Name() + " " + Noun() + " \""
 					+ Name() + "\" completed its cargo scan of your ship \"" + target->Name() + "\".",
 					Messages::Importance::High);
 		if(result & ShipEvent::SCAN_OUTFITS)
-			Messages::Add("The " + government->GetName() + " " + Noun() + " \""
+			Messages::Add("The " + government->Name() + " " + Noun() + " \""
 					+ Name() + "\" completed its outfit scan of your ship \"" + target->Name()
 					+ (target->Attributes().Get("inscrutable") > 0. ? "\" with no useful results." : "\"."),
 					Messages::Importance::High);

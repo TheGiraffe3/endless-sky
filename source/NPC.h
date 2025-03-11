@@ -67,12 +67,6 @@ public:
 
 public:
 	NPC() = default;
-	// Copying an NPC instance isn't allowed.
-	NPC(const NPC &) = delete;
-	NPC &operator=(const NPC &) = delete;
-	NPC(NPC &&) noexcept = default;
-	NPC &operator=(NPC &&) noexcept = default;
-	~NPC() noexcept = default;
 
 	// Construct and Load() at the same time.
 	explicit NPC(const DataNode &node);

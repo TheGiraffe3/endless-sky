@@ -17,6 +17,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #include "audio/Audio.h"
 #include "DataNode.h"
+#include "GameData.h"
+#include "audio/SoundSet.h"
 
 #include <map>
 
@@ -65,6 +67,7 @@ void Effect::Load(const DataNode &node)
 		else if(child.Token(0) == "zooms")
 			inheritsZoom = true;
 		else if(child.Token(0) == "sound" && child.Size() >= 2)
+<<<<<<< HEAD
 			sound = Audio::Get(child.Token(1));
 		else if(child.Token(0) == "sound category" && child.Size() >= 2)
 		{
@@ -73,6 +76,9 @@ void Effect::Load(const DataNode &node)
 			else
 				child.PrintTrace("Unknown sound category \"" + child.Token(1) + "\"");
 		}
+=======
+			sound = GameData::Sounds().Get(child.Token(1));
+>>>>>>> 0.10.10-editor-patched
 		else if(child.Token(0) == "lifetime" && child.Size() >= 2)
 			lifetime = child.Value(1);
 		else if(child.Token(0) == "random lifetime" && child.Size() >= 2)

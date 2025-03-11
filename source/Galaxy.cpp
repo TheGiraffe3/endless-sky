@@ -16,6 +16,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Galaxy.h"
 
 #include "DataNode.h"
+#include "GameData.h"
 #include "image/SpriteSet.h"
 
 using namespace std;
@@ -24,6 +25,7 @@ using namespace std;
 
 void Galaxy::Load(const DataNode &node)
 {
+	name = node.Token(1);
 	for(const DataNode &child : node)
 	{
 		const bool remove = child.Token(0) == "remove";
@@ -41,10 +43,17 @@ void Galaxy::Load(const DataNode &node)
 		else if(key == "pos" && child.Size() >= 3)
 			position = Point(child.Value(1), child.Value(2));
 		else if(key == "sprite" && child.Size() >= 2)
-			sprite = SpriteSet::Get(child.Token(1));
+			sprite = GameData::Sprites().Get(child.Token(1));
 		else
 			child.PrintTrace("Skipping unrecognized attribute:");
 	}
+}
+
+
+
+const string &Galaxy::Name() const
+{
+	return name;
 }
 
 

@@ -31,6 +31,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Preferences.h"
 #include "RenderBuffer.h"
 #include "Screen.h"
+#include "audio/SoundSet.h"
 #include "image/Sprite.h"
 #include "image/SpriteSet.h"
 #include "shader/SpriteShader.h"
@@ -289,11 +290,16 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 	Rectangle volumeBox = preferencesUI->GetBox("volume box");
 	if(volumeBox.Contains(point))
 	{
+<<<<<<< HEAD
 		double barSize = preferencesUI->GetValue("master volume bar size");
 		double volume = (volumeBox.Center().Y() - point.Y()) / barSize + .5;
 
 		Audio::SetVolume(volume, SoundCategory::MASTER);
 		Audio::Play(Audio::Get("warder"), SoundCategory::MASTER);
+=======
+		Audio::SetVolume((17 - y) / 200.);
+		Audio::Play("warder");
+>>>>>>> 0.10.10-editor-patched
 		return true;
 	}
 
@@ -1001,7 +1007,7 @@ void PreferencesPanel::DrawPlugins()
 	const Color &bright = *GameData::Colors().Get("bright");
 	const Interface *pluginUI = GameData::Interfaces().Get("plugins");
 
-	const Sprite *box[2] = { SpriteSet::Get("ui/unchecked"), SpriteSet::Get("ui/checked") };
+	const Sprite *box[2] = { GameData::Sprites().Get("ui/unchecked"), GameData::Sprites().Get("ui/checked") };
 
 	// Animate scrolling.
 	pluginListScroll.Step();
@@ -1140,7 +1146,7 @@ void PreferencesPanel::RenderPluginDescription(const Plugin &plugin)
 	pluginDescriptionScroll.Set(0, 0);
 
 	// Compute the height before drawing, so that we know the scroll bounds.
-	const Sprite *sprite = SpriteSet::Get(plugin.name);
+	const Sprite *sprite = GameData::Sprites().Get(plugin.name);
 	int descriptionHeight = 0;
 	if(sprite)
 		descriptionHeight += sprite->Height() + 10;

@@ -67,6 +67,7 @@ public:
 	bool IsEmpty() const noexcept;
 	// Check if this conversation includes a name prompt.
 	bool IsValidIntro() const noexcept;
+	const std::string &Name() const noexcept;
 	// Check if the actions in this conversation are valid.
 	std::string Validate() const;
 
@@ -186,6 +187,8 @@ private:
 
 
 private:
+	std::string name;
+
 	// While parsing the conversation, keep track of what labels link to what
 	// nodes. If a name appears in a goto before that label appears, remember
 	// what node and what element it appeared at in order to link it up later.

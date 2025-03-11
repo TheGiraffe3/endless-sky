@@ -380,7 +380,7 @@ bool StartConditions::LoadStateChild(const DataNode &child, StartInfo &info, boo
 		info.description += value + "\n";
 	}
 	else if(key == "thumbnail" && hasValue)
-		info.thumbnail = SpriteSet::Get(value);
+		info.thumbnail = GameData::Sprites().Get(value);
 	else if(key == "system" && hasValue)
 		info.system = value;
 	else if(key == "planet" && hasValue)

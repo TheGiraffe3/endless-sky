@@ -32,6 +32,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "text/FontSet.h"
 #include "FormationPattern.h"
 #include "Galaxy.h"
+#include "GameAssets.h"
 #include "GameEvent.h"
 #include "Government.h"
 #include "Hazard.h"
@@ -75,7 +76,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 using namespace std;
 
 namespace {
-	UniverseObjects objects;
+	GameAssets assets;
 	Set<Fleet> defaultFleets;
 	Set<Government> defaultGovernments;
 	Set<Planet> defaultPlanets;
@@ -86,13 +87,19 @@ namespace {
 	Set<Wormhole> defaultWormholes;
 	TextReplacements defaultSubstitutions;
 
+	map<string, string> plugins;
+
 	Politics politics;
 
 	StarField background;
 
+<<<<<<< HEAD
 	vector<filesystem::path> sources;
 	map<const Sprite *, shared_ptr<ImageSet>> deferred;
 	map<const Sprite *, int> preloaded;
+=======
+	vector<string> sources;
+>>>>>>> 0.10.10-editor-patched
 
 	MaskManager maskManager;
 
@@ -100,6 +107,7 @@ namespace {
 	map<const System *, map<string, int>> purchases;
 
 	ConditionsStore globalConditions;
+<<<<<<< HEAD
 
 	bool preventSpriteUpload = false;
 
@@ -186,15 +194,16 @@ namespace {
 			LoadSprite(queue, icon);
 		}
 	}
+=======
+>>>>>>> 0.10.10-editor-patched
 }
 
 
 
-shared_future<void> GameData::BeginLoad(TaskQueue &queue, bool onlyLoadData, bool debugMode, bool preventUpload)
+future<void> GameData::BeginLoad(int options)
 {
-	preventSpriteUpload = preventUpload;
-
 	// Initialize the list of "source" folders based on any active plugins.
+<<<<<<< HEAD
 	LoadSources(queue);
 
 	if(!onlyLoadData)
@@ -225,21 +234,11 @@ shared_future<void> GameData::BeginLoad(TaskQueue &queue, bool onlyLoadData, boo
 				}
 			}
 			queuedAllImages = true;
+=======
+	LoadSources();
+>>>>>>> 0.10.10-editor-patched
 
-			// Launch the tasks to actually load the images, making sure not to exceed the amount
-			// of tasks the main thread can handle in a single frame to limit peak memory usage.
-			{
-				lock_guard lock(imageQueueMutex);
-				for(int i = 0; i < TaskQueue::MAX_SYNC_TASKS; ++i)
-					LoadSpriteQueued(queue);
-			}
-
-			// Generate a catalog of music files.
-			Music::Init(sources);
-		});
-	}
-
-	return objects.Load(queue, sources, debugMode);
+	return assets.Load(sources, options);
 }
 
 
@@ -247,16 +246,16 @@ shared_future<void> GameData::BeginLoad(TaskQueue &queue, bool onlyLoadData, boo
 void GameData::FinishLoading()
 {
 	// Store the current state, to revert back to later.
-	defaultFleets = objects.fleets;
-	defaultGovernments = objects.governments;
-	defaultPlanets = objects.planets;
-	defaultSystems = objects.systems;
-	defaultGalaxies = objects.galaxies;
-	defaultShipSales = objects.shipSales;
-	defaultOutfitSales = objects.outfitSales;
-	defaultSubstitutions = objects.substitutions;
-	defaultWormholes = objects.wormholes;
-	playerGovernment = objects.governments.Get("Escort");
+	defaultFleets = assets.objects.fleets;
+	defaultGovernments = assets.objects.governments;
+	defaultPlanets = assets.objects.planets;
+	defaultSystems = assets.objects.systems;
+	defaultGalaxies = assets.objects.galaxies;
+	defaultShipSales = assets.objects.shipSales;
+	defaultOutfitSales = assets.objects.outfitSales;
+	defaultSubstitutions = assets.objects.substitutions;
+	defaultWormholes = assets.objects.wormholes;
+	playerGovernment = assets.objects.governments.Get("Escort");
 
 	politics.Reset();
 }
@@ -265,7 +264,7 @@ void GameData::FinishLoading()
 
 void GameData::CheckReferences()
 {
-	objects.CheckReferences();
+	assets.objects.CheckReferences();
 }
 
 
@@ -301,6 +300,7 @@ void GameData::LoadShaders()
 
 double GameData::GetProgress()
 {
+<<<<<<< HEAD
 	double spriteProgress = 0.;
 	if(queuedAllImages)
 	{
@@ -310,6 +310,9 @@ double GameData::GetProgress()
 			spriteProgress = static_cast<double>(spritesLoaded) / totalSprites;
 	}
 	return min({spriteProgress, Audio::GetProgress(), objects.GetProgress()});
+=======
+	return assets.GetProgress();
+>>>>>>> 0.10.10-editor-patched
 }
 
 
@@ -323,53 +326,19 @@ bool GameData::IsLoaded()
 
 // Begin loading a sprite that was previously deferred. Currently this is
 // done with all landscapes to speed up the program's startup.
-void GameData::Preload(TaskQueue &queue, const Sprite *sprite)
+future<void> GameData::Preload(const Sprite *sprite)
 {
-	// Make sure this sprite actually is one that uses deferred loading.
-	auto dit = deferred.find(sprite);
-	if(!sprite || dit == deferred.end())
-		return;
-
-	// If this sprite is one of the currently loaded ones, there is no need to
-	// load it again. But, make note of the fact that it is the most recently
-	// asked-for sprite.
-	map<const Sprite *, int>::iterator pit = preloaded.find(sprite);
-	if(pit != preloaded.end())
-	{
-		for(pair<const Sprite * const, int> &it : preloaded)
-			if(it.second < pit->second)
-				++it.second;
-
-		pit->second = 0;
-		return;
-	}
-
-	// This sprite is not currently preloaded. Check to see whether we already
-	// have the maximum number of sprites loaded, in which case the oldest one
-	// must be unloaded to make room for this one.
-	pit = preloaded.begin();
-	while(pit != preloaded.end())
-	{
-		++pit->second;
-		if(pit->second >= 20)
-		{
-			// Unloading needs to be queued on the main thread.
-			queue.Run({}, [name = pit->first->Name()] { SpriteSet::Modify(name)->Unload(); });
-			pit = preloaded.erase(pit);
-		}
-		else
-			++pit;
-	}
-
-	// Now, load all the files for this sprite.
-	preloaded[sprite] = 0;
-	LoadSprite(queue, dit->second);
+	return assets.Preload(sprite);
 }
 
 
 
 // Get the list of resource sources (i.e. plugin folders).
+<<<<<<< HEAD
 const vector<filesystem::path> &GameData::Sources()
+=======
+const std::vector<std::string> &GameData::Sources()
+>>>>>>> 0.10.10-editor-patched
 {
 	return sources;
 }
@@ -379,7 +348,7 @@ const vector<filesystem::path> &GameData::Sources()
 // Get a reference to the UniverseObjects object.
 UniverseObjects &GameData::Objects()
 {
-	return objects;
+	return assets.objects;
 }
 
 
@@ -387,16 +356,16 @@ UniverseObjects &GameData::Objects()
 // Revert any changes that have been made to the universe.
 void GameData::Revert()
 {
-	objects.fleets.Revert(defaultFleets);
-	objects.governments.Revert(defaultGovernments);
-	objects.planets.Revert(defaultPlanets);
-	objects.systems.Revert(defaultSystems);
-	objects.galaxies.Revert(defaultGalaxies);
-	objects.shipSales.Revert(defaultShipSales);
-	objects.outfitSales.Revert(defaultOutfitSales);
-	objects.substitutions.Revert(defaultSubstitutions);
-	objects.wormholes.Revert(defaultWormholes);
-	for(auto &it : objects.persons)
+	assets.objects.fleets.Revert(defaultFleets);
+	assets.objects.governments.Revert(defaultGovernments);
+	assets.objects.planets.Revert(defaultPlanets);
+	assets.objects.systems.Revert(defaultSystems);
+	assets.objects.galaxies.Revert(defaultGalaxies);
+	assets.objects.shipSales.Revert(defaultShipSales);
+	assets.objects.outfitSales.Revert(defaultOutfitSales);
+	assets.objects.substitutions.Revert(defaultSubstitutions);
+	assets.objects.wormholes.Revert(defaultWormholes);
+	for(auto &it : assets.objects.persons)
 		it.second.Restore();
 
 	politics.Reset();
@@ -407,7 +376,7 @@ void GameData::Revert()
 
 void GameData::SetDate(const Date &date)
 {
-	for(auto &it : objects.systems)
+	for(auto &it : assets.objects.systems)
 		it.second.SetDate(date);
 	politics.ResetDaily();
 }
@@ -436,7 +405,7 @@ void GameData::ReadEconomy(const DataNode &node)
 		}
 		else
 		{
-			System &system = *objects.systems.Get(child.Token(0));
+			System &system = *assets.objects.systems.Get(child.Token(0));
 
 			int index = 0;
 			for(const string &commodity : headings)
@@ -505,13 +474,13 @@ void GameData::StepEconomy()
 	purchases.clear();
 
 	// Then, have each system generate new goods for local use and trade.
-	for(auto &it : objects.systems)
+	for(auto &it : assets.objects.systems)
 		it.second.StepEconomy();
 
 	// Finally, send out the trade goods. This has to be done in a separate step
 	// because otherwise whichever systems trade last would already have gotten
 	// supplied by the other systems.
-	for(auto &it : objects.systems)
+	for(auto &it : assets.objects.systems)
 	{
 		System &system = it.second;
 		if(!system.Links().empty())
@@ -542,7 +511,7 @@ void GameData::AddPurchase(const System &system, const string &commodity, int to
 // Apply the given change to the universe.
 void GameData::Change(const DataNode &node)
 {
-	objects.Change(node);
+	assets.objects.Change(node);
 }
 
 
@@ -551,14 +520,14 @@ void GameData::Change(const DataNode &node)
 // This must be done any time that a change creates or moves a system.
 void GameData::UpdateSystems()
 {
-	objects.UpdateSystems();
+	assets.objects.UpdateSystems();
 }
 
 
 
 void GameData::AddJumpRange(double neighborDistance)
 {
-	objects.neighborDistances.insert(neighborDistance);
+	assets.objects.neighborDistances.insert(neighborDistance);
 }
 
 
@@ -567,7 +536,7 @@ void GameData::AddJumpRange(double neighborDistance)
 // still alive.
 void GameData::ResetPersons()
 {
-	for(auto &it : objects.persons)
+	for(auto &it : assets.objects.persons)
 		it.second.ClearPlacement();
 }
 
@@ -577,154 +546,154 @@ void GameData::ResetPersons()
 void GameData::DestroyPersons(vector<string> &names)
 {
 	for(const string &name : names)
-		objects.persons.Get(name)->Destroy();
+		assets.objects.persons.Get(name)->Destroy();
 }
 
 
 
 const Set<Color> &GameData::Colors()
 {
-	return objects.colors;
+	return assets.objects.colors;
 }
 
 
 
 const Set<Conversation> &GameData::Conversations()
 {
-	return objects.conversations;
+	return assets.objects.conversations;
 }
 
 
 
 const Set<Effect> &GameData::Effects()
 {
-	return objects.effects;
+	return assets.objects.effects;
 }
 
 
 
 const Set<GameEvent> &GameData::Events()
 {
-	return objects.events;
+	return assets.objects.events;
 }
 
 
 
 const Set<Fleet> &GameData::Fleets()
 {
-	return objects.fleets;
+	return assets.objects.fleets;
 }
 
 
 
 const Set<FormationPattern> &GameData::Formations()
 {
-	return objects.formations;
+	return assets.objects.formations;
 }
 
 
 
 const Set<Galaxy> &GameData::Galaxies()
 {
-	return objects.galaxies;
+	return assets.objects.galaxies;
 }
 
 
 
 const Set<Government> &GameData::Governments()
 {
-	return objects.governments;
+	return assets.objects.governments;
 }
 
 
 
 const Set<Hazard> &GameData::Hazards()
 {
-	return objects.hazards;
+	return assets.objects.hazards;
 }
 
 
 
 const Set<Interface> &GameData::Interfaces()
 {
-	return objects.interfaces;
+	return assets.objects.interfaces;
 }
 
 
 
 const Set<Minable> &GameData::Minables()
 {
-	return objects.minables;
+	return assets.objects.minables;
 }
 
 
 
 const Set<Mission> &GameData::Missions()
 {
-	return objects.missions;
+	return assets.objects.missions;
 }
 
 
 
 const Set<News> &GameData::SpaceportNews()
 {
-	return objects.news;
+	return assets.objects.news;
 }
 
 
 
 const Set<Outfit> &GameData::Outfits()
 {
-	return objects.outfits;
+	return assets.objects.outfits;
 }
 
 
 
 const Set<Sale<Outfit>> &GameData::Outfitters()
 {
-	return objects.outfitSales;
+	return assets.objects.outfitSales;
 }
 
 
 
 const Set<Person> &GameData::Persons()
 {
-	return objects.persons;
+	return assets.objects.persons;
 }
 
 
 
 const Set<Phrase> &GameData::Phrases()
 {
-	return objects.phrases;
+	return assets.objects.phrases;
 }
 
 
 
 const Set<Planet> &GameData::Planets()
 {
-	return objects.planets;
+	return assets.objects.planets;
 }
 
 
 
 const Set<Ship> &GameData::Ships()
 {
-	return objects.ships;
+	return assets.objects.ships;
 }
 
 
 
 const Set<Test> &GameData::Tests()
 {
-	return objects.tests;
+	return assets.objects.tests;
 }
 
 
 
 const Set<TestData> &GameData::TestDataSets()
 {
-	return objects.testDataSets;
+	return assets.objects.testDataSets;
 }
 
 
@@ -738,21 +707,21 @@ ConditionsStore &GameData::GlobalConditions()
 
 const Set<Sale<Ship>> &GameData::Shipyards()
 {
-	return objects.shipSales;
+	return assets.objects.shipSales;
 }
 
 
 
 const Set<System> &GameData::Systems()
 {
-	return objects.systems;
+	return assets.objects.systems;
 }
 
 
 
 const Set<Wormhole> &GameData::Wormholes()
 {
-	return objects.wormholes;
+	return assets.objects.wormholes;
 }
 
 
@@ -773,29 +742,29 @@ Politics &GameData::GetPolitics()
 
 const vector<StartConditions> &GameData::StartOptions()
 {
-	return objects.startConditions;
+	return assets.objects.startConditions;
 }
 
 
 
 const vector<Trade::Commodity> &GameData::Commodities()
 {
-	return objects.trade.Commodities();
+	return assets.objects.trade.Commodities();
 }
 
 
 
 const vector<Trade::Commodity> &GameData::SpecialCommodities()
 {
-	return objects.trade.SpecialCommodities();
+	return assets.objects.trade.SpecialCommodities();
 }
 
 
 
-// Custom messages to be shown when trying to land on certain stellar objects.
+// Custom messages to be shown when trying to land on certain stellar assets.objects.
 bool GameData::HasLandingMessage(const Sprite *sprite)
 {
-	return objects.landingMessages.contains(sprite);
+	return assets.objects.landingMessages.count(sprite);
 }
 
 
@@ -803,8 +772,8 @@ bool GameData::HasLandingMessage(const Sprite *sprite)
 const string &GameData::LandingMessage(const Sprite *sprite)
 {
 	static const string EMPTY;
-	auto it = objects.landingMessages.find(sprite);
-	return (it == objects.landingMessages.end() ? EMPTY : it->second);
+	auto it = assets.objects.landingMessages.find(sprite);
+	return (it == assets.objects.landingMessages.end() ? EMPTY : it->second);
 }
 
 
@@ -812,16 +781,16 @@ const string &GameData::LandingMessage(const Sprite *sprite)
 // Get the solar power and wind output of the given stellar object sprite.
 double GameData::SolarPower(const Sprite *sprite)
 {
-	auto it = objects.solarPower.find(sprite);
-	return (it == objects.solarPower.end() ? 0. : it->second);
+	auto it = assets.objects.solarPower.find(sprite);
+	return (it == assets.objects.solarPower.end() ? 0. : it->second);
 }
 
 
 
 double GameData::SolarWind(const Sprite *sprite)
 {
-	auto it = objects.solarWind.find(sprite);
-	return (it == objects.solarWind.end() ? 0. : it->second);
+	auto it = assets.objects.solarWind.find(sprite);
+	return (it == assets.objects.solarWind.end() ? 0. : it->second);
 }
 
 
@@ -839,8 +808,8 @@ const Sprite *GameData::StarIcon(const Sprite *sprite)
 const string &GameData::Rating(const string &type, int level)
 {
 	static const string EMPTY;
-	auto it = objects.ratings.find(type);
-	if(it == objects.ratings.end() || it->second.empty())
+	auto it = assets.objects.ratings.find(type);
+	if(it == assets.objects.ratings.end() || it->second.empty())
 		return EMPTY;
 
 	level = max(0, min<int>(it->second.size() - 1, level));
@@ -852,7 +821,7 @@ const string &GameData::Rating(const string &type, int level)
 // Collections for ship, bay type, outfit, and other categories.
 const CategoryList &GameData::GetCategory(const CategoryType type)
 {
-	return objects.categories[type];
+	return assets.objects.categories[type];
 }
 
 
@@ -874,14 +843,14 @@ void GameData::SetHaze(const Sprite *sprite, bool allowAnimation)
 const string &GameData::Tooltip(const string &label)
 {
 	static const string EMPTY;
-	auto it = objects.tooltips.find(label);
+	auto it = assets.objects.tooltips.find(label);
 	// Special case: the "cost" and "sells for" labels include the percentage of
 	// the full price, so they will not match exactly.
-	if(it == objects.tooltips.end() && !label.compare(0, 4, "cost"))
-		it = objects.tooltips.find("cost:");
-	if(it == objects.tooltips.end() && !label.compare(0, 9, "sells for"))
-		it = objects.tooltips.find("sells for:");
-	return (it == objects.tooltips.end() ? EMPTY : it->second);
+	if(it == assets.objects.tooltips.end() && !label.compare(0, 4, "cost"))
+		it = assets.objects.tooltips.find("cost:");
+	if(it == assets.objects.tooltips.end() && !label.compare(0, 9, "sells for"))
+		it = assets.objects.tooltips.find("sells for:");
+	return (it == assets.objects.tooltips.end() ? EMPTY : it->second);
 }
 
 
@@ -889,15 +858,15 @@ const string &GameData::Tooltip(const string &label)
 string GameData::HelpMessage(const string &name)
 {
 	static const string EMPTY;
-	auto it = objects.helpMessages.find(name);
-	return Command::ReplaceNamesWithKeys(it == objects.helpMessages.end() ? EMPTY : it->second);
+	auto it = assets.objects.helpMessages.find(name);
+	return Command::ReplaceNamesWithKeys(it == assets.objects.helpMessages.end() ? EMPTY : it->second);
 }
 
 
 
 const map<string, string> &GameData::HelpTemplates()
 {
-	return objects.helpMessages;
+	return assets.objects.helpMessages;
 }
 
 
@@ -911,23 +880,24 @@ MaskManager &GameData::GetMaskManager()
 
 const TextReplacements &GameData::GetTextReplacements()
 {
-	return objects.substitutions;
+	return assets.objects.substitutions;
+}
+
+
+const Set<string> &GameData::Music()
+{
+	return assets.music;
 }
 
 
 
-const Gamerules &GameData::GetGamerules()
+const SpriteSet &GameData::Sprites()
 {
-	return objects.gamerules;
+	return assets.sprites;
 }
 
 
-
-void GameData::LoadSources(TaskQueue &queue)
-{
-	sources.clear();
-	sources.push_back(Files::Resources());
-
+<<<<<<< HEAD
 	vector<filesystem::path> globalPlugins = Files::ListDirectories(Files::GlobalPlugins());
 	for(const auto &path : globalPlugins)
 		if(Plugins::IsPlugin(path))
@@ -937,12 +907,19 @@ void GameData::LoadSources(TaskQueue &queue)
 	for(const auto &path : localPlugins)
 		if(Plugins::IsPlugin(path))
 			LoadPlugin(queue, path);
+=======
+
+const SoundSet &GameData::Sounds()
+{
+	return assets.sounds;
+>>>>>>> 0.10.10-editor-patched
 }
 
 
 
-map<string, shared_ptr<ImageSet>> GameData::FindImages()
+GameAssets &GameData::Assets()
 {
+<<<<<<< HEAD
 	map<string, shared_ptr<ImageSet>> images;
 	for(const auto &source : sources)
 	{
@@ -963,12 +940,29 @@ map<string, shared_ptr<ImageSet>> GameData::FindImages()
 			}
 	}
 	return images;
+=======
+	return assets;
 }
 
+
+
+const Gamerules &GameData::GetGamerules()
+{
+	return assets.objects.gamerules;
+>>>>>>> 0.10.10-editor-patched
+}
+
+
+
+void GameData::LoadSources()
+{
+	sources.clear();
+	sources.push_back(Files::Resources());
+}
 
 
 // Thread-safe way to draw the menu background.
 void GameData::DrawMenuBackground(Panel *panel)
 {
-	objects.DrawMenuBackground(panel);
+	assets.objects.DrawMenuBackground(panel);
 }

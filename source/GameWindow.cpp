@@ -22,7 +22,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Screen.h"
 
 #include "opengl.h"
-#include <SDL2/SDL.h>
 
 #include <cstring>
 #include <sstream>
@@ -72,7 +71,7 @@ string GameWindow::SDLVersions()
 
 
 
-bool GameWindow::Init(bool headless)
+bool GameWindow::Init(function<void(SDL_Window *, const SDL_GLContext &)> post)
 {
 #ifdef _WIN32
 	// Tell Windows this process is high dpi aware and doesn't need to get scaled.
@@ -81,14 +80,6 @@ bool GameWindow::Init(bool headless)
 	// Set the class name for the window on Linux. Used to set the application icon.
 	// This sets it for both X11 and Wayland.
 	setenv("SDL_VIDEO_X11_WMCLASS", "io.github.endless_sky.endless_sky", true);
-#endif
-
-	// When running the integration tests, don't create a window nor an OpenGL context.
-	if(headless)
-#if defined(__linux__) && !SDL_VERSION_ATLEAST(2, 0, 22)
-		setenv("SDL_VIDEODRIVER", "dummy", true);
-#else
-		SDL_SetHint(SDL_HINT_VIDEODRIVER, "dummy");
 #endif
 
 	// This needs to be called before any other SDL commands.
@@ -116,8 +107,10 @@ bool GameWindow::Init(bool headless)
 	int maxHeight = mode.h;
 	if(maxWidth < minWidth || maxHeight < minHeight)
 	{
+#ifndef __EMSCRIPTEN__
 		ExitWithError("Monitor resolution is too small!");
 		return false;
+#endif
 	}
 
 	int windowWidth = maxWidth - 100;
@@ -141,21 +134,12 @@ bool GameWindow::Init(bool headless)
 
 	// The main window spawns visibly at this point.
 	mainWindow = SDL_CreateWindow("Endless Sky", SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, headless ? 0 : flags);
+		SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, flags);
 
 	if(!mainWindow)
 	{
 		ExitWithError("Unable to create window!");
 		return false;
-	}
-
-	// Bail out early if we are in headless mode; no need to initialize all the OpenGL stuff.
-	if(headless)
-	{
-		width = windowWidth;
-		height = windowHeight;
-		Screen::SetRaw(width, height);
-		return true;
 	}
 
 	// Settings that must be declared before the context creation.
@@ -173,6 +157,8 @@ bool GameWindow::Init(bool headless)
 #endif
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
+	SDL_SetHint(SDL_HINT_WINDOWS_DPI_AWARENESS, "permonitorv2");
+
 	context = SDL_GL_CreateContext(mainWindow);
 	if(!context)
 	{
@@ -186,20 +172,13 @@ bool GameWindow::Init(bool headless)
 		return false;
 	}
 
-	// Initialize GLEW.
-#if !defined(__APPLE__) && !defined(ES_GLES)
-	glewExperimental = GL_TRUE;
-	GLenum err = glewInit();
-#ifdef GLEW_ERROR_NO_GLX_DISPLAY
-	if(err != GLEW_OK && err != GLEW_ERROR_NO_GLX_DISPLAY)
-#else
-	if(err != GLEW_OK)
-#endif
+	// Initialize OpenGL.
+	if(!OpenGL::InitializeLoader(mainWindow))
 	{
-		ExitWithError("Unable to initialize GLEW!");
+		checkSDLerror();
+		ExitWithError("Unable to initialize loader!");
 		return false;
 	}
-#endif
 
 	// Check that the OpenGL version is high enough.
 	const char *glVersion = reinterpret_cast<const char *>(glGetString(GL_VERSION));
@@ -251,6 +230,9 @@ bool GameWindow::Init(bool headless)
 	// want, because the ".icns" icon that is used automatically is prettier.
 	SetIcon();
 #endif
+
+	if(post)
+		post(mainWindow, context);
 
 	return true;
 }
@@ -309,7 +291,7 @@ void GameWindow::SetIcon()
 
 
 
-void GameWindow::AdjustViewport()
+void GameWindow::AdjustViewport(int topBar)
 {
 	if(!mainWindow)
 		return;
@@ -340,7 +322,7 @@ void GameWindow::AdjustViewport()
 	// everything pixel-aligned.
 	drawWidth = (drawWidth * roundWidth) / windowWidth;
 	drawHeight = (drawHeight * roundHeight) / windowHeight;
-	glViewport(0, 0, drawWidth, drawHeight);
+	glViewport(0, 0, drawWidth, drawHeight - topBar);
 }
 
 

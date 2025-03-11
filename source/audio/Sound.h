@@ -25,8 +25,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 class Sound {
 public:
 	bool Load(const std::filesystem::path &path, const std::string &name);
+	void Unload() const;
 
 	const std::string &Name() const;
+	const std::string &Path() const;
 
 	unsigned Buffer() const;
 	unsigned Buffer3x() const;
@@ -35,6 +37,8 @@ public:
 
 private:
 	std::string name;
+	std::string path;
+	mutable bool isLoaded = false;
 	unsigned buffer = 0;
 	unsigned buffer3x = 0;
 	bool isLooped = false;

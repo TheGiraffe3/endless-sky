@@ -15,9 +15,13 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
+<<<<<<< HEAD
 #include "ConditionSet.h"
 #include "ConditionsStore.h"
 #include "DataNode.h"
+=======
+#include <string>
+>>>>>>> 0.10.10-editor-patched
 
 
 
@@ -28,14 +32,34 @@ class RandomEvent {
 public:
 	RandomEvent(const T *event, int period, const DataNode &node) noexcept;
 
+<<<<<<< HEAD
 	const T *Get() const noexcept;
 	int Period() const noexcept;
 	bool CanTrigger(const ConditionsStore &tester) const;
+=======
+	const std::string &Name() const;
+	constexpr const T *Get() const noexcept;
+	constexpr int Period() const noexcept;
+>>>>>>> 0.10.10-editor-patched
+
+	friend constexpr bool operator==(const RandomEvent &lhs, const RandomEvent &rhs)
+	{
+		return lhs.event == rhs.event && lhs.period == rhs.period;
+	}
+	friend constexpr bool operator!=(const RandomEvent &lhs, const RandomEvent &rhs)
+	{
+		return !(lhs == rhs);
+	}
 
 private:
 	const T *event;
 	int period;
+<<<<<<< HEAD
 	ConditionSet conditions;
+=======
+
+	friend class SystemEditor;
+>>>>>>> 0.10.10-editor-patched
 };
 
 
@@ -51,7 +75,17 @@ RandomEvent<T>::RandomEvent(const T *event, int period, const DataNode &node) no
 }
 
 template <typename T>
+<<<<<<< HEAD
 const T *RandomEvent<T>::Get() const noexcept
+=======
+const std::string &RandomEvent<T>::Name() const
+{
+	return event->Name();
+}
+
+template <typename T>
+constexpr const T *RandomEvent<T>::Get() const noexcept
+>>>>>>> 0.10.10-editor-patched
 {
 	return event;
 }

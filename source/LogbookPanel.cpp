@@ -92,7 +92,7 @@ void LogbookPanel::Draw()
 		Point(1., Screen::Height()),
 		lineColor);
 
-	Panel::DrawEdgeSprite(SpriteSet::Get("ui/right edge"), Screen::Left() + WIDTH);
+	Panel::DrawEdgeSprite(GameData::Sprites().Get("ui/right edge"), Screen::Left() + WIDTH);
 
 	// Colors to be used for drawing the log.
 	const Font &font = FontSet::Get(14);

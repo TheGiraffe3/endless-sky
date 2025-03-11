@@ -393,7 +393,7 @@ void System::Load(const DataNode &node, Set<Planet> &planets)
 		else if(key == "jump range")
 			jumpRange = max(0., child.Value(valueIndex));
 		else if(key == "haze")
-			haze = SpriteSet::Get(value);
+			haze = GameData::Sprites().Get(value);
 		else if(key == "starfield density")
 			starfieldDensity = child.Value(valueIndex);
 		else if(key == "trade" && child.Size() >= 3)
@@ -657,7 +657,7 @@ const set<string> &System::Attributes() const
 // Get a list of systems you can travel to through hyperspace from here.
 const set<const System *> &System::Links() const
 {
-	return accessibleLinks;
+	return links;
 }
 
 

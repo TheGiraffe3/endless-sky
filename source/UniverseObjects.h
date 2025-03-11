@@ -68,11 +68,37 @@ class TaskQueue;
 class UniverseObjects {
 	// GameData currently is the orchestrating controller for all game definitions.
 	friend class GameData;
+	friend class GameAssets;
+	friend class Editor;
+	friend class EditorPlugin;
+	friend class EffectEditor;
+	friend class FleetEditor;
+	friend class GalaxyEditor;
+	friend class GovernmentEditor;
+	friend class HazardEditor;
+	friend class OutfitEditor;
+	friend class OutfitterEditor;
+	friend class PlanetEditor;
+	friend class ShipEditor;
+	friend class ShipyardEditor;
+	friend class SystemEditor;
+
+	friend class MainEditorPanel;
+	friend class MapEditorPanel;
+	friend class OutfitterEditorPanel;
+	friend class ArenaPanel;
+	friend class ArenaControl;
+
 	friend class TestData;
 public:
 	// Load game objects from the given directories of definitions.
+<<<<<<< HEAD
 	std::shared_future<void> Load(TaskQueue &queue, const std::vector<std::filesystem::path> &sources,
 		bool debugMode = false);
+=======
+	void Load(const std::vector<std::string> &sources, bool debugMode = false);
+	void LoadFrom(const std::string &path, bool debugMode = false);
+>>>>>>> 0.10.10-editor-patched
 	// Determine the fraction of data files read from disk.
 	double GetProgress() const;
 	// Resolve every game object dependency.
@@ -93,12 +119,12 @@ public:
 
 
 private:
+<<<<<<< HEAD
 	void LoadFile(const std::filesystem::path &path, bool debugMode = false);
-
-
-private:
-	// A value in [0, 1] representing how many source files have been processed for content.
-	std::atomic<double> progress;
+=======
+	void LoadFolder(const std::vector<std::string> &files, bool debugMode = false);
+	void LoadFile(const std::string &path, bool debugMode = false);
+>>>>>>> 0.10.10-editor-patched
 
 
 private:
@@ -142,8 +168,4 @@ private:
 	std::map<std::string, std::string> tooltips;
 	std::map<std::string, std::string> helpMessages;
 	std::map<std::string, std::set<std::string>> disabled;
-
-	// A local cache of the menu background interface for thread-safe access.
-	mutable std::mutex menuBackgroundMutex;
-	Interface menuBackgroundCache;
 };

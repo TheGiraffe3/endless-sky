@@ -15,8 +15,14 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "WeightedList.h"
+
 #include <algorithm>
+<<<<<<< HEAD
 #include <filesystem>
+=======
+#include <iomanip>
+>>>>>>> 0.10.10-editor-patched
 #include <map>
 #include <sstream>
 #include <string>
@@ -53,7 +59,9 @@ public:
 	// The Write() function can take any number of arguments. Each argument is
 	// converted to a token. Arguments may be strings or numeric values.
 	template <class A, class ...B>
-	void Write(const A &a, B... others);
+	void Write(const A &a, const B &...others);
+	template <typename ...As>
+	void WriteQuoted(const std::string &a, const As &...others);
 	// Write the entire structure represented by a DataNode, including any
 	// children that it has.
 	void Write(const DataNode &node);
@@ -71,11 +79,13 @@ public:
 	void WriteComment(const std::string &str);
 
 	// Write a token, without writing a whole line. Use this very carefully.
-	void WriteToken(const char *a);
-	void WriteToken(const std::string &a);
+	void WriteToken(const char *a, bool needsQuoting = false);
+	void WriteToken(const std::string &a, bool needsQuoting = false);
 	// Write a token of any arithmetic type.
 	template <class A>
 	void WriteToken(const A &a);
+	// Write a token of a bool;
+	void WriteToken(bool b);
 
 	// Enclose a string in the correct quotation marks.
 	static std::string Quote(const std::string &text);
@@ -101,9 +111,18 @@ private:
 // The Write() function can take any number of arguments, each of which becomes
 // a token. They must be either strings or numeric types.
 template <class A, class ...B>
-void DataWriter::Write(const A &a, B... others)
+void DataWriter::Write(const A &a, const B &...others)
 {
 	WriteToken(a);
+	Write(others...);
+}
+
+
+
+template <typename ...As>
+void DataWriter::WriteQuoted(const std::string &a, const As &...others)
+{
+	WriteToken(a, true);
 	Write(others...);
 }
 
@@ -116,7 +135,22 @@ void DataWriter::WriteToken(const A &a)
 	static_assert(std::is_arithmetic_v<A>,
 		"DataWriter cannot output anything but strings and arithmetic types.");
 
-	out << *before << a;
+	std::ostringstream stream;
+	stream << std::fixed << std::setprecision(3) << a;
+	std::string str = std::move(stream).str();
+
+	if constexpr(std::is_floating_point_v<A>)
+	{
+		// Remove any trailing digits.
+		while(str.back() == '0')
+			str.pop_back();
+
+		// Remove trailing dot.
+		if(str.back() == '.')
+			str.pop_back();
+	}
+
+	out << *before << str;
 	before = &space;
 }
 
@@ -137,10 +171,34 @@ void WriteSorted(const C<T, Args...> &container, A sortFn, B writeFn)
 	for(const auto &sit : sorted)
 		writeFn(*sit);
 }
+template <class T, template<class, class...> class C, class... Args, typename A, typename B>
+void WriteSorted(const C<const T *, Args...> &container, A sortFn, B writeFn)
+{
+	std::vector<const T *> sorted;
+	sorted.reserve(container.size());
+	for(const auto &it : container)
+		sorted.emplace_back(it);
+	std::sort(sorted.begin(), sorted.end(), sortFn);
+
+	for(const auto &sit : sorted)
+		writeFn(*sit);
+}
 template <class K, class V, class... Args, typename A, typename B>
 void WriteSorted(const std::map<const K *, V, Args...> &container, A sortFn, B writeFn)
 {
 	std::vector<const std::pair<const K *const, V> *> sorted;
+	sorted.reserve(container.size());
+	for(const auto &it : container)
+		sorted.emplace_back(&it);
+	std::sort(sorted.begin(), sorted.end(), sortFn);
+
+	for(const auto &sit : sorted)
+		writeFn(*sit);
+}
+template <class T, typename A, typename B>
+void WriteSorted(const WeightedList<T> &container, A sortFn, B writeFn)
+{
+	std::vector<const typename WeightedList<T>::Item *> sorted;
 	sorted.reserve(container.size());
 	for(const auto &it : container)
 		sorted.emplace_back(&it);

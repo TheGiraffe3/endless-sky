@@ -16,6 +16,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 
 #include "ImageBuffer.h"
+#include "Mask.h"
 
 #include "ImageFileData.h"
 
@@ -48,6 +49,7 @@ public:
 
 	// Get the name of the sprite for this image set.
 	const std::string &Name() const;
+	const std::vector<std::filesystem::path> &Path(bool is2x) const;
 	// Whether this image set is empty, i.e. has no images.
 	bool IsEmpty() const;
 	// Add a single image to this set. Assume the name of the image has already
@@ -61,7 +63,7 @@ public:
 	// Create the sprite and optionally upload the image data to the GPU. After this is
 	// called, the internal image buffers and mask vector will be cleared, but
 	// the paths are saved in case the sprite needs to be loaded again.
-	void Upload(Sprite *sprite, bool enableUpload);
+	void Upload(Sprite *sprite);
 
 
 private:

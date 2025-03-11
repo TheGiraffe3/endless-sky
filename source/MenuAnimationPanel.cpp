@@ -18,7 +18,12 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Angle.h"
 #include "audio/Audio.h"
 #include "Color.h"
+<<<<<<< HEAD
 #include "shader/PointerShader.h"
+=======
+#include "PointerShader.h"
+#include "audio/SoundSet.h"
+>>>>>>> 0.10.10-editor-patched
 #include "UI.h"
 
 
@@ -27,7 +32,11 @@ MenuAnimationPanel::MenuAnimationPanel()
 {
 	SetTrapAllEvents(false);
 
+<<<<<<< HEAD
 	Audio::Play(Audio::Get("landing"), SoundCategory::UI);
+=======
+	Audio::Play("landing");
+>>>>>>> 0.10.10-editor-patched
 }
 
 

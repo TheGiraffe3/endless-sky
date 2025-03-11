@@ -179,7 +179,7 @@ void Planet::Load(const DataNode &node, Set<Wormhole> &wormholes)
 		else if(key == "display name")
 			displayName = value;
 		else if(key == "landscape")
-			landscape = SpriteSet::Get(value);
+			landscape = GameData::Sprites().Get(value);
 		else if(key == "music")
 			music = value;
 		else if(key == "description")

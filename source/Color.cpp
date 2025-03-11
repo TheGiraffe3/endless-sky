@@ -15,6 +15,10 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 
 #include "Color.h"
 
+#include <cstring>
+
+using namespace std;
+
 
 
 // Greyscale color constructor.

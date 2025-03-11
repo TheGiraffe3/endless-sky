@@ -88,6 +88,20 @@ public:
 	// Change this condition to always be false.
 	void MakeNever();
 
+	bool operator==(const ConditionSet &other) const
+	{
+		if(isOr != other.isOr)
+			return false;
+		if(hasAssign != other.hasAssign)
+			return false;
+		if(expressions != other.expressions)
+			return false;
+		if(children != other.children)
+			return false;
+		return true;
+	}
+	bool operator!=(const ConditionSet &other) const { return !(*this == other); }
+
 	// Check if there are any entries in this set.
 	bool IsEmpty() const;
 
@@ -111,6 +125,7 @@ public:
 
 
 private:
+<<<<<<< HEAD
 	/// Parse a node completely into this expression; all tokens on the line and all children if there are any.
 	bool ParseNode(const DataNode &node);
 
@@ -156,6 +171,136 @@ private:
 	/// @param failText The reason why parsing is failing. (Will be used as output for node.PrintTrace()).
 	/// @return false So that is can be used as a one-liner for failures.
 	bool FailParse(const DataNode &node, const std::string &failText);
+=======
+	// This class represents a single expression involving a condition,
+	// either testing what value it has, or modifying it in some way.
+	class Expression {
+	public:
+		Expression(const std::vector<std::string> &left, const std::string &op, const std::vector<std::string> &right);
+		Expression(const std::string &left, const std::string &op, const std::string &right);
+
+		void Save(DataWriter &out) const;
+
+		bool operator==(const Expression &other) const
+		{
+			if(op != other.op)
+				return false;
+			if(fun != other.fun)
+				return false;
+			if(left != other.left)
+				return false;
+			if(right != other.right)
+				return false;
+			return true;
+		}
+		bool operator!=(const Expression &other) const { return !(*this == other); }
+
+		// Convert this expression into a string, for traces.
+		std::string ToString() const;
+
+		// Determine if this Expression instantiated properly.
+		bool IsEmpty() const;
+
+		// Returns the left side of this Expression.
+		std::string Name() const;
+		// True if this Expression performs a comparison and false if it performs an assignment.
+		bool IsTestable() const;
+
+		// Functions to use this expression:
+		bool Test(const ConditionsStore &conditions, const ConditionsStore &created) const;
+		void Apply(ConditionsStore &conditions, ConditionsStore &created) const;
+		void TestApply(const ConditionsStore &conditions, ConditionsStore &created) const;
+
+
+	private:
+		// A SubExpression results from applying operator-precedence parsing to one side of
+		// an Expression. The operators and tokens needed to recreate the given side are
+		// stored, and can be interleaved to restore the original string. Based on them, a
+		// sequence of "Operations" is created for runtime evaluation.
+		class SubExpression {
+		public:
+			explicit SubExpression(const std::vector<std::string> &side);
+			explicit SubExpression(const std::string &side);
+
+			bool operator==(const SubExpression &other) const
+			{
+				if(sequence != other.sequence)
+					return false;
+				if(tokens != other.tokens)
+					return false;
+				if(operators != other.operators)
+					return false;
+				if(operatorCount != other.operatorCount)
+					return false;
+				return true;
+			}
+			bool operator!=(const SubExpression &other) const { return !(*this == other); }
+
+			// Interleave tokens and operators to reproduce the initial string.
+			const std::string ToString() const;
+			// Interleave tokens and operators, but do not combine.
+			const std::vector<std::string> ToStrings() const;
+
+			bool IsEmpty() const;
+
+			// Substitute numbers for any string values and then compute the result.
+			int64_t Evaluate(const ConditionsStore &conditions, const ConditionsStore &created) const;
+
+
+		private:
+			void ParseSide(const std::vector<std::string> &side);
+			void GenerateSequence();
+			bool AddOperation(std::vector<int> &data, size_t &index, const size_t &opIndex);
+
+
+		private:
+			// An Operation has a pointer to its binary function, and the data indices for
+			// its operands. The result is always placed on the back of the data vector.
+			class Operation {
+			public:
+				explicit Operation(const std::string &op, size_t &a, size_t &b);
+
+				bool operator==(const Operation &other) const
+				{
+					if(fun != other.fun)
+						return false;
+					if(a != other.a)
+						return false;
+					if(b != other.b)
+						return false;
+					return true;
+				}
+				bool operator!=(const Operation &other) const { return !(*this == other); }
+
+				int64_t (*fun)(int64_t, int64_t);
+				size_t a;
+				size_t b;
+			};
+
+
+		private:
+			// Iteration of the sequence vector yields the result.
+			std::vector<Operation> sequence;
+			// The tokens vector converts into a data vector of numeric values during evaluation.
+			std::vector<std::string> tokens;
+			std::vector<std::string> operators;
+			// The number of true (non-parentheses) operators.
+			int operatorCount = 0;
+		};
+
+
+	private:
+		// String representation of the Expression's binary function.
+		std::string op;
+		// Pointer to a binary function that defines the assignment or
+		// comparison operation to be performed between SubExpressions.
+		int64_t (*fun)(int64_t, int64_t);
+
+		// SubExpressions contain one or more tokens and any number of simple operators.
+		SubExpression left;
+		SubExpression right;
+	};
+>>>>>>> 0.10.10-editor-patched
 
 
 private:

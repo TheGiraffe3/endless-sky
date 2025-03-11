@@ -146,6 +146,8 @@ private:
 	std::vector<LiveEffect> liveEffects;
 	// Explosion effects created when this object is destroyed.
 	std::map<const Effect *, int> explosions;
+
+	friend class SystemEditor;
 	// The expected value of the payload of this minable.
 	int64_t value = 0.;
 	bool useRandomFrameRate = true;
