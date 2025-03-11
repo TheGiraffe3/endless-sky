@@ -750,7 +750,7 @@ void Engine::Step(bool isActive)
 		info.SetSprite("player sprite", flagship->GetSprite(), shipFacingUnit, flagship->GetFrame(step));
 	}
 	if(currentSystem)
-		info.SetString("location", currentSystem->DisplayName());
+		info.SetString("location", currentSystem->Name());
 	info.SetString("date", player.GetDate().ToString());
 	if(flagship)
 	{
@@ -787,7 +787,7 @@ void Engine::Step(bool isActive)
 			object->GetPlanet() && object->GetPlanet()->CanLand(*flagship) ? "Can land on:" :
 			"Cannot land on:";
 		info.SetString("navigation mode", navigationMode);
-		const string &name = object->DisplayName();
+		const string &name = object->Name();
 		info.SetString("destination", name);
 
 		targets.push_back({
@@ -801,7 +801,7 @@ void Engine::Step(bool isActive)
 	{
 		info.SetString("navigation mode", "Hyperspace:");
 		if(player.CanView(*flagship->GetTargetSystem()))
-			info.SetString("destination", flagship->GetTargetSystem()->DisplayName());
+			info.SetString("destination", flagship->GetTargetSystem()->Name());
 		else
 			info.SetString("destination", "unexplored system");
 	}
@@ -1331,9 +1331,10 @@ void Engine::EnterSystem(const System *system)
 	Audio::PlayMusic(system->MusicName());
 	GameData::SetHaze(system->Haze(), false);
 
-	Messages::Add("Entering the " + system->DisplayName() + " system on "
-		+ today.ToString() + (system->IsInhabited(flagship) ?
-			"." : ". No inhabited planets detected."), Messages::Importance::Daily);
+	if(flagship)
+		Messages::Add("Entering the " + system->Name() + " system on "
+			+ today.ToString() + (system->IsInhabited(flagship) ?
+				"." : ". No inhabited planets detected."), Messages::Importance::High);
 
 	// Preload landscapes and determine if the player used a wormhole.
 	// (It is allowed for a wormhole's exit point to have no sprite.)
@@ -2117,12 +2118,12 @@ void Engine::HandleMouseClicks()
 					if(&object == flagship->GetTargetStellar())
 					{
 						if(!planet->CanLand(*flagship))
-							Messages::Add("The authorities on " + planet->DisplayName()
+							Messages::Add("The authorities on " + planet->Name()
 									+ " refuse to let you land.", Messages::Importance::Highest);
 						else
 						{
 							activeCommands |= Command::LAND;
-							Messages::Add("Landing on " + planet->DisplayName() + ".", Messages::Importance::High);
+							Messages::Add("Landing on " + planet->Name() + ".", Messages::Importance::High);
 						}
 					}
 					else

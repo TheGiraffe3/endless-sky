@@ -138,12 +138,12 @@ void GameEvent::Save(DataWriter &out) const
 		conditionsToApply.Save(out);
 
 		for(auto &&system : systemsToUnvisit)
-			out.Write("unvisit", system->TrueName());
+			out.Write("unvisit", system->Name());
 		for(auto &&planet : planetsToUnvisit)
 			out.Write("unvisit planet", planet->TrueName());
 
 		for(auto &&system : systemsToVisit)
-			out.Write("visit", system->TrueName());
+			out.Write("visit", system->Name());
 		for(auto &&planet : planetsToVisit)
 			out.Write("visit planet", planet->TrueName());
 
@@ -199,8 +199,8 @@ string GameEvent::IsValid() const
 
 	for(auto &&systems : {systemsToVisit, systemsToUnvisit})
 		for(auto &&system : systems)
-			if(!system->IsValid() && !deferred["system"].contains(system->TrueName()))
-				return "contains invalid system \"" + system->TrueName() + "\".";
+			if(!system->IsValid() && !deferred["system"].contains(system->Name()))
+				return "contains invalid system \"" + system->Name() + "\".";
 	for(auto &&planets : {planetsToVisit, planetsToUnvisit})
 		for(auto &&planet : planets)
 			if(!planet->IsValid() && !deferred["planet"].contains(planet->TrueName()))

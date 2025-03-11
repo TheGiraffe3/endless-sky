@@ -138,7 +138,7 @@ HailPanel::HailPanel(PlayerInfo &player, const StellarObject *object)
 
 	const Government *gov = planet ? planet->GetGovernment() : player.GetSystem()->GetGovernment();
 	if(planet)
-		header = gov->GetName() + " " + planet->Noun() + " \"" + planet->DisplayName() + "\":";
+		header = gov->Name() + " " + planet->Noun() + " \"" + planet->Name() + "\":";
 	hasLanguage = (gov->Language().empty() || player.Conditions().Get("language: " + gov->Language()));
 
 	// If the player is hailing a planet, determine if a mission grants them clearance before checking
@@ -392,7 +392,7 @@ bool HailPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, boo
 			else
 			{
 				planet->Bribe();
-				Messages::Add("You bribed the authorities on " + planet->DisplayName() + " "
+				Messages::Add("You bribed the authorities on " + planet->Name() + " "
 					+ Format::CreditString(bribe) + " to permit you to land."
 						, Messages::Importance::High);
 			}

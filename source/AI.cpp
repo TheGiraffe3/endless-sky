@@ -471,7 +471,7 @@ void AI::IssueMoveTarget(const Point &target, const System *moveToSystem)
 	newOrders.point = target;
 	newOrders.targetSystem = moveToSystem;
 	string description = "moving to the given location";
-	description += player.GetSystem() == moveToSystem ? "." : (" in the " + moveToSystem->DisplayName() + " system.");
+	description += player.GetSystem() == moveToSystem ? "." : (" in the " + moveToSystem->Name() + " system.");
 	IssueOrders(newOrders, description);
 }
 
@@ -4140,7 +4140,7 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 			bool oxfordComma = (count > 2);
 			for(const Planet *planet : destinations)
 			{
-				message += planet->DisplayName();
+				message += planet->Name();
 				--count;
 				if(count > 1)
 					message += ", ";
@@ -4391,7 +4391,7 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 				Audio::Play("fail");
 			}
 			else if(next != target)
-				message = "Switching landing targets. Now landing on " + next->DisplayName() + ".";
+				message = "Switching landing targets. Now landing on " + next->Name() + ".";
 		}
 		else if(message.empty())
 		{
@@ -4451,10 +4451,10 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 						message += ' ' + *it++ + ',';
 					message += " or " + *it;
 				}
-				message += " in this system. Landing on " + target->DisplayName() + ".";
+				message += " in this system. Landing on " + target->Name() + ".";
 			}
 			else
-				message = "Landing on " + target->DisplayName() + ".";
+				message = "Landing on " + target->Name() + ".";
 		}
 		if(!message.empty())
 			Messages::Add(message, messageImportance);
@@ -4486,13 +4486,13 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 		{
 			// The player is guaranteed to have a travel plan for isWormhole to be true.
 			Messages::Add("Landing on a local wormhole to navigate to the "
-					+ player.TravelPlan().back()->DisplayName() + " system.", Messages::Importance::High);
+					+ player.TravelPlan().back()->Name() + " system.", Messages::Importance::High);
 		}
 		if(ship.GetTargetSystem() && !isWormhole)
 		{
 			string name = "selected star";
 			if(player.KnowsName(*ship.GetTargetSystem()))
-				name = ship.GetTargetSystem()->DisplayName();
+				name = ship.GetTargetSystem()->Name();
 
 			if(activeCommands.Has(Command::FLEET_JUMP))
 				Messages::Add("Engaging fleet autopilot to jump to the " + name + " system."
@@ -4606,7 +4606,7 @@ void AI::MovePlayer(Ship &ship, Command &activeCommands)
 		const Planet *planet = player.TravelDestination();
 		if(planet && planet->IsInSystem(ship.GetSystem()) && planet->IsAccessible(&ship))
 		{
-			Messages::Add("Autopilot: landing on " + planet->DisplayName() + ".", Messages::Importance::High);
+			Messages::Add("Autopilot: landing on " + planet->Name() + ".", Messages::Importance::High);
 			autoPilot |= Command::LAND;
 			ship.SetTargetStellar(ship.GetSystem()->FindStellar(planet));
 		}

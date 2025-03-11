@@ -447,11 +447,11 @@ void Mission::Save(DataWriter &out, const string &tag) const
 			out.EndChild();
 		}
 		if(destination)
-			out.Write("destination", destination->TrueName());
+			out.Write("destination", destination->Name());
 		for(const System *system : waypoints)
-			out.Write("waypoint", system->TrueName());
+			out.Write("waypoint", system->Name());
 		for(const System *system : visitedWaypoints)
-			out.Write("waypoint", system->TrueName(), "visited");
+			out.Write("waypoint", system->Name(), "visited");
 
 		for(const Planet *planet : stopovers)
 			out.Write("stopover", planet->TrueName());
@@ -459,9 +459,9 @@ void Mission::Save(DataWriter &out, const string &tag) const
 			out.Write("stopover", planet->TrueName(), "visited");
 
 		for(const System *system : markedSystems)
-			out.Write("mark", system->TrueName());
+			out.Write("mark", system->Name());
 		for(const System *system : unmarkedSystems)
-			out.Write("mark", system->TrueName(), "unmarked");
+			out.Write("mark", system->Name(), "unmarked");
 
 		for(const NPC &npc : npcs)
 			npc.Save(out);
@@ -1429,11 +1429,11 @@ Mission Mission::Instantiate(const PlayerInfo &player, const shared_ptr<Ship> &b
 	subs["<passengers>"] = (result.passengers == 1) ? "passenger" : "passengers";
 	subs["<fare>"] = (result.passengers == 1) ? "a passenger" : (subs["<bunks>"] + " passengers");
 	if(player.GetPlanet())
-		subs["<origin>"] = player.GetPlanet()->DisplayName();
+		subs["<origin>"] = player.GetPlanet()->Name();
 	else if(boardingShip)
 		subs["<origin>"] = boardingShip->Name();
-	subs["<planet>"] = result.destination ? result.destination->DisplayName() : "";
-	subs["<system>"] = result.destination ? result.destination->GetSystem()->DisplayName() : "";
+	subs["<planet>"] = result.destination ? result.destination->Name() : "";
+	subs["<system>"] = result.destination ? result.destination->GetSystem()->Name() : "";
 	subs["<destination>"] = subs["<planet>"] + " in the " + subs["<system>"] + " system";
 	subs["<date>"] = result.deadline.ToString();
 	subs["<day>"] = result.deadline.LongString();
@@ -1456,8 +1456,8 @@ Mission Mission::Instantiate(const PlayerInfo &player, const shared_ptr<Ship> &b
 				stopovers += result;
 				planets += result;
 			}
-			stopovers += planet->DisplayName() + " in the " + planet->GetSystem()->DisplayName() + " system";
-			planets += planet->DisplayName();
+			stopovers += planet->Name() + " in the " + planet->GetSystem()->Name() + " system";
+			planets += planet->Name();
 		}
 		subs["<stopovers>"] = stopovers;
 		subs["<planet stopovers>"] = planets;
@@ -1471,7 +1471,7 @@ Mission Mission::Instantiate(const PlayerInfo &player, const shared_ptr<Ship> &b
 		{
 			if(count++)
 				systems += (&system != last) ? ", " : (count > 2 ? ", and " : " and ");
-			systems += system->DisplayName();
+			systems += system->Name();
 		}
 		return systems;
 	};
@@ -1525,7 +1525,7 @@ Mission Mission::Instantiate(const PlayerInfo &player, const shared_ptr<Ship> &b
 	}
 	if(oit != onEnter.end())
 	{
-		Logger::LogError("Instantiation Error: Action \"on enter '" + oit->first->TrueName() + "'\" in mission \""
+		Logger::LogError("Instantiation Error: Action \"on enter '" + oit->first->Name() + "'\" in mission \""
 			+ Identifier() + "\" uses invalid " + std::move(reason));
 		return result;
 	}

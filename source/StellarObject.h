@@ -53,7 +53,7 @@ public:
 	const Planet *GetPlanet() const;
 
 	// Only planets that you can land on have names.
-	const std::string &DisplayName() const;
+	const std::string &Name() const;
 	// If it is impossible to land on this planet, get the message
 	// explaining why (e.g. too hot, too cold, etc.).
 	const std::string &LandingMessage() const;

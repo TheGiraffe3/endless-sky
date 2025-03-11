@@ -207,7 +207,7 @@ void UniverseObjects::UpdateSystems()
 	for(auto &it : systems)
 	{
 		// Skip systems that have no name.
-		if(it.first.empty() || it.second.TrueName().empty())
+		if(it.first.empty() || it.second.Name().empty())
 			continue;
 		it.second.UpdateSystem(systems, neighborDistances);
 
@@ -328,7 +328,7 @@ void UniverseObjects::CheckReferences()
 			Logger::LogError("Warning: shipyard \"" + it.first + "\" is referred to, but has no ships.");
 	// System names are used by a number of classes.
 	for(auto &&it : systems)
-		if(it.second.TrueName().empty() && !NameIfDeferred(deferred["system"], it))
+		if(it.second.Name().empty() && !NameIfDeferred(deferred["system"], it))
 			NameAndWarn("system", it);
 	// Hazards are never serialized.
 	for(const auto &it : hazards)
@@ -336,7 +336,7 @@ void UniverseObjects::CheckReferences()
 			Warn("hazard", it.first);
 	// Wormholes are never serialized.
 	for(const auto &it : wormholes)
-		if(it.second.DisplayName().empty())
+		if(it.second.Name().empty())
 			Warn("wormhole", it.first);
 	// Formation patterns are not serialized, but their usage is.
 	for(auto &&it : formations)
