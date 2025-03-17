@@ -30,19 +30,21 @@ namespace {
 	// is an unsupported format (anything but little-endian 16-bit PCM at 44100 HZ),
 	// this will return 0.
 	uint32_t ReadHeader(File &in, uint32_t &frequency);
-	uint32_t Read4(File &in);
-	uint16_t Read2(File &in);
+	uint32_t Read4(const File &in);
+	uint16_t Read2(const File &in);
 }
 
 
 
-bool Sound::Load(const string &path, const string &name)
+bool Sound::Load(const filesystem::path &path, const string &name)
 {
-	if(path.length() < 5 || path.compare(path.length() - 4, 4, ".wav"))
+	if(path.extension() != ".wav")
 		return false;
 	this->name = name;
 
-	isLooped = path[path.length() - 5] == '~';
+	isLooped = path.stem().string().ends_with('~');
+	bool isFast = isLooped ? path.stem().string().ends_with("@3x~") : path.stem().string().ends_with("@3x");
+	unsigned &buf = isFast ? buffer3x : buffer;
 
 	File in(path);
 	if(!in)
@@ -56,9 +58,9 @@ bool Sound::Load(const string &path, const string &name)
 	if(fread(&data[0], 1, bytes, in) != bytes)
 		return false;
 
-	if(!buffer)
-		alGenBuffers(1, &buffer);
-	alBufferData(buffer, AL_FORMAT_MONO16, &data.front(), bytes, frequency);
+	if(!buf)
+		alGenBuffers(1, &buf);
+	alBufferData(buf, AL_FORMAT_MONO16, &data.front(), bytes, frequency);
 
 	return true;
 }
@@ -75,6 +77,13 @@ const string &Sound::Name() const
 unsigned Sound::Buffer() const
 {
 	return buffer;
+}
+
+
+
+unsigned Sound::Buffer3x() const
+{
+	return buffer3x;
 }
 
 
@@ -149,7 +158,7 @@ namespace {
 
 
 
-	uint32_t Read4(File &in)
+	uint32_t Read4(const File &in)
 	{
 		unsigned char data[4];
 		if(fread(data, 1, 4, in) != 4)
@@ -162,7 +171,7 @@ namespace {
 
 
 
-	uint16_t Read2(File &in)
+	uint16_t Read2(const File &in)
 	{
 		unsigned char data[2];
 		if(fread(data, 1, 2, in) != 2)
