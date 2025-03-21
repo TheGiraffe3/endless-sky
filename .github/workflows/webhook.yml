@@ -1,0 +1,24 @@
+name: Discord Notification
+
+on:
+  pull_request:
+    types: [opened, closed]
+
+env:
+    event_action: ${{ github.event.action == 'opened' && 'Opened' || github.event.pull_request.merged && 'Merged' || 'Closed' }}
+
+jobs:
+  Discord:
+    runs-on: ubuntu-latest
+    name: Discord Notifier
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1352504716579573795/yfbhnbwFrmX1AXa9OQdKTVBWAhwm_X6DP0yJyziWPG7gQiGHEk3OsvRPyA51ZYZXJeCD"
+          DISCORD_AVATAR: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+          DISCORD_USERNAME: 'GitHub'
+          DISCORD_EMBEDS: '[    { 
+          "author": {  "icon_url": "${{github.event.sender.avatar_url}}", "name": "${{github.event.sender.login}}", "url": "${{github.event.sender.url}}" },
+          "description": "[Pull request ${{env.event_action}}: #${{github.event.number}} ${{ github.event.pull_request.title }}](${{github.event.pull_request.html_url}})"
+          }    ]'
+        uses: Ilshidur/action-discord@master
