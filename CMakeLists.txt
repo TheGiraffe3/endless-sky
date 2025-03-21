@@ -4,6 +4,7 @@ include(CMakeDependentOption)
 if(UNIX AND NOT APPLE AND NOT ES_STEAM)
 	option(ES_USE_VCPKG "Use vcpkg to get dependencies." OFF)
 else()
+this is a commit with content
 	option(ES_USE_VCPKG "Use vcpkg to get dependencies." ON)
 endif()
 cmake_dependent_option(ES_GLES "Build the game with OpenGL ES" OFF UNIX OFF)
