@@ -15,7 +15,7 @@ jobs:
     - name: Send Discord notification
       uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
       env:
-        GITHUB_REPOSITORY: https://github.com/endless-sky/endless-sky
+        GITHUB_REPOSITORY: https://github.com/TheGiraffe3/endless-sky
 #        DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1352504716579573795/yfbhnbwFrmX1AXa9OQdKTVBWAhwm_X6DP0yJyziWPG7gQiGHEk3OsvRPyA51ZYZXJeCD"
         DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1352586519965073533/aeRr3fIwA5eeM4tfmz_CqltTsaUQf1JNN6_ZpksElmqaHd6niYhOUH-NmOpLTmKUQob8"
         DISCORD_AVATAR: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
