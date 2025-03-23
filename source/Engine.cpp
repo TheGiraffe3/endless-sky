@@ -1560,7 +1560,7 @@ void Engine::CalculateStep()
 	// Draw the objects. Start by figuring out where the view should be centered:
 	Point newCenter = center;
 	Point newCenterVelocity;
-	if(flagship)
+	if(flagship && !IsPaused)
 	{
 		bool isHyperspacing = flagship->IsHyperspacing();
 		if(isHyperspacing)
