@@ -24886,7 +24886,7 @@ system Levana
 		period 7.17345
 	object
 		sprite planet/dust1-b
-		distance 215.093
+		distance 255.093
 		period 13.8295
 	object
 		sprite planet/venus
