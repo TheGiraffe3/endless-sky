@@ -271,7 +271,7 @@ mission "Remnant: Defense 1"
 	npc
 		government "Remnant"
 		personality staying uninterested disables plunders
-		fleet "Large Remnant"
+		fleet "Large Remnant" 3
 	npc evade
 		government "Korath"
 		personality staying heroic plunders harvests target
