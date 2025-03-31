@@ -2118,6 +2118,11 @@ mission "Terraforming 4"
 	
 	on offer
 		conversation
+			branch dialog
+				not "event: fw expanded and cut"
+			action
+				set "terraforming: rand government republic"
+			label dialog
 			`By the time you meet up with Eric, Alaric, and Amy, the cloud cover already seems to have visibly increased. Amy is very enthusiastic. "Atmospheric water vapor is on the rise," she says. "The impact vaporized enough ice to form a small ocean. I wouldn't be surprised if we get a rainstorm here in a day or two."`
 			`	"What's next?" you ask.`
 			`	She says, "I'd like to travel with you to <planet>, and collect some seeds and cuttings from plants that can handle a cooler world with dimmer light, since that's what we'll have here until the dust settles down. I'd say we'll need about ten tons of cargo space."`
@@ -2204,6 +2209,7 @@ mission "Terraforming 6"
 		or
 			not "chosen sides"
 			has "main plot completed"
+		has "terraforming: rand government republic"
 	
 	on offer
 		conversation
