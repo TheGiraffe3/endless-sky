@@ -6,9 +6,9 @@ on:
     types: [synchronize]
 
 permissions:
-  issues: triage
-  pull-requests: triage
-  contents: triage
+  issues: read
+  pull-requests: write
+  contents: read
 
 jobs:
   label-conflicts:
