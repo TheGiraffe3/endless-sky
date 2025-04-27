@@ -140,7 +140,7 @@ if(WIN32)
 elseif(APPLE)
 	target_link_libraries(ExternalLibraries INTERFACE pthread)
 else()
-	target_link_libraries(ExternalLibraries INTERFACE pthread)
+	target_link_libraries(ExternalLibraries INTERFACE pthread atomic)
 endif()
 
 # Link with the UUID library, which is different for each OS.
