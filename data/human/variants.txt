@@ -728,6 +728,14 @@ ship "Bounder" "Bounder (Hai Trafficker)"
 
 
 
+ship "Boxwing" "Boxwing (Miner)"
+	outfits
+		"KP-6 Photovoltaic Array"
+		"X1700 Ion Thruster"
+		"X1200 Ion Steering"
+
+
+
 ship "Bulk Freighter" "Bulk Freighter (Blaster)"
 	outfits
 		"Anti-Missile Turret"

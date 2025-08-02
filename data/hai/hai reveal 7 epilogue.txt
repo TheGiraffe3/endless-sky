@@ -679,13 +679,6 @@ mission "Hai Reveal [D14] Hai-Human Treaty"
 event "hai-human treaty signed"
 
 
-ship "Boxwing" "Boxwing (Miner)"
-	outfits
-		"KP-6 Photovoltaic Array"
-		"X1700 Ion Thruster"
-		"X1200 Ion Steering"
-
-
 fleet "Cardax Miners"
 	government "Republic"
 	names "republic fighter"
