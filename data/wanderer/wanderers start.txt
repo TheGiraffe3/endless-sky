@@ -668,6 +668,8 @@ mission "Wanderers: Defend Vara Ke'sok"
 event "Sich'ka'ara empty"
 	system "Sich'ka'ara"
 		fleet "Wanderer Drones" 3000
+	government "Hai (Unfettered)"
+		"bribe" 0.04
 
 event "Sich'ka'ara restored"
 	system "Sich'ka'ara"
