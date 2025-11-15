@@ -828,7 +828,7 @@ void MapDetailPanel::DrawInfo()
 
 	// Add the danger icon click zone.
 	clickZones.emplace_back(Rectangle::FromCorner(Point(Screen::Left(), governmentY - 30),
-		Point(mapInterface->GetValue("text margin"), 30)), 1 * SHOW_DANGER);
+		Point(mapInterface->GetValue("text margin"), 30)), SHOW_DANGER);
 
 	// Add the reputation click zone.
 	clickZones.emplace_back(Rectangle::FromCorner(
