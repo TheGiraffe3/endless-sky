@@ -799,7 +799,7 @@ void Planet::Bribe(bool fullAccess) const
 // Demand tribute, and get the planet's response.
 string Planet::DemandTribute(PlayerInfo &player) const
 {
-	const government *gov = GetGovernment();
+	const Government *government = GetGovernment();
 	if(!government)
 		return "Somehow, this planet does not have a government.";
 	const auto &playerTribute = player.GetTribute();
