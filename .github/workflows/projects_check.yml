@@ -134,9 +134,9 @@ jobs:
     - run: utils/check_shaders.sh
 
 
-  image-optimize:
+  check_art_compression:
     needs: [changed]
-    name: Check for Optimizable Images
+    name: Art Compression
     if: ${{ (needs.changed.outputs.data == 'true') }}
     runs-on: macos-15
     steps:
