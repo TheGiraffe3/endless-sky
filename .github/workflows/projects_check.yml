@@ -159,5 +159,5 @@ jobs:
       with:
         name: optimized-images
         path: ./optimized-images.zip
-
-    
+    - name: Fail workflow if necessary
+      run: git diff --quiet
