@@ -149,6 +149,7 @@ jobs:
     - name: Get changed images and run oxipng
       run: |
         changed-images=$(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
+        echo ${changed-images}
         for image in changed-images; do oxipng -z -s -r -o 4 image; done
     - name: Move changed images into separate folder
       run: |
