@@ -149,7 +149,8 @@ jobs:
     - name: Get changed images and run oxipng
       run: |
         images=$(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
-        echo ${images} | while read -r line; do oxipng -z -s -r -o 4 line; done
+        echo ${images}
+        echo ${images} | xargs -I {} oxipng -z -s -r -o 4 {}
     - name: Move changed images
       run: |
         mkdir optimized-images
