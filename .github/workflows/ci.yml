@@ -452,28 +452,3 @@ jobs:
     - name: Parse All Resources
       run: "'./Endless Sky.exe' --parse-assets"
       shell: bash
-
-  image-optimize:
-    needs: [changed]
-    name: Check for Optimizable Images
-    if: ${{ (needs.changed.outputs.data == 'true') }}
-    runs-on: macos-15
-    steps:
-    - uses: actions/checkout@v5
-      with:
-        show-progress: false
-    - name: Install oxipng
-      run: brew install oxipng
-    - name: Run oxipng
-      run: oxipng -z -s -r -o max images/
-    - name: Move changed images into separate folder
-      run: |
-        mkdir optimized-images
-        files=$(git status --porcelain); echo "${files// M /}" | xargs -I {} mv {} optimized-images/
-    - name: Zip optimized images
-      run: zip -r optimized-images.zip optimized-images
-    - name: Upload optimized images
-      uses: actions/upload-artifact@v4
-      with:
-        name: optimized-images
-        path: ./build/ci/optimized-images.zip
