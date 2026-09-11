@@ -138,7 +138,7 @@ jobs:
     needs: [changed]
     name: Art Compression
     if: ${{ (needs.changed.outputs.data == 'true') }}
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v5
       with:
