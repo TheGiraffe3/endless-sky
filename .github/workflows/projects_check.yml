@@ -148,10 +148,9 @@ jobs:
       run: brew install oxipng
     - name: Get changed images and run oxipng
       run: |
-        changed-images=$(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
-        echo ${changed-images}
-        for image in changed-images; do oxipng -z -s -r -o 4 image; done
-    - name: Move changed images into separate folder
+        images=$(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
+        echo ${images} | while read line; do oxipng -z -s -r -o 4 line; done
+    - name: Move changed images
       run: |
         mkdir optimized-images
         files=$(git status --porcelain); echo "${files// M /}" | xargs -I {} mv {} optimized-images/
