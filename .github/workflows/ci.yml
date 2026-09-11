@@ -461,7 +461,7 @@ jobs:
     steps:
     - uses: actions/checkout@v5
       with:
-        show-progress:false
+        show-progress: false
     - name: Install oxipng
       run: brew install oxipng
     - name: Run oxipng
