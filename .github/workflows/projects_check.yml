@@ -138,7 +138,7 @@ jobs:
     needs: [changed]
     name: Art Compression
     if: ${{ (needs.changed.outputs.data == 'true') }}
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
       with:
@@ -146,11 +146,10 @@ jobs:
         show-progress: false
     - name: Install oxipng
       run: brew install oxipng
-    - name: Get changed images
+    - name: Get changed images and run oxipng
       run: |
-        echo $(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
-    - name: Run oxipng
-      run: oxipng -z -s -r -o 4 images/
+        changed-images=$(git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images)
+        for image in changed-images; do oxipng -z -s -r -o 4 image; done
     - name: Move changed images into separate folder
       run: |
         mkdir optimized-images
