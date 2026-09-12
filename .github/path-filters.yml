@@ -3,6 +3,9 @@ data:
   - 'images/**/*'
   - 'sounds/**/*'
 
+images:
+  - 'images/**/*'
+
 game_code:
   - 'source/**'
 
