@@ -145,27 +145,24 @@ jobs:
         fetch-depth: 0
     - name: Install oxipng
       run: brew install oxipng
-    - name: Get changed images and run oxipng
+    - name: Run oxipng on changed images
       run: |
         git diff --name-only origin/${{ github.event.pull_request.head.ref }}..origin/${{ github.event.pull_request.base.ref }} | grep images | xargs -I {} oxipng -z -s -r -o 4 {}
-    - name: Move changed images
+    - name: Get modified images
       run: |
         mkdir optimized-images
         files=$(git status --porcelain); echo "${files// M /}" | xargs -I {} mv {} optimized-images/
-    - name: Zip optimized images
-      run: zip -r optimized-images.zip optimized-images
-    - name: Upload optimized images
+    - name: Upload modified images
       id: upload-images
       uses: actions/upload-artifact@v4
       with:
         name: optimized-images
-        path: ./optimized-images.zip
-    - name: Fail workflow if necessary
-      run: git diff --quiet
-    - name: Explain failure
-      if: failure()
+        path: ./optimized-images
+    - name: Fail workflow if optimizations are possible
       run: |
-        echo "This check failed because some of the images in your pull request could be optimized."
-        echo "Please download and commit the optimized version of your assets from the link below."
-        echo ${{ steps.upload-images.outputs.artifact-url }}
-        exit 1
+        git diff --quiet
+        if [ $? -ne 0 ]; then
+          echo "This check failed because some of the images in your pull request could be optimized."
+          echo "Please download the optimized version of your assets from the link below."
+          echo ${{ steps.upload-images.outputs.artifact-url }}
+        fi
