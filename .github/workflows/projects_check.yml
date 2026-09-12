@@ -154,7 +154,7 @@ jobs:
         files=$(git status --porcelain); echo "${files// M /}" | xargs -I {} mv {} optimized-images/
     - name: Upload modified images
       id: upload-images
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: optimized-images
         path: ./optimized-images
