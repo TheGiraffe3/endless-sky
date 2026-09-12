@@ -160,9 +160,4 @@ jobs:
         path: ./optimized-images
     - name: Fail workflow if optimizations are possible
       run: |
-        git diff --quiet
-        if [ $? -ne 0 ]; then
-          echo "This check failed because some of the images in your pull request could be optimized."
-          echo "Please download the optimized version of your assets from the link below."
-          echo ${{ steps.upload-images.outputs.artifact-url }}
-        fi
+        git diff --quiet || echo "This check failed because some of the images in your pull request could be optimized." && echo "Please download the optimized version of your assets from the link below." && echo ${{ steps.upload-images.outputs.artifact-url }}
