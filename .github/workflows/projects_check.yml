@@ -135,9 +135,9 @@ jobs:
 
 
   check_art_compression:
-    needs: [changed]
     name: Art Compression
-    if: ${{ (needs.changed.outputs.data == 'true') }}
+    needs: changed
+    if: ${{ (needs.changed.outputs.images == 'true') }}
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v5
@@ -155,9 +155,16 @@ jobs:
     - name: Zip optimized images
       run: zip -r optimized-images.zip optimized-images
     - name: Upload optimized images
+      id: upload-images
       uses: actions/upload-artifact@v4
       with:
         name: optimized-images
         path: ./optimized-images.zip
     - name: Fail workflow if necessary
       run: git diff --quiet
+    - name: Explain failure
+      if: failure()
+      run: |
+       echo "This check failed because some of the images in your pull request could be optimized."
+       echo "Please download the optimized version of your assets and push them to your pull request."
+       echo ${{ steps.upload-images.outputs.optimized-images }}
