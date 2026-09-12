@@ -5,6 +5,8 @@ on:
     outputs:
       data:
         value: ${{ jobs.changed.outputs.data }}
+      images:
+        value: ${{ jobs.changed.outputs.images }}
       game_code:
         value: ${{ jobs.changed.outputs.game_code }}
       unit_tests:
@@ -43,6 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       data: ${{ steps.filter.outputs.data }}
+      images: ${{ steps.filter.outputs.images }}
       game_code: ${{ steps.filter.outputs.game_code }}
       unit_tests: ${{ steps.filter.outputs.unit_tests }}
       integration_tests: ${{ steps.filter.outputs.integration_tests }}
