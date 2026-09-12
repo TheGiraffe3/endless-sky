@@ -166,5 +166,6 @@ jobs:
       if: failure()
       run: |
         echo "This check failed because some of the images in your pull request could be optimized."
-        echo "Please download the optimized version of your assets and push them to your pull request."
-        echo ${{ steps.upload-images.outputs.optimized-images }}
+        echo "Please download and commit the optimized version of your assets from the link below."
+        echo ${{ steps.upload-images.outputs.artifact-url }}
+        exit 1
