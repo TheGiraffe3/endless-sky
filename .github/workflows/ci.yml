@@ -5,6 +5,7 @@ on:
     # Run for pushes to master, e.g. a PR was merged ...
     branches:
       - master
+      - sdl3-ci
     # ... and only when we've possibly changed how the game will function.
     paths:
     - 'source/**'
@@ -298,7 +299,7 @@ jobs:
     name: MacOS
     needs: changed
     if: ${{ needs.changed.outputs.game_code == 'true' || needs.changed.outputs.unit_tests == 'true' || needs.changed.outputs.cmake_files == 'true' || needs.changed.outputs.ci_config == 'true' }}
-    runs-on: macos-15
+    runs-on: macos-latest
     strategy:
       matrix:
         sdl: [SDL2, SDL3]
@@ -351,7 +352,7 @@ jobs:
     name: MacOS-ARM
     needs: changed
     if: ${{ needs.changed.outputs.game_code == 'true' || needs.changed.outputs.unit_tests == 'true' || needs.changed.outputs.cmake_files == 'true' || needs.changed.outputs.ci_config == 'true' }}
-    runs-on: macos-15
+    runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       OUTPUT: "Endless Sky ARM CI Test"
