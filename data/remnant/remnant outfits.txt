@@ -650,7 +650,7 @@ outfit "NDR-114 Android"
 	thumbnail "outfit/android"
 	"required crew" -1
 	"energy consumption" 0.01
-	"unique
+	"unique"
 	unplunderable
 	description "While these were once considered cutting-edge outfits, their lack of autonomous capabilities and economic benefit ensured they were never licensed by a manufacturer."
 	description "	Despite this, some captains commissioned these directly from their inventor, effectively replacing one of their crew members with a robotic counterpart. These captains found that androids possessed sufficient capabilities to perform most work, but lacked the capability to captain a ship or take part in boarding actions."
@@ -936,7 +936,7 @@ outfit "Void Rifle"
 	"capture attack" 20
 	"capture defense" 20
 	"energy consumption" 0.017
-	"unique
+	"unique"
 	"unplunderable"
 	"can jettison"
 	description "The Remnant made a significant number of these weapons during the early years of their research on the void sprites, but have not been able to make any new ones since the Archon stopped their harvests. Without a supply of new tentacles to use, the Remnant have been unable to manufacture more. While durable, they rarely last more than a decade, so even the best cared for of the old Void Rifles degraded into uselessness centuries ago. These highly effective weapons are credited with helping the Remnant safeguard their refuges from ground-based threats during their early years."
@@ -956,7 +956,7 @@ outfit "Void Sprite Parts"
 	"outfit space" -1
 	"flotsam chance" .5
 	"uninstallable"
-	"unique
+	"unique"
 	description "This is nothing more and nothing less than a cubic meter of void sprite parts. To the Remnant, this represents both a terrible occurrence and a dreadful opportunity."
 	description "	This could have been very valuable to someone who knew what they were doing, if it had been handled properly. Instead, it is worth little more than the value of the compounds contained within."
 

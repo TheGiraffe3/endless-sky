@@ -322,7 +322,7 @@ outfit "Cloaking Device"
 	"cloaking fuel" .2
 	"cloaked regen multiplier" -1
 	"cloaked repair multiplier" -1
-	"unique
+	"unique"
 	"unplunderable"
 	description "You're sure the cloaking device is here somewhere, but you can't see it."
 
@@ -484,7 +484,7 @@ outfit "Mug"
 	cost 50
 	thumbnail "outfit/mug"
 	"capture attack" .1
-	"unique
+	"unique"
 	"unplunderable"
 	"can jettison"
 	description "You can throw it in a pinch, you guess."
@@ -497,7 +497,7 @@ outfit "Antigrav Glass"
 	cost 25
 	thumbnail "outfit/unknown"
 	"capture attack" .2
-	"unique
+	"unique"
 	"unplunderable"
 	"can jettison"
 	description "This glass has had a miniature repulsor attached to it, similar to those found on drones, anti-grav trolleys, and spaceships. When it is activated it allows you to drink your beverage without holding it by way of levitation."
@@ -512,7 +512,7 @@ outfit "Old Man's Sword"
 	"capture attack" 1.4
 	"capture defense" 1
 	"unplunderable"
-	"unique
+	"unique"
 	"can jettison"
 	description "While swords are seen today as being old curios and commemorative objects, rendered useless when gunpowder became dominant on the battlefield thousands of years ago, this sword is unlike any you have seen before. Despite how heavy it looks, it is remarkably light, and there are inscriptions on the blade itself that don't appear to be in any human language."
 
@@ -522,7 +522,7 @@ outfit "Puny"
 	index 10
 	"display name" `"Puny"`
 	thumbnail "outfit/collar"
-	"unique
+	"unique"
 	"can jettison"
 	description `A poodle you rescued from a dubious racing complex on Freedom. She appears to have formed a strong bond with you, willing to stick by your side.`
 	description `	Her history matches with Pookie's, but Pookie's owner claimed that Puny was not hers. Puny is also vastly less urine-prone; you suspect that the race organizers may have toilet-trained her.`
@@ -533,7 +533,7 @@ outfit "Tear of Skade"
 	index 20
 	thumbnail "outfit/skadetear"
 	"cooling" 4
-	"unique
+	"unique"
 	"can jettison"
 	description "A strange glowing stone gifted to you by the Skadenga. It lacks any power source, yet is quite cold."
 
@@ -544,7 +544,7 @@ outfit "Blood of Surtr"
 	thumbnail "outfit/surtrblood"
 	"energy generation" 2
 	"heat generation" 4
-	"unique
+	"unique"
 	"can jettison"
 	description "A strange glowing stone gifted to you by Ildico Drifa. It hums with energy and heat."
 

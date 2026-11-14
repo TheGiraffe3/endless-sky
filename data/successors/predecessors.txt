@@ -778,6 +778,6 @@ outfit "Stolen Cloak (Deactivated)"
 	# "cloak" .05
 	"cloaking fuel" 0.04
 	"cloaking shields" 3.2
-	"unique
+	"unique"
 	"unplunderable"
 	description "An ancient cloaking device stolen from House Kaatrij. It has been temporarily deactivated by a detector device."

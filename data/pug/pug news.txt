@@ -36,7 +36,7 @@ news "artist on post-fw Deneb"
 		word
 			"alien"
 			"extraterrestrial"
-			"unique"
+			"unique""
 			"Pug"
 		word
 			" origin is so "
@@ -189,7 +189,7 @@ news "reporter on post-fw Deneb"
 			" "
 		word
 			"special"
-			"unique"
+			"unique""
 			"different"
 		word
 			" about this "
