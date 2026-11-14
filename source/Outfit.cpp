@@ -217,7 +217,7 @@ namespace {
 
 	static const map<string, string> BOOLEAN_ATTRIBUTES = {
 		{"unplunderable", "Cannot be plundered while installed."},
-		{"uninstallable", "This is not an installable item."},
+		{"uninstallable", "1. This is not an installable item."},
 		{"hyperdrive", "Allows you to make hyperjumps."},
 		{"jump drive", "Lets you jump to any nearby system."},
 		{"minable", "This item is mined from asteroids."},
