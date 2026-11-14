@@ -35,7 +35,7 @@ government "Aberrant"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Alpha"
 	swizzle 1
@@ -71,7 +71,7 @@ government "Avgi"
 		"Aberrant" -0.1
 
 	"penalty for"
-		atrocity 0
+		atrocity
 
 	bribe 0.3
 	fine 0
@@ -99,7 +99,7 @@ government "Avgi (Consonance)"
 		board 0.2
 		capture 3
 		destroy 2
-		atrocity 0
+		atrocity
 
 	bribe 0.3
 	fine 0
@@ -127,7 +127,7 @@ government "Avgi (Dissonance)"
 		"Aberrant" -0.01
 
 	"penalty for"
-		atrocity 0
+		atrocity
 
 	"custom penalties for"
 		"Avgi (Dissonance Angry)"
@@ -136,7 +136,7 @@ government "Avgi (Dissonance)"
 			capture 1
 			destroy 1
 			provoke 0
-			atrocity 0
+			atrocity
 
 	bribe 0.3
 	fine 0
@@ -162,7 +162,7 @@ government "Avgi (Dissonance Angry)"
 		"Aberrant" -0.01
 
 	"penalty for"
-		atrocity 0
+		atrocity
 
 	bribe 0.3
 	fine 0
@@ -196,7 +196,7 @@ government "Avgi (Twilight Guard)"
 		capture 3
 		destroy 2
 		provoke 0.1
-		atrocity 0
+		atrocity
 
 	bribe 0
 	fine 0
@@ -230,7 +230,7 @@ government "Avgi (Wandering Fleet)"
 		destroy 2
 		provoke 0.1
 		scan 0.01
-		atrocity 0
+		atrocity
 
 	bribe 0
 	fine 0
@@ -270,7 +270,7 @@ government "Bounty (Disguised)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Bounty Hunter"
 	swizzle 6
@@ -296,7 +296,7 @@ government "Builder"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Bunrodea"
 	swizzle 3
@@ -1148,7 +1148,7 @@ government "Indigenous Lifeform"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Indigenous Lifeform (Acheron)"
 	# This indigenous gov is specifically for Acheron space life so they do not influence Ember Waste life.
@@ -1164,7 +1164,7 @@ government "Indigenous Lifeform (Acheron)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Indigenous Lifeform (Astral)"
 	# This indigenous gov is specifically for Astral Cetaceans so they "eat" other indigenous lifeforms.
@@ -1183,7 +1183,7 @@ government "Indigenous Lifeform (Astral)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Indigenous Lifeform (Subsidurial)"
 	# This indigenous gov is specifically for the Subsidurial, so that nothing in the game tries to hurt the poor thing.
@@ -1199,7 +1199,7 @@ government "Indigenous Lifeform (Subsidurial)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Indigenous Lifeform (Tree)"
 	"display name" "Indigenous Lifeform"
@@ -1217,7 +1217,7 @@ government "Indigenous Lifeform (Tree)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Indigenous Lifeform (Tree Two)"
 	"display name" "Indigenous Lifeform"
@@ -1235,7 +1235,7 @@ government "Indigenous Lifeform (Tree Two)"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Ka'het"
 	swizzle 0
@@ -2235,7 +2235,7 @@ government "Silent Ones"
 		board 0
 		capture 0
 		destroy 0
-		atrocity 0
+		atrocity
 
 government "Solitude Enforcer"
 	swizzle 0
